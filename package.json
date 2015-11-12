@@ -1,0 +1,44 @@
+{
+  "name": "protractor-cucumber-framework",
+  "version": "0.1.0",
+  "description": "Protractor framework for Cucumber.js",
+  "main": "index.js",
+  "scripts": {
+    "start": "httpster -d testapp/ -p `node -p 'process.env.HTTP_PORT || require(\"./spec/environment\").webServerDefaultPort'`",
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mattfritz/protractor-cucumber-framework"
+  },
+  "keywords": [
+    "angular",
+    "test",
+    "testing",
+    "webdriver",
+    "webdriverjs",
+    "selenium",
+    "protractor",
+    "protractor-framework",
+    "cucumber",
+    "cucumber-js",
+    "gherkin",
+    "bdd"
+  ],
+  "author": "Matt Fritz <mfritzer@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mattfritz/protractor-cucumber-framework/issues"
+  },
+  "homepage": "https://github.com/mattfritz/protractor-cucumber-framework",
+  "dependencies": {
+    "q": "^1.4.1"
+  },
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "chai-as-promised": "^5.1.0",
+    "cucumber": "^0.5.0",
+    "httpster": "^1.0.1",
+    "protractor": "^2.5.1"
+  }
+}
