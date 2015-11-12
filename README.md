@@ -1,24 +1,22 @@
-Timeline Plugin
-===============
+#Protractor Cucumber Framework
 
-This plugin gathers test timeline information from the protractor test process, the selenium
-client logs (if available), and sauce labs (if available), and presents the output visually.
-This improves understanding of where latency issues are in tests.
+This framework was originally part of [angular/protractor](https://github.com/angular/protractor) and
+is now a separate module to decouple [cucumber.js](https://github.com/cucumber/cucumber-js).
 
-To enable the Timeline plugin, set it up in your config file:
+##Install
+`npm install --save-dev protractor-cucumber-framework`
+
+##Implementation
+To implement this framework, utilize the `protractor` custom framework config option:
+
 ```js
+var cucumberFrameworkPath = require('protractor-cucumber-framework').resolve();
+
 exports.config = {
-  plugins: [{
-   path: 'node_modules/protractor/plugins/timeline/index.js',
+  // set to "custom" instead of cucumber.
+  framework: 'custom',
 
-    // Output json and html will go in this folder.
-   outdir: 'timelines',
-
-    // Optional - if sauceUser and sauceKey are specified, logs from
-   // SauceLabs will also be parsed after test invocation.
-     sauceUser: 'Jane',
-     sauceKey: 'abcdefg'
-   }],
-  // other configuration settings
+  // path relative to the current config file
+  frameworkPath: cucumberFrameworkPath
 };
 ```
