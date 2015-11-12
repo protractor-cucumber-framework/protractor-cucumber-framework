@@ -1,12 +1,17 @@
-#Protractor Cucumber Framework
+Protractor Cucumber Framework
+=============================
 
 This framework was originally part of [angular/protractor](https://github.com/angular/protractor) and
 is now a separate module to decouple [cucumber.js](https://github.com/cucumber/cucumber-js).
 
-##Install
+Install
+-------
+
 `npm install --save-dev protractor-cucumber-framework`
 
-##Implementation
+Implementation
+--------------
+
 To implement this framework, utilize the `protractor` custom framework config option:
 
 ```js
