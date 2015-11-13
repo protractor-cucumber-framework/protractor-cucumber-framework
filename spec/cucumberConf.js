@@ -4,7 +4,8 @@ var env = require('./environment.js');
 exports.config = {
   seleniumAddress: env.seleniumAddress,
 
-  framework: 'cucumber',
+  framework: 'custom',
+  frameworkPath: '../index.js',
 
   // Spec patterns are relative to this directory.
   specs: [

@@ -1,4 +1,6 @@
-var q = require('q');
+var q = require('q'),
+    glob = require('glob'),
+    path = require('path');
 
 /**
  * Execute the Runner's test cases through Cucumber.
@@ -39,6 +41,7 @@ exports.run = function(runner, specs) {
             fileName = fileName.slice(0, lineNumber.index);
             lineNumber = lineNumber[0].slice(1);
           }
+
           var matches = glob.sync(fileName, {cwd: configDir});
 
           if (!matches.length) {
