@@ -1,5 +1,5 @@
 var q = require('q'),
-    glob = require('glob'),
+    assign = require('object-assign'),
     path = require('path');
 
 /**
@@ -12,96 +12,29 @@ var q = require('q'),
 exports.run = function(runner, specs) {
   // TODO - add the event interface for cucumber.
   var Cucumber = require('cucumber'),
-      execOptions = ['node', 'node_modules/.bin/cucumber-js'],
       cucumberResolvedRequire;
 
   // Set up exec options for Cucumber
-  execOptions = execOptions.concat(specs);
-  if (runner.getConfig().cucumberOpts) {
+  var execOptions = assign({
+    format: [],
+    tags: [],
+    require: [],
+    compiler: []
+  }, runner.getConfig().cucumberOpts);
+  var configDir = runner.getConfig().configDir;
 
-    // Process Cucumber Require param
-    if (runner.getConfig().cucumberOpts.require) {
-      // TODO - this should move into the launcher.
-
-      var requirePatterns = runner.getConfig().cucumberOpts.require;
-      var configDir = runner.getConfig().configDir;
-
-      requirePatterns = (typeof requirePatterns === 'string') ?
-          [requirePatterns] : requirePatterns;
-
-      cucumberResolvedRequire = [];
-
-      if (requirePatterns) {
-        for (var i = 0; i < requirePatterns.length; ++i) {
-          // Cucumber allows running a spec given a line number.
-          // If you deprecated node < v0.12, switch to using path.parse
-          var fileName = requirePatterns[i];
-          var lineNumber = /:\d+$/.exec(fileName);
-          if (lineNumber) {
-            fileName = fileName.slice(0, lineNumber.index);
-            lineNumber = lineNumber[0].slice(1);
-          }
-
-          var matches = glob.sync(fileName, {cwd: configDir});
-
-          if (!matches.length) {
-            log.warn('pattern ' + requirePatterns[i] + ' did not match any files.');
-          }
-          for (var j = 0; j < matches.length; ++j) {
-            var resolvedPath = path.resolve(configDir, matches[j]);
-            if (lineNumber) {
-              resolvedPath += ':' + lineNumber;
-            }
-            cucumberResolvedRequire.push(resolvedPath);
-          }
-        }
-      }
-
-      if (cucumberResolvedRequire && cucumberResolvedRequire.length) {
-          execOptions = cucumberResolvedRequire.reduce(function(a, fn) {
-            return a.concat('-r', fn);
-          }, execOptions);
-      }
+  // Make sure that some option are array
+  ['compiler', 'format', 'tags', 'require'].forEach(function (option) {
+    if (!Array.isArray(execOptions[option])) {
+      execOptions[option] = [ execOptions[option] ];
     }
+  });
 
-    // Process Cucumber Tag param
-    if (Array.isArray(runner.getConfig().cucumberOpts.tags)) {
-        for (var i in runner.getConfig().cucumberOpts.tags) {
-            var tags = runner.getConfig().cucumberOpts.tags[i];
-            execOptions.push('-t');
-            execOptions.push(tags);
-        }
-    } else if (runner.getConfig().cucumberOpts.tags) {
-      execOptions.push('-t');
-      execOptions.push(runner.getConfig().cucumberOpts.tags);
-    }
+  // Resolve require absolute path
+  execOptions.require = execOptions.require.map(function (requirePath) {
+    return path.resolve(configDir, requirePath)
+  })
 
-    // Process Cucumber Format param
-    if (Array.isArray(runner.getConfig().cucumberOpts.format)) {
-      runner.getConfig().cucumberOpts.format.forEach(function (format) {
-        execOptions.push('-f');
-        execOptions.push(format);
-      });
-    } else if (runner.getConfig().cucumberOpts.format) {
-      execOptions.push('-f');
-      execOptions.push(runner.getConfig().cucumberOpts.format);
-    }
-
-    // Process Cucumber 'coffee' param
-    if (runner.getConfig().cucumberOpts.coffee) {
-      execOptions.push('--coffee');
-    }
-
-    // Process Cucumber 'no-snippets' param
-    if (runner.getConfig().cucumberOpts.noSnippets) {
-      execOptions.push('--no-snippets');
-    }
-
-    // Process Cucumber 'dry-run' param
-    if (runner.getConfig().cucumberOpts.dryRun) {
-      execOptions.push('-d');
-    }
-  }
   global.cucumber = Cucumber.Cli(execOptions);
 
   var testResult = [];
@@ -193,7 +126,7 @@ exports.run = function(runner, specs) {
 
   return runner.runTestPreparer().then(function() {
     return q.promise(function(resolve, reject) {
-      var cucumberConf = Cucumber.Cli.Configuration(execOptions);
+      var cucumberConf = Cucumber.Cli.Configuration(execOptions, specs);
       var runtime = Cucumber.Runtime(cucumberConf);
       var formatters = cucumberConf.getFormatter ?
         [cucumberConf.getFormatter()] :
