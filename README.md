@@ -25,3 +25,8 @@ exports.config = {
   frameworkPath: 'protractor-cucumber-framework'
 };
 ```
+
+Contributing
+------------
+
+Pull requests are welcome. Commits should have an appropriate message and be squashed.

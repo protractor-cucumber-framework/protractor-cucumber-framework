@@ -1,6 +1,7 @@
 var q = require('q'),
     assign = require('object-assign'),
-    path = require('path');
+    path = require('path'),
+    glob = require('glob');
 
 /**
  * Execute the Runner's test cases through Cucumber.
@@ -27,6 +28,16 @@ exports.run = function(runner, specs) {
   ['compiler', 'format', 'tags', 'require'].forEach(function (option) {
     if (!Array.isArray(execOptions[option])) {
       execOptions[option] = [ execOptions[option] ];
+    }
+    // Handle glob matching
+    if (option === 'require') {
+      var configDir = runner.getConfig().configDir;
+      execOptions[option] =
+        execOptions[option].map(function(path) {
+          return glob.sync(path, {cwd: configDir});
+        }).reduce(function(opts, globPaths) {
+          return opts.concat(globPaths);
+        });
     }
   });
 

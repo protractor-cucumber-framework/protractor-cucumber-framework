@@ -17,7 +17,7 @@ exports.config = {
   baseUrl: env.baseUrl,
 
   cucumberOpts: {
-    require: 'cucumber/stepDefinitions.js',
+    require: 'cucumber/**/stepDefinitions.js',
     tags: '@dev',
     format: 'pretty'
   }
