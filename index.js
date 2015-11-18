@@ -12,8 +12,8 @@ var q = require('q'),
  */
 exports.run = function(runner, specs) {
   // TODO - add the event interface for cucumber.
-  var Cucumber = require('cucumber'),
-      cucumberResolvedRequire;
+  var Cucumber = require('cucumber');
+  var configDir = runner.getConfig().configDir;
 
   // Set up exec options for Cucumber
   var execOptions = assign({
@@ -22,31 +22,26 @@ exports.run = function(runner, specs) {
     require: [],
     compiler: []
   }, runner.getConfig().cucumberOpts);
-  var configDir = runner.getConfig().configDir;
 
-  // Make sure that some option are array
   ['compiler', 'format', 'tags', 'require'].forEach(function (option) {
+    // Make sure that options values are arrays
     if (!Array.isArray(execOptions[option])) {
       execOptions[option] = [ execOptions[option] ];
     }
-    // Handle glob matching
     if (option === 'require') {
-      var configDir = runner.getConfig().configDir;
       execOptions[option] =
         execOptions[option].map(function(path) {
+          // Handle glob matching
           return glob.sync(path, {cwd: configDir});
         }).reduce(function(opts, globPaths) {
+          // Combine paths into flattened array
           return opts.concat(globPaths);
+        }).map(function(requirePath) {
+          // Resolve require absolute path
+          return path.resolve(configDir, requirePath)
         });
     }
   });
-
-  // Resolve require absolute path
-  execOptions.require = execOptions.require.map(function (requirePath) {
-    return path.resolve(configDir, requirePath)
-  })
-
-  global.cucumber = Cucumber.Cli(execOptions);
 
   var testResult = [];
   var stepResults = {
@@ -103,12 +98,8 @@ exports.run = function(runner, specs) {
     var originalHandleStepResultEvent = formatter.handleStepResultEvent;
     formatter.handleStepResultEvent = function(event, callback) {
       var stepResult = event.getPayloadItem('stepResult');
-      var isStepFailed = stepResult.isFailed ?
-        stepResult.isFailed() :
-        stepResult.getStatus() === Cucumber.Status.FAILED;
-      var isStepSuccessful = stepResult.isSuccessful ?
-        stepResult.isSuccessful() :
-        stepResult.getStatus() === Cucumber.Status.PASSED;
+      var isStepFailed = stepResult.getStatus() === Cucumber.Status.FAILED;
+      var isStepSuccessful = stepResult.getStatus() === Cucumber.Status.PASSED;
 
       if (isStepSuccessful) {
         stepResults.assertions.push({
@@ -139,9 +130,7 @@ exports.run = function(runner, specs) {
     return q.promise(function(resolve, reject) {
       var cucumberConf = Cucumber.Cli.Configuration(execOptions, specs);
       var runtime = Cucumber.Runtime(cucumberConf);
-      var formatters = cucumberConf.getFormatter ?
-        [cucumberConf.getFormatter()] :
-        cucumberConf.getFormatters();
+      var formatters = cucumberConf.getFormatters();
 
       addResultListener(formatters[0]);
       formatters.forEach(runtime.attachListener.bind(runtime));
