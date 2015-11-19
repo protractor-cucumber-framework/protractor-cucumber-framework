@@ -22,7 +22,7 @@ exports.config = {
   framework: 'custom',
 
   // path relative to the current config file
-  frameworkPath: 'protractor-cucumber-framework'
+  frameworkPath: require.resolve('protractor-cucumber-framework')
 };
 ```
 
