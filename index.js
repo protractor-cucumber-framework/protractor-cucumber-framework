@@ -36,7 +36,7 @@ exports.run = function(runner, specs) {
         }).reduce(function(opts, globPaths) {
           // Combine paths into flattened array
           return opts.concat(globPaths);
-        }).map(function(requirePath) {
+        }, []).map(function(requirePath) {
           // Resolve require absolute path
           return path.resolve(configDir, requirePath)
         });
