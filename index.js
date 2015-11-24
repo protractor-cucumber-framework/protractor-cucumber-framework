@@ -39,6 +39,9 @@ exports.run = function(runner, specs) {
         }, []).map(function(requirePath) {
           // Resolve require absolute path
           return path.resolve(configDir, requirePath)
+        }).filter(function(item, pos, orig) {
+          // Make sure requires are unique
+          return orig.indexOf(item) == pos;
         });
     }
   });
