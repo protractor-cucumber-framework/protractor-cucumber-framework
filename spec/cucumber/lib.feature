@@ -13,3 +13,13 @@ Feature: Running Cucumber with Protractor
   Scenario: Wrapping WebDriver
     Given I go on "index.html"
     Then the title should equal "My AngularJS App"
+
+  @failing
+  Scenario: Report failures
+    Given I go on "index.html"
+    Then the title should equal "Failing scenario 1"
+
+  @failing
+  Scenario: Reporting multiple failures
+    Given I go on "index.html"
+    Then the title should equal "Failing scenario 2"
