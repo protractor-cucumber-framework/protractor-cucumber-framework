@@ -40,12 +40,12 @@ exports.run = function(runner, specs) {
     for (var option in options) {
       var cliArgumentValues = convertOptionValueToCliValues(option, options[option]);
 
-      if (cliArgumentValues.length) {
+      if (cliArgumentValues === true) {
+        cliArguments.push('--' + option);
+      } else if (cliArgumentValues.length) {
         cliArgumentValues.forEach(function (value) {
           cliArguments.push('--' + option, value);
         });
-      } else {
-        cliArguments.push('--' + option);
       }
     }
 
@@ -71,13 +71,11 @@ exports.run = function(runner, specs) {
   }
 
   function convertGenericOptionValuesToCliValues(values) {
-    return values.reduce(function (opts, value) {
-      if (value !== true) {
-        opts.push(value);
-      }
-
-      return opts;
-    }, []);
+    if (values[0] === true) {
+      return values[0]
+    } else {
+      return values;
+    }
   }
 
   function convertOptionValueToCliValues(option, values) {
