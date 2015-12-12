@@ -11,6 +11,7 @@ executor.execute();
 
 function testSuccessfulFeatures() {
   executor.addCommandlineTest('node node_modules/protractor/lib/cli.js spec/cucumberConf.js')
+    .alwaysEnableStdio()
     .expectExitCode(0);
 }
 

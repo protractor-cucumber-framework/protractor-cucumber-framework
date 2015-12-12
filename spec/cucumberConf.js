@@ -19,6 +19,8 @@ exports.config = {
   cucumberOpts: {
     require: 'cucumber/**/stepDefinitions.js',
     tags: '@dev',
-    format: 'pretty'
+    format: undefined,
+    profile: false,
+    'no-source': true
   }
 };
