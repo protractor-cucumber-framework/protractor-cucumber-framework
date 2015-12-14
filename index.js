@@ -1,6 +1,7 @@
 var q = require('q'),
     path = require('path'),
     glob = require('glob'),
+    debug = require('debug')('protractor-cucumber-framework'),
     Cucumber = require('cucumber');
 
 /**
@@ -19,6 +20,8 @@ exports.run = function(runner, specs) {
       var cliArguments = convertOptionsToCliArguments(runner.getConfig().cucumberOpts);
       cliArguments.push('--require', path.resolve(__dirname, 'lib', 'resultsCapturer.js'));
       cliArguments = cliArguments.concat(specs);
+
+      debug('cucumber command: "' + cliArguments.join(' ') + '"');
 
       Cucumber.Cli(cliArguments).run(function (isSuccessful) {
         try {
@@ -40,12 +43,12 @@ exports.run = function(runner, specs) {
     for (var option in options) {
       var cliArgumentValues = convertOptionValueToCliValues(option, options[option]);
 
-      if (cliArgumentValues === true) {
-        cliArguments.push('--' + option);
-      } else if (cliArgumentValues.length) {
+      if (Array.isArray(cliArgumentValues)) {
         cliArgumentValues.forEach(function (value) {
           cliArguments.push('--' + option, value);
         });
+      } else if (cliArgumentValues) {
+        cliArguments.push('--' + option);
       }
     }
 
@@ -55,7 +58,7 @@ exports.run = function(runner, specs) {
   function convertRequireOptionValuesToCliValues(values) {
     var configDir = runner.getConfig().configDir;
 
-    return values.map(function(path) {
+    return toArray(values).map(function(path) {
       // Handle glob matching
       return glob.sync(path, {cwd: configDir});
     }).reduce(function(opts, globPaths) {
@@ -71,22 +74,22 @@ exports.run = function(runner, specs) {
   }
 
   function convertGenericOptionValuesToCliValues(values) {
-    if (values[0] === true) {
-      return values[0]
-    } else {
+    if (values === true || !values) {
       return values;
+    } else {
+      return toArray(values);
     }
   }
 
   function convertOptionValueToCliValues(option, values) {
-    if (!Array.isArray(values)) {
-      values = [values];
-    }
-
     if (option === 'require') {
       return convertRequireOptionValuesToCliValues(values);
     } else {
       return convertGenericOptionValuesToCliValues(values);
     }
+  }
+
+  function toArray(values) {
+    return Array.isArray(values) ? values : [values];
   }
 };

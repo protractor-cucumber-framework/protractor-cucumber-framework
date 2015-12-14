@@ -32,6 +32,7 @@
   },
   "homepage": "https://github.com/mattfritz/protractor-cucumber-framework",
   "dependencies": {
+    "debug": "^2.2.0",
     "glob": "^6.0.1",
     "object-assign": "^4.0.1",
     "q": "^1.4.1"
