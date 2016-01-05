@@ -11,6 +11,7 @@ var CommandlineTest = function(command) {
   this.stdioOnlyOnFailures_ = true;
   this.expectedErrors_ = [];
   this.assertExitCodeOnly_ = false;
+  this.expectedOutput_ = [];
 
   // If stdioOnlyOnFailures_ is true, do not stream stdio unless test failed.
   // This is to prevent tests with expected failures from polluting the output.
@@ -54,6 +55,11 @@ var CommandlineTest = function(command) {
     } else {
       self.expectedErrors_.push(expectedErrors);
     }
+    return self;
+  };
+
+  this.expectOutput = function(output) {
+    self.expectedOutput_.push(output);
     return self;
   };
 
@@ -109,8 +115,12 @@ var CommandlineTest = function(command) {
         return;
       }
 
-      var raw_data = fs.readFileSync(testOutputPath);
-      var testOutput = JSON.parse(raw_data);
+      if (fs.existsSync(testOutputPath)) {
+        var raw_data = fs.readFileSync(testOutputPath);
+        var testOutput = JSON.parse(raw_data);
+      } else {
+        var testOutput = []
+      }
 
       var actualErrors = [];
       var duration = 0;
@@ -162,6 +172,12 @@ var CommandlineTest = function(command) {
           actualErrors.splice(i, 1);
         }
       });
+
+      self.expectedOutput_.forEach(function(out) {
+        if (output.indexOf(out) < 0) {
+          flushAndFail('expecting output `' + out + '`');
+        }
+      })
 
       if (actualErrors.length > 0) {
         flushAndFail('failed with ' + actualErrors.length + ' unexpected failures');

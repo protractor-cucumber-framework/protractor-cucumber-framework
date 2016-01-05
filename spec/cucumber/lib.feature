@@ -23,3 +23,8 @@ Feature: Running Cucumber with Protractor
   Scenario: Reporting multiple failures
     Given I go on "index.html"
     Then the title should equal "Failing scenario 2"
+
+  @strict
+  Scenario: Missing step definition
+    Given I go on "index.html"
+    Then this step is not defined

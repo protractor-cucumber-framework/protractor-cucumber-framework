@@ -29,6 +29,11 @@ exports.run = function(runner, specs) {
             runner.getConfig().onComplete();
           }
 
+          if (!isSuccessful) {
+            reject(new Error('Cucumber scenarios failed.'))
+            return
+          }
+
           resolve(results);
         } catch (err) {
           reject(err);

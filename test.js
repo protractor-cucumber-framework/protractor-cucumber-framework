@@ -5,7 +5,8 @@ var executor = new Executor();
 
 testSuccessfulFeatures();
 testFailingFeatures();
-testFailFastFastOption()
+testFailFastFastOption();
+testStrictOption();
 
 executor.execute();
 
@@ -17,13 +18,20 @@ function testSuccessfulFeatures() {
 
 function testFailingFeatures() {
   executor.addCommandlineTest('node node_modules/protractor/lib/cli.js spec/cucumberConf.js --cucumberOpts.tags @failing')
-    .expectExitCode(1)
-    .expectErrors([{message: "expected 'My AngularJS App' to equal 'Failing scenario 1'"},
-                   {message: "expected 'My AngularJS App' to equal 'Failing scenario 2'"}]);
+    .expectExitCode(100)
+    .expectOutput("expected 'My AngularJS App' to equal 'Failing scenario 1'")
+    .expectOutput("expected 'My AngularJS App' to equal 'Failing scenario 2'");
 }
 
 function testFailFastFastOption() {
   executor.addCommandlineTest('node node_modules/protractor/lib/cli.js spec/cucumberConf.js --cucumberOpts.tags @failing --cucumberOpts.fail-fast')
-   .expectExitCode(1)
-   .expectErrors({message: "expected 'My AngularJS App' to equal 'Failing scenario 1'"});
+   .expectExitCode(100)
+   .expectOutput("expected 'My AngularJS App' to equal 'Failing scenario 1'");
+}
+
+function testStrictOption() {
+  executor.addCommandlineTest('node node_modules/protractor/lib/cli.js spec/cucumberConf.js --cucumberOpts.tags @strict --cucumberOpts.strict')
+   .expectExitCode(100)
+   .expectOutput("/^this step is not defined$/")
+   .expectOutput("Error: Cucumber scenarios failed.");
 }
