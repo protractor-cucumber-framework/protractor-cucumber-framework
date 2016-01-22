@@ -33,7 +33,7 @@
   "homepage": "https://github.com/mattfritz/protractor-cucumber-framework",
   "dependencies": {
     "debug": "^2.2.0",
-    "glob": "^6.0.1",
+    "glob": "^6.0.4",
     "object-assign": "^4.0.1",
     "q": "^1.4.1"
   },
@@ -42,9 +42,9 @@
   },
   "devDependencies": {
     "chai": "^3.4.1",
-    "chai-as-promised": "^5.1.0",
+    "chai-as-promised": "^5.2.0",
     "cucumber": "^0.9.1",
     "httpster": "^1.0.1",
-    "protractor": "^2.5.1"
+    "protractor": "^3.0.0"
   }
 }
