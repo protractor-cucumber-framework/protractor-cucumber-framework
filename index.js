@@ -2,7 +2,8 @@ var q = require('q'),
     path = require('path'),
     glob = require('glob'),
     debug = require('debug')('protractor-cucumber-framework'),
-    Cucumber = require('cucumber');
+    Cucumber = require('cucumber'),
+    state = require('./lib/runState');
 
 /**
  * Execute the Runner's test cases through Cucumber.
@@ -13,11 +14,13 @@ var q = require('q'),
  */
 exports.run = function(runner, specs) {
   var results = {}
-  require('./lib/runState').initialize(runner, results);
 
   return runner.runTestPreparer().then(function() {
+    var opts = runner.getConfig().cucumberOpts;
+    state.initialize(runner, results, opts.strict);
+
     return q.promise(function(resolve, reject) {
-      var cliArguments = convertOptionsToCliArguments(runner.getConfig().cucumberOpts);
+      var cliArguments = convertOptionsToCliArguments(opts);
       cliArguments.push('--require', path.resolve(__dirname, 'lib', 'resultsCapturer.js'));
       cliArguments = cliArguments.concat(specs);
 
@@ -28,12 +31,6 @@ exports.run = function(runner, specs) {
           if (runner.getConfig().onComplete) {
             runner.getConfig().onComplete();
           }
-
-          if (!isSuccessful) {
-            reject(new Error('Cucumber scenarios failed.'))
-            return
-          }
-
           resolve(results);
         } catch (err) {
           reject(err);
