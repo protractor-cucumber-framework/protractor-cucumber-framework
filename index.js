@@ -1,6 +1,7 @@
 var q = require('q'),
     path = require('path'),
     glob = require('glob'),
+    lodash = require('lodash'),
     debug = require('debug')('protractor-cucumber-framework'),
     Cucumber = require('cucumber'),
     state = require('./lib/runState');
