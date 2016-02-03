@@ -28,10 +28,13 @@ exports.run = function(runner, specs) {
 
       Cucumber.Cli(cliArguments).run(function (isSuccessful) {
         try {
+          var complete = q();
           if (runner.getConfig().onComplete) {
-            runner.getConfig().onComplete();
+            complete = q(runner.getConfig().onComplete());
           }
-          resolve(results);
+          complete.then(function() {
+            resolve(results);
+          });
         } catch (err) {
           reject(err);
         }
