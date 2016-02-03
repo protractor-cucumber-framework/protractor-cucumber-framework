@@ -16,7 +16,15 @@ exports.run = function(runner, specs) {
   var results = {}
 
   return runner.runTestPreparer().then(function() {
-    var opts = runner.getConfig().cucumberOpts;
+    var opts,
+        runnerConfig = runner.getConfig();
+
+    if (runnerConfig.capabilities && typeof (runnerConfig.capabilities.cucumberOpts) === "object") {
+        opts = lodash.merge(runnerConfig.cucumberOpts, runnerConfig.capabilities.cucumberOpts);
+    } else {
+        opts = runnerConfig.cucumberOpts;
+    }
+
     state.initialize(runner, results, opts.strict);
 
     return q.promise(function(resolve, reject) {
