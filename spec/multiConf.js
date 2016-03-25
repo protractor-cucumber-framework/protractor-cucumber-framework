@@ -14,8 +14,8 @@ exports.config = {
 
   multiCapabilities: [
     {
-      browserName: 'chrome',
-      version: 'ANY',
+      browserName: (process.env.TEST_BROWSER_NAME || 'chrome'),
+      version: (process.env.TEST_BROWSER_VERSION || 'ANY'),
       cucumberOpts: {
         tags: '@dev',
         format: 'pretty'
