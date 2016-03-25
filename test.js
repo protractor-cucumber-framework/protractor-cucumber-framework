@@ -8,6 +8,7 @@ testFailingFeatures();
 testFailFastFastOption();
 testStrictOption();
 testUndefinedWithoutStrictOption();
+testMultiCapsOverrideBaseOptsAndCliOpts();
 
 executor.execute();
 
@@ -40,6 +41,12 @@ function testStrictOption() {
 
 function testUndefinedWithoutStrictOption() {
   executor.addCommandlineTest('node_modules/protractor/bin/protractor spec/cucumberConf.js --cucumberOpts.tags @strict')
+   .expectExitCode(0)
+   .expectErrors([]);
+}
+
+function testMultiCapsOverrideBaseOptsAndCliOpts() {
+  executor.addCommandlineTest('node_modules/protractor/bin/protractor spec/multiConf.js --cucumberOpts.tags @failing')
    .expectExitCode(0)
    .expectErrors([]);
 }

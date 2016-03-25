@@ -1,6 +1,7 @@
 var q = require('q'),
     path = require('path'),
     glob = require('glob'),
+    assign = require('object-assign'),
     debug = require('debug')('protractor-cucumber-framework'),
     Cucumber = require('cucumber'),
     state = require('./lib/runState');
@@ -13,10 +14,11 @@ var q = require('q'),
  * @return {q.Promise} Promise resolved with the test results
  */
 exports.run = function(runner, specs) {
-  var results = {}
+  var results = {};
 
   return runner.runTestPreparer().then(function() {
-    var opts = runner.getConfig().cucumberOpts;
+    var config = runner.getConfig();
+    var opts = assign({}, config.cucumberOpts, config.capabilities.cucumberOpts);
     state.initialize(runner, results, opts.strict);
 
     return q.promise(function(resolve, reject) {
@@ -71,7 +73,7 @@ exports.run = function(runner, specs) {
       return opts.concat(globPaths);
     }, []).map(function(requirePath) {
       // Resolve require absolute path
-      return path.resolve(configDir, requirePath)
+      return path.resolve(configDir, requirePath);
     }).filter(function(item, pos, orig) {
       // Make sure requires are unique
       return orig.indexOf(item) == pos;
