@@ -12,6 +12,7 @@ let cucumberConf = require(path.join(__dirname, '..', 'package.json')).cucumberC
 let CommandlineTest = function(command) {
   let self = this;
   this.command_ = command;
+  this.callback_ = false;
   this.expectedExitCode_ = 0;
   this.stdioOnlyOnFailures_ = true;
   this.expectedErrors_ = [];
@@ -42,6 +43,11 @@ let CommandlineTest = function(command) {
   // Set the expected exit code for the test command.
   this.expectExitCode = function(exitCode) {
     self.expectedExitCode_ = exitCode;
+    return self;
+  };
+
+  this.then = function(callback) {
+    self.callback_ = callback;
     return self;
   };
 
@@ -199,8 +205,13 @@ let CommandlineTest = function(command) {
       if (self.expectedMinTestDuration_ && duration < self.expectedMinTestDuration_) {
         flushAndFail('expecting test min duration: ' + self.expectedMinTestDuration_ + ', actual: ' + duration);
       }
+
       if (self.expectedMaxTestDuration_ && duration > self.expectedMaxTestDuration_) {
         flushAndFail('expecting test max duration: ' + self.expectedMaxTestDuration_ + ', actual: ' + duration);
+      }
+
+      if (self.callback_) {
+        self.callback_();
       }
     }).fin(function() {
       try {

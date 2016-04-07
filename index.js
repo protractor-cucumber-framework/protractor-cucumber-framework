@@ -88,6 +88,18 @@ exports.run = function(runner, specs) {
     return [converted];
   }
 
+  function makeFormatPathsUnique(values) {
+    return toArray(values).map(function(format) {
+      let formatPathMatch = format.match(/(\w+:)(.+)/);
+
+      if (!formatPathMatch) return format;
+
+      let pathParts = formatPathMatch[2].split('.');
+      pathParts.splice(pathParts.length - 1, 0, process.pid);
+      return formatPathMatch[1] + pathParts.join('.');
+    });
+  }
+
   function convertGenericOptionValuesToCliValues(values) {
     if (values === true || !values) {
       return values;
@@ -101,6 +113,8 @@ exports.run = function(runner, specs) {
       return convertRequireOptionValuesToCliValues(values);
     } else if (option === 'tags' && isCucumber2()) {
       return convertTagsToV2CliValues(values);
+    } else if (option === 'format' && runner.getConfig().capabilities.shardTestFiles) {
+      return makeFormatPathsUnique(values);
     } else {
       return convertGenericOptionValuesToCliValues(values);
     }

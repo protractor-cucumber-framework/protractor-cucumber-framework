@@ -2,8 +2,12 @@
 
 /* eslint quotes: 0 */
 
-var Executor = require('./test_util').Executor;
-var executor = new Executor();
+let {expect} = require('chai');
+let fs = require('fs');
+let glob = require('glob');
+
+let Executor = require('./test_util').Executor;
+let executor = new Executor();
 
 testSuccessfulFeatures();
 testFailingFeatures();
@@ -15,6 +19,7 @@ testMultiCapsOverrideBaseOptsAndCliOpts();
 testCucumber2();
 testCucumber2Tags();
 testCucumber2TagsPassedAsBoolean();
+testShardedLogFiles();
 
 executor.execute();
 
@@ -76,6 +81,17 @@ function testCucumber2Tags() {
     .expectOutput('1 scenario (1 passed)')
     .expectExitCode(0)
     .expectErrors([]);
+}
+
+function testShardedLogFiles() {
+  let logFilePrefix = 'protractor-cucumber-framework-test';
+  let findLogFiles = () => glob.sync(`./${logFilePrefix}*.json`);
+  findLogFiles().forEach(fs.unlinkSync);
+
+  executor.addCommandlineTest(runProtractor(`test/cucumber/cucumber1Conf.js --capabilities.shardTestFiles true --cucumberOpts.format json:${logFilePrefix}.json`)).expectExitCode(0).then(function() {
+    let logFiles = findLogFiles();
+    expect(logFiles).to.have.length(2);
+  });
 }
 
 function testCucumber2TagsPassedAsBoolean() {

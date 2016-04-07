@@ -23,12 +23,12 @@ exports.config = {
 
   // path relative to the current config file
   frameworkPath: require.resolve('protractor-cucumber-framework'),
-  
+
   // require feature files
   specs: [
     'path/to/feature/files/**/*.feature' // accepts a glob
   ],
-  
+
   cucumberOpts: {
     // require step definitions
     require: [
@@ -56,6 +56,34 @@ cucumberOpts: {
 The following parameters have special behavior:
 
  * `require` - globs will be expanded to multiple `--require` arguments
+
+#### Formatters when tests are sharded
+
+If you have a formatter that outputs to a path and your tests are sharded then this library will
+add the PID to the path to make them unique. The reason for this is multiple processes can write to
+the same path which clobbers each other. You'll end up with 1 file per process that protractor
+spawns.
+
+```js
+exports.config = {
+  capabilities: {
+    shardTestFiles: true,
+    // ...
+  },
+
+  cucumberOpts: {
+    format: 'json:results.json',
+    // ...
+  }
+};
+```
+
+If there were 2 feature files then you can expect the following output files...
+```
+  results.11111.json
+  results.22222.json
+```
+...where the numbers will be the actual PIDs.
 
 Contributing
 ------------
