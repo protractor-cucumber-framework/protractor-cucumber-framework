@@ -38,12 +38,12 @@
     "q": "^1.4.1"
   },
   "peerDependencies": {
-    "cucumber": ">= 0.9.1 < 1"
+    "cucumber": ">= 0.9.1"
   },
   "devDependencies": {
     "chai": "^3.4.1",
     "chai-as-promised": "^5.2.0",
-    "cucumber": "^0.10.1",
+    "cucumber": "^1.0.0",
     "httpster": "^1.0.1",
     "protractor": "^3.2.0"
   }
