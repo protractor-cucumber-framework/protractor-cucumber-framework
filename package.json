@@ -8,7 +8,7 @@
   },
   "scripts": {
     "webdriver": "webdriver-manager update --standalone && webdriver-manager start",
-    "start": "httpster -d testapp/ -p `node -p 'process.env.HTTP_PORT || require(\"./spec/environment\").webServerDefaultPort'`",
+    "start": "node testapp/server",
     "pretest": "multidep spec/multidep.js",
     "test": "node scripts/test.js"
   },
@@ -53,6 +53,7 @@
   "devDependencies": {
     "chai": "3.5.0",
     "chai-as-promised": "6.0.0",
+    "express": "4.14.1",
     "httpster": "1.0.3",
     "multidep": "2.0.2",
     "protractor": "4.0.14"
