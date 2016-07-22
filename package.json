@@ -4,7 +4,7 @@
   "description": "Protractor framework for Cucumber.js",
   "main": "index.js",
   "scripts": {
-    "start": "httpster -d testapp/ -p `node -p 'process.env.HTTP_PORT || require(\"./spec/environment\").webServerDefaultPort'`",
+    "start": "node server.js",
     "test": "node test.js"
   },
   "repository": {
@@ -33,6 +33,7 @@
   "homepage": "https://github.com/mattfritz/protractor-cucumber-framework",
   "dependencies": {
     "debug": "^2.2.0",
+    "express": "^4.14.0",
     "glob": "^7.0.3",
     "object-assign": "^4.0.1",
     "q": "^1.4.1"
@@ -44,7 +45,6 @@
     "chai": "^3.4.1",
     "chai-as-promised": "^5.2.0",
     "cucumber": "^1.0.0",
-    "httpster": "^1.0.1",
     "protractor": "^3.2.0"
   }
 }
