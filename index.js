@@ -23,7 +23,12 @@ exports.run = function(runner, specs) {
     return q.promise(function(resolve, reject) {
       let cliArguments = convertOptionsToCliArguments(opts);
       cliArguments.push('--require', path.resolve(__dirname, 'lib', 'resultsCapturer.js'));
-      cliArguments = cliArguments.concat(specs);
+
+      if (opts.rerun) {
+        cliArguments.push(opts.rerun);
+      } else {
+        cliArguments = cliArguments.concat(specs);
+      }
 
       debug('cucumber command: "' + cliArguments.join(' ') + '"');
 
@@ -57,6 +62,7 @@ exports.run = function(runner, specs) {
     let cliArguments = ['node', 'cucumberjs'];
 
     for (let option in options) {
+      if (option === 'rerun') continue;
       let cliArgumentValues = convertOptionValueToCliValues(option, options[option]);
 
       if (Array.isArray(cliArgumentValues)) {

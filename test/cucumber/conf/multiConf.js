@@ -1,11 +1,7 @@
 let env = require('./environment.js');
 
-exports.config = {
-  seleniumAddress: env.seleniumAddress,
-  baseUrl: env.baseUrl,
-  framework: 'custom',
-  frameworkPath: '../../index.js',
-  specs: ['**/*.feature'],
+exports.config = Object.assign({}, env, {
+  capabilities: false,
 
   multiCapabilities: [{
     browserName: (process.env.TEST_BROWSER_NAME || 'chrome'),
@@ -17,9 +13,9 @@ exports.config = {
   }],
 
   cucumberOpts: {
-    require: 'stepDefinitions/**/cucumber1Steps.js',
+    require: '../stepDefinitions/**/cucumber1Steps.js',
     tags: '@failing',
     format: 'progress',
     'no-source': true
   }
-};
+});

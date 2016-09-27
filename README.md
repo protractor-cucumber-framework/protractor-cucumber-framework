@@ -56,6 +56,7 @@ cucumberOpts: {
 The following parameters have special behavior:
 
  * `require` - globs will be expanded to multiple `--require` arguments
+ * `rerun` - value is passed as an argument; for use with the [rerun feature](https://github.com/cucumber/cucumber-js/blob/master/features/rerun_formatter.feature)
 
 #### Formatters when tests are sharded or with multi capabilities
 

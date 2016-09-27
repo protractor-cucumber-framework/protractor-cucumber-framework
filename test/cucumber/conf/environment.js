@@ -1,7 +1,11 @@
+let path = require('path');
 let webServerDefaultPort = 8081;
 
 module.exports = {
+  framework: 'custom',
+  frameworkPath: path.join(__dirname, '..', '..', '..', 'index.js'),
   seleniumAddress: (process.env.SELENIUM_URL || 'http://localhost:4444/wd/hub'),
+  specs: [path.join(__dirname, '..', '**', '*.feature')],
 
   capabilities: {
     browserName: (process.env.TEST_BROWSER_NAME || 'chrome'),

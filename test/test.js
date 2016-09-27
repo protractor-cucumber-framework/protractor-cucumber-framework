@@ -25,17 +25,18 @@ testNormalLogFiles();
 testShardedLogFiles();
 testMultiCapabilitiesLogFiles();
 testGetMultiCapabilitiesLogFiles();
+testRerunOption();
 
 executor.execute();
 
 function testSuccessfulFeatures() {
-  executor.addCommandlineTest(runProtractor('test/cucumber/cucumber1Conf.js'))
+  executor.addCommandlineTest(runProtractor('test/cucumber/conf/cucumber1Conf.js'))
     .expectExitCode(0)
     .expectOutput('2 scenarios (2 passed)');
 }
 
 function testFailingFeatures() {
-  executor.addCommandlineTest(runProtractor('test/cucumber/cucumber1Conf.js --cucumberOpts.tags @failing'))
+  executor.addCommandlineTest(runProtractor('test/cucumber/conf/cucumber1Conf.js --cucumberOpts.tags @failing'))
     .expectExitCode(1)
     .expectErrors([
       { message:"expected 'My AngularJS App' to equal 'Failing scenario 1'" },
@@ -44,44 +45,44 @@ function testFailingFeatures() {
 }
 
 function testFailFastFastOption() {
-  executor.addCommandlineTest(runProtractor('test/cucumber/cucumber1Conf.js --cucumberOpts.tags @failing --cucumberOpts.fail-fast'))
+  executor.addCommandlineTest(runProtractor('test/cucumber/conf/cucumber1Conf.js --cucumberOpts.tags @failing --cucumberOpts.fail-fast'))
    .expectExitCode(1)
    .expectErrors([{ message: "expected 'My AngularJS App' to equal 'Failing scenario 1'" }]);
 }
 
 function testStrictOption() {
-  executor.addCommandlineTest(runProtractor('test/cucumber/cucumber1Conf.js --cucumberOpts.tags @strict --cucumberOpts.strict'))
+  executor.addCommandlineTest(runProtractor('test/cucumber/conf/cucumber1Conf.js --cucumberOpts.tags @strict --cucumberOpts.strict'))
    .expectExitCode(1)
    .expectErrors([{ message: "Undefined steps are not allowed in strict mode" }]);
 }
 
 function testMultipleNames() {
-  executor.addCommandlineTest(runProtractor('test/cucumber/cucumber1Conf.js --cucumberOpts.name Running --cucumberOpts.name Wrapping'))
+  executor.addCommandlineTest(runProtractor('test/cucumber/conf/cucumber1Conf.js --cucumberOpts.name Running --cucumberOpts.name Wrapping'))
     .expectExitCode(0)
     .expectOutput('2 scenarios (2 passed)');
 }
 
 function testUndefinedWithoutStrictOption() {
-  executor.addCommandlineTest(runProtractor('test/cucumber/cucumber1Conf.js --cucumberOpts.tags @strict'))
+  executor.addCommandlineTest(runProtractor('test/cucumber/conf/cucumber1Conf.js --cucumberOpts.tags @strict'))
    .expectExitCode(0)
    .expectErrors([]);
 }
 
 function testMultiCapsOverrideBaseOptsAndCliOpts() {
-  executor.addCommandlineTest(runProtractor('test/cucumber/multiConf.js --cucumberOpts.tags @failing'))
+  executor.addCommandlineTest(runProtractor('test/cucumber/conf/multiConf.js --cucumberOpts.tags @failing'))
    .expectExitCode(0)
    .expectErrors([]);
 }
 
 function testCucumber2() {
-  executor.addCommandlineTest(runProtractor('test/cucumber/cucumber2Conf.js'))
+  executor.addCommandlineTest(runProtractor('test/cucumber/conf/cucumber2Conf.js'))
     .cucumberVersion2()
     .expectExitCode(0)
     .expectErrors([]);
 }
 
 function testCucumber2Tags() {
-  executor.addCommandlineTest(runProtractor('test/cucumber/cucumber2Conf.js --cucumberOpts.tags @cucumber2 --cucumberOpts.tags ~@failing'))
+  executor.addCommandlineTest(runProtractor('test/cucumber/conf/cucumber2Conf.js --cucumberOpts.tags @cucumber2 --cucumberOpts.tags ~@failing'))
     .cucumberVersion2()
     .expectOutput('1 scenario (1 passed)')
     .expectExitCode(0)
@@ -89,7 +90,7 @@ function testCucumber2Tags() {
 }
 
 function testNormalLogFiles() {
-  executor.addCommandlineTest(runProtractor(`test/cucumber/cucumber1Conf.js --cucumberOpts.format json:${LOG_FILE_PREFIX}.json`))
+  executor.addCommandlineTest(runProtractor(`test/cucumber/conf/cucumber1Conf.js --cucumberOpts.format json:${LOG_FILE_PREFIX}.json`))
     .before(cleanupLogFiles)
     .expectExitCode(0)
     .after(function() {
@@ -100,30 +101,37 @@ function testNormalLogFiles() {
 }
 
 function testShardedLogFiles() {
-  executor.addCommandlineTest(runProtractor(`test/cucumber/cucumber1Conf.js --capabilities.shardTestFiles true --cucumberOpts.format json:${LOG_FILE_PREFIX}.json`))
+  executor.addCommandlineTest(runProtractor(`test/cucumber/conf/cucumber1Conf.js --capabilities.shardTestFiles true --cucumberOpts.format json:${LOG_FILE_PREFIX}.json`))
     .before(cleanupLogFiles)
     .expectExitCode(0)
     .after(() => expect(findLogFiles()).to.have.length(2));
 }
 
 function testMultiCapabilitiesLogFiles() {
-  executor.addCommandlineTest(runProtractor(`test/cucumber/cucumber1MultiConf.js --cucumberOpts.format json:${LOG_FILE_PREFIX}.json`))
+  executor.addCommandlineTest(runProtractor(`test/cucumber/conf/cucumber1MultiConf.js --cucumberOpts.format json:${LOG_FILE_PREFIX}.json`))
     .before(cleanupLogFiles)
     .expectExitCode(0)
     .after(() => expect(findLogFiles()).to.have.length(2));
 }
 
 function testGetMultiCapabilitiesLogFiles() {
-  executor.addCommandlineTest(runProtractor(`test/cucumber/cucumber1GetMultiConf.js --cucumberOpts.format json:${LOG_FILE_PREFIX}.json`))
+  executor.addCommandlineTest(runProtractor(`test/cucumber/conf/cucumber1GetMultiConf.js --cucumberOpts.format json:${LOG_FILE_PREFIX}.json`))
     .before(cleanupLogFiles)
     .expectExitCode(0)
     .after(() => expect(findLogFiles()).to.have.length(2));
 }
 
 function testCucumber2TagsPassedAsBoolean() {
-  executor.addCommandlineTest(runProtractor('test/cucumber/cucumber2Conf.js --cucumberOpts.tags --specs **/cucumber2.feature'))
+  executor.addCommandlineTest(runProtractor('test/cucumber/conf/cucumber2Conf.js --cucumberOpts.tags --specs **/cucumber2.feature'))
     .cucumberVersion2()
     .expectExitCode(0);
+}
+
+function testRerunOption() {
+  executor.addCommandlineTest(runProtractor('test/cucumber/conf/cucumber1Conf.js --cucumberOpts.rerun test/cucumber/@rerun.txt'))
+    .expectExitCode(0)
+    .expectOutput('1 scenario (1 passed)')
+    .expectErrors([]);
 }
 
 function runProtractor(options) {
