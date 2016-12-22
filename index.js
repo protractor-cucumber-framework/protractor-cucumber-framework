@@ -28,7 +28,13 @@ exports.run = function(runner, specs) {
 
       debug('cucumber command: "' + cliArguments.join(' ') + '"');
 
-      Cucumber.Cli(cliArguments).run(function (isSuccessful) {
+      if (isCucumber2()) {
+        new Cucumber.Cli({argv: cliArguments, cwd: process.cwd(), stdout: process.stdout}).run().then(runDone);
+      } else {
+        Cucumber.Cli(cliArguments).run(runDone);
+      }
+
+      function runDone(isSuccessful) {
         try {
           var complete = q();
           if (runner.getConfig().onComplete) {
@@ -40,9 +46,13 @@ exports.run = function(runner, specs) {
         } catch (err) {
           reject(err);
         }
-      });
+      }
     });
   });
+
+  function isCucumber2() {
+    return !!Cucumber.defineSupportCode;
+  }
 
   function convertOptionsToCliArguments(options) {
     var cliArguments = ['node', 'cucumberjs'];
@@ -80,6 +90,14 @@ exports.run = function(runner, specs) {
     });
   }
 
+  function convertTagsToCliValues(values) {
+    var converted = toArray(values).map(function(tag) {
+      return tag.replace(/~/, 'not ');
+    }).join(' and ');
+
+    return [converted];
+  }
+
   function convertGenericOptionValuesToCliValues(values) {
     if (values === true || !values) {
       return values;
@@ -91,6 +109,8 @@ exports.run = function(runner, specs) {
   function convertOptionValueToCliValues(option, values) {
     if (option === 'require') {
       return convertRequireOptionValuesToCliValues(values);
+    } else if (option === 'tags' && isCucumber2()) {
+      return convertTagsToCliValues(values)
     } else {
       return convertGenericOptionValuesToCliValues(values);
     }
