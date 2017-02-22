@@ -52,15 +52,14 @@ Clone the github repository:
     cd protractor-cucumber-framework
     npm install
 
-Start up a selenium server. By default, the tests expect the selenium server to be running at `http://localhost:4444/wd/hub`. A selenium server can be started with `webdriver-manager`.
+Start up a selenium server:
 
-    node_modules/.bin/webdriver-manager update --standalone
-    node_modules/.bin/webdriver-manager start
+    npm run webdriver
 
-The test suite runs against the included test application. Start that up with
+Start up the test app that tests will be run against:
 
     npm start
 
-Then run the tests with
+Run the tests:
 
     npm test
