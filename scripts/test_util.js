@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 
-var child_process = require('child_process'),
-    q = require('q'),
-    fs = require('fs');
+var child_process = require('child_process');
+var fs = require('fs');
+var path = require('path');
+var q = require('q');
+
+var cucumberConf = require(path.join(__dirname, '..', 'package.json')).cucumberConf;
 
 var CommandlineTest = function(command) {
   var self = this;
@@ -12,6 +15,12 @@ var CommandlineTest = function(command) {
   this.expectedErrors_ = [];
   this.assertExitCodeOnly_ = false;
   this.expectedOutput_ = [];
+  this.cucumberVesion_ = cucumberConf.version1;
+
+  this.cucumberVersion2 = function() {
+    self.cucumberVesion_ = cucumberConf.version2;
+    return self;
+  };
 
   // If stdioOnlyOnFailures_ is true, do not stream stdio unless test failed.
   // This is to prevent tests with expected failures from polluting the output.
@@ -64,6 +73,8 @@ var CommandlineTest = function(command) {
   };
 
   this.run = function() {
+    process.env.MULTIDEP_CUCUMBER_VERSION = self.cucumberVesion_;
+
     var start = new Date().getTime();
     var testOutputPath = 'test_output_' + start + '.tmp';
     var output = '';

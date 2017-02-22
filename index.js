@@ -3,7 +3,7 @@ var q = require('q'),
     glob = require('glob'),
     assign = require('object-assign'),
     debug = require('debug')('protractor-cucumber-framework'),
-    Cucumber = require('cucumber'),
+    Cucumber = require('./lib/cucumberLoader').load(),
     state = require('./lib/runState');
 
 /**
