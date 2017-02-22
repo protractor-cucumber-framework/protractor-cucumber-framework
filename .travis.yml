@@ -5,13 +5,11 @@ node_js:
   - "7"
 
 before_script:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  - sleep 3
-  - ./node_modules/.bin/webdriver-manager update
-  - nohup bash -c "./node_modules/.bin/webdriver-manager start 2>&1 &"
-  - nohup bash -c "npm start 2>&1 &"
-  - sleep 3
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
+  - ./scripts/webdriver.sh
+  - ./scripts/testserver.sh
 
 script:
   - TEST_BROWSER_NAME=firefox npm test
