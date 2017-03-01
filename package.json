@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mattfritz/protractor-cucumber-framework"
+    "url": "https://github.com/protractor-cucumber-framework/protractor-cucumber-framework"
   },
   "keywords": [
     "angular",
@@ -31,11 +31,15 @@
     "bdd"
   ],
   "author": "Matt Fritz <mfritzer@gmail.com>",
+  "contributors": [
+    "Matt Fritz <mfritzer@gmail.com>",
+    "Darrin Holst <darrinholst@gmail.com>"
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mattfritz/protractor-cucumber-framework/issues"
+    "url": "https://github.com/protractor-cucumber-framework/protractor-cucumber-framework/issues"
   },
-  "homepage": "https://github.com/mattfritz/protractor-cucumber-framework",
+  "homepage": "https://github.com/protractor-cucumber-framework/protractor-cucumber-framework",
   "dependencies": {
     "debug": "^2.2.0",
     "glob": "^7.0.3",

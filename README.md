@@ -3,7 +3,7 @@
 Protractor Cucumber Framework
 =============================
 
-[![Build Status](https://travis-ci.org/mattfritz/protractor-cucumber-framework.svg?branch=master)](https://travis-ci.org/mattfritz/protractor-cucumber-framework)
+[![Build Status](https://travis-ci.org/protractor-cucumber-framework/protractor-cucumber-framework.svg?branch=master)](https://travis-ci.org/protractor-cucumber-framework/protractor-cucumber-framework)
 
 This framework was originally part of [angular/protractor](https://github.com/angular/protractor) and
 is now a separate module to decouple [cucumber.js](https://github.com/cucumber/cucumber-js).
@@ -48,7 +48,7 @@ For Contributors
 ----------------
 Clone the github repository:
 
-    git clone https://github.com/mattfritz/protractor-cucumber-framework
+    git clone https://github.com/protractor-cucumber-framework/protractor-cucumber-framework
     cd protractor-cucumber-framework
     npm install
 
