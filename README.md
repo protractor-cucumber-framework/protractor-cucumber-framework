@@ -31,13 +31,33 @@ exports.config = {
 		'path/to/feature/files/**/*.feature' // accepts a glob
 	],
   cucumberOpts: {
-	  // require step definitions
+    // require step definitions
     require: [
     	'path/to/step/definitions/**/*.steps.js' // accepts a glob
     ]
   }
 };
 ```
+
+### Passing Options to cucumberjs
+
+All of the `cucumberOpts` will be passed to `cucumberjs` as arguments.
+
+For example, to call cucumberjs with the `--strict`, `--no-colors`, and to specify custom formatters:
+
+```js
+cucumberOpts: {
+  strick: true,
+  'no-colors': true,
+  format: ['progress', 'pretty:output.txt'],
+  // ...
+}
+```
+
+The following parameters have special behavior:
+
+ * `require` - globs will be expanded to multiple `--require` arguments
+ * `rerun` - value is passed as the first argument; for use with the [rerun feature](https://github.com/cucumber/cucumber-js/blob/master/features/rerun_formatter.feature)
 
 Contributing
 ------------
@@ -46,11 +66,20 @@ Pull requests are welcome. Commits should have an appropriate message and be squ
 
 For Contributors
 ----------------
+
+Ensure that the following dependencies are installed:
+
+ * Java SDK and JRE
+ * node.js
+ * Google Chrome
+
 Clone the github repository:
 
     git clone https://github.com/mattfritz/protractor-cucumber-framework
     cd protractor-cucumber-framework
     npm install
+
+### Testing
 
 Start up a selenium server. By default, the tests expect the selenium server to be running at `http://localhost:4444/wd/hub`. A selenium server can be started with `webdriver-manager`.
 

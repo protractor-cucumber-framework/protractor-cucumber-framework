@@ -42,9 +42,9 @@
   },
   "devDependencies": {
     "chai": "^3.4.1",
-    "chai-as-promised": "^5.2.0",
+    "chai-as-promised": "^6.0.0",
     "cucumber": "^1.0.0",
     "httpster": "^1.0.1",
-    "protractor": "^3.2.0"
+    "protractor": "^4.0.9"
   }
 }
