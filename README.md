@@ -1,5 +1,3 @@
-# MAINTAINER NEEDED ([Inquire within](https://github.com/mattfritz/protractor-cucumber-framework/issues/73))
-
 Protractor Cucumber Framework
 =============================
 
@@ -28,12 +26,13 @@ exports.config = {
   
   // require feature files
   specs: [
-		'path/to/feature/files/**/*.feature' // accepts a glob
-	],
+    'path/to/feature/files/**/*.feature' // accepts a glob
+  ],
+  
   cucumberOpts: {
-	  // require step definitions
+    // require step definitions
     require: [
-    	'path/to/step/definitions/**/*.steps.js' // accepts a glob
+      'path/to/step/definitions/**/*.steps.js' // accepts a glob
     ]
   }
 };
