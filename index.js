@@ -44,14 +44,41 @@ exports.run = function(runner, specs) {
     });
   });
 
+  function guid() {
+    function s4() {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+  }
+
   function convertOptionsToCliArguments(options) {
     var cliArguments = ['node', 'cucumberjs'];
+    var config = runner.getConfig();
 
     for (var option in options) {
       var cliArgumentValues = convertOptionValueToCliValues(option, options[option]);
 
       if (Array.isArray(cliArgumentValues)) {
         cliArgumentValues.forEach(function (value) {
+          if (config.capabilities.shardTestFiles) {
+            if (option == 'format') {
+              var parts = value.split(':');
+              if (typeof(parts[1]) !== 'undefined') {
+                var splitFilename = parts[1].split('.');
+                var splitFilenameLength = splitFilename.length;
+                var uuid = guid();
+                if (splitFilenameLength > 1) {
+                  splitFilename.splice(splitFilenameLength-1, 0, uuid);
+                  parts[1] = splitFilename.join('.');
+                } else {
+                  parts[1] = parts[1] + '-' + uuid;
+                }
+                value = parts.join(':');
+              }
+            }
+          }
           cliArguments.push('--' + option, value);
         });
       } else if (cliArgumentValues) {
