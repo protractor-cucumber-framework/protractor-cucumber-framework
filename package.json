@@ -9,7 +9,8 @@
   "scripts": {
     "webdriver": "webdriver-manager update --standalone && webdriver-manager start",
     "start": "node test/testapp/server",
-    "pretest": "multidep test/multidep.js",
+    "lint": "eslint .",
+    "pretest": "npm run lint && multidep test/multidep.js",
     "test": "node test/test.js"
   },
   "repository": {
@@ -53,6 +54,7 @@
   "devDependencies": {
     "chai": "3.5.0",
     "chai-as-promised": "6.0.0",
+    "eslint": "3.16.1",
     "express": "4.14.1",
     "httpster": "1.0.3",
     "multidep": "2.0.2",

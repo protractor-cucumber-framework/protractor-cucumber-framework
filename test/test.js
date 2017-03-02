@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+/* eslint quotes: 0 */
+
 var Executor = require('./test_util').Executor;
 var executor = new Executor();
 

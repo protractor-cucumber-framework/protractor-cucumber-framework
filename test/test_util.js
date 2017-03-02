@@ -1,14 +1,16 @@
 #!/usr/bin/env node
 
-var child_process = require('child_process');
-var fs = require('fs');
-var path = require('path');
-var q = require('q');
+/* eslint no-console: 0 */
 
-var cucumberConf = require(path.join(__dirname, '..', 'package.json')).cucumberConf;
+let child_process = require('child_process');
+let fs = require('fs');
+let path = require('path');
+let q = require('q');
 
-var CommandlineTest = function(command) {
-  var self = this;
+let cucumberConf = require(path.join(__dirname, '..', 'package.json')).cucumberConf;
+
+let CommandlineTest = function(command) {
+  let self = this;
   this.command_ = command;
   this.expectedExitCode_ = 0;
   this.stdioOnlyOnFailures_ = true;
@@ -75,11 +77,11 @@ var CommandlineTest = function(command) {
   this.run = function() {
     process.env.MULTIDEP_CUCUMBER_VERSION = self.cucumberVesion_;
 
-    var start = new Date().getTime();
-    var testOutputPath = 'test_output_' + start + '.tmp';
-    var output = '';
+    let start = new Date().getTime();
+    let testOutputPath = 'test_output_' + start + '.tmp';
+    let output = '';
 
-    var flushAndFail = function(errorMsg) {
+    let flushAndFail = function(errorMsg) {
       process.stdout.write(output);
       throw new Error(errorMsg);
     };
@@ -88,9 +90,9 @@ var CommandlineTest = function(command) {
       if (!self.assertExitCodeOnly_) {
         self.command_ = self.command_ + ' --resultJsonOutputFile ' + testOutputPath;
       }
-      var args = self.command_.split(/\s/);
+      let args = self.command_.split(/\s/);
 
-      var test_process;
+      let test_process;
 
       if (self.stdioOnlyOnFailures_) {
         test_process = child_process.spawn(args[0], args.slice(1));
@@ -126,15 +128,17 @@ var CommandlineTest = function(command) {
         return;
       }
 
+      let testOutput;
+
       if (fs.existsSync(testOutputPath)) {
-        var raw_data = fs.readFileSync(testOutputPath);
-        var testOutput = JSON.parse(raw_data);
+        let raw_data = fs.readFileSync(testOutputPath);
+        testOutput = JSON.parse(raw_data);
       } else {
-        var testOutput = []
+        testOutput = [];
       }
 
-      var actualErrors = [];
-      var duration = 0;
+      let actualErrors = [];
+      let duration = 0;
       testOutput.forEach(function(specResult) {
         duration += specResult.duration;
         specResult.assertions.forEach(function(assertion) {
@@ -145,23 +149,21 @@ var CommandlineTest = function(command) {
       });
 
       self.expectedErrors_.forEach(function(expectedError) {
-        var found = false;
+        let found = false;
         for (var i = 0; i < actualErrors.length; ++i) {
-          var actualError = actualErrors[i];
+          let actualError = actualErrors[i];
 
           // if expected message is defined and messages don't match
           if (expectedError.message) {
-            if (!actualError.errorMsg ||
-                !actualError.errorMsg.match(new RegExp(expectedError.message))) {
-                  continue;
-                }
+            if (!actualError.errorMsg || !actualError.errorMsg.match(new RegExp(expectedError.message))) {
+              continue;
+            }
           }
           // if expected stackTrace is defined and stackTraces don't match
           if (expectedError.stackTrace) {
-            if (!actualError.stackTrace ||
-                !actualError.stackTrace.match(new RegExp(expectedError.stackTrace))) {
-                  continue;
-                }
+            if (!actualError.stackTrace || !actualError.stackTrace.match(new RegExp(expectedError.stackTrace))) {
+              continue;
+            }
           }
           found = true;
           break;
@@ -188,21 +190,17 @@ var CommandlineTest = function(command) {
         if (output.indexOf(out) < 0) {
           flushAndFail('expecting output `' + out + '`' + ' in `' + output + '`');
         }
-      })
+      });
 
       if (actualErrors.length > 0) {
         flushAndFail('failed with ' + actualErrors.length + ' unexpected failures');
       }
 
-      if (self.expectedMinTestDuration_
-          && duration < self.expectedMinTestDuration_) {
-            flushAndFail('expecting test min duration: ' +
-                self.expectedMinTestDuration_ + ', actual: ' + duration);
+      if (self.expectedMinTestDuration_ && duration < self.expectedMinTestDuration_) {
+        flushAndFail('expecting test min duration: ' + self.expectedMinTestDuration_ + ', actual: ' + duration);
       }
-      if (self.expectedMaxTestDuration_
-          && duration > self.expectedMaxTestDuration_) {
-            flushAndFail('expecting test max duration: ' +
-                self.expectedMaxTestDuration_ + ', actual: ' + duration);
+      if (self.expectedMaxTestDuration_ && duration > self.expectedMaxTestDuration_) {
+        flushAndFail('expecting test max duration: ' + self.expectedMaxTestDuration_ + ', actual: ' + duration);
       }
     }).fin(function() {
       try {
@@ -222,24 +220,24 @@ var CommandlineTest = function(command) {
  *   For now, this means protractor tests (jasmine/mocha/cucumber).
  */
 exports.Executor = function() {
-  var tests = [];
+  let tests = [];
   this.addCommandlineTest = function(command) {
-    var test = new CommandlineTest(command);
+    let test = new CommandlineTest(command);
     tests.push(test);
     return test;
   };
 
   this.execute = function() {
-    var failed = false;
+    let failed = false;
 
     (function runTests(i) {
       if (i < tests.length) {
         console.log('running: ' + tests[i].command_);
         tests[i].run().then(function() {
-          console.log('>>> \033[1;32mpass\033[0m');
+          console.log('>>> \x1B[1;32mpass\x1B[0m');
         }, function(err) {
           failed = true;
-          console.log('>>> \033[1;31mfail: ' + err.toString() + '\033[0m');
+          console.log('>>> \x1B[1;31mfail: ' + err.toString() + '\x1B[0m');
         }).fin(function() {
           runTests(i + 1);
         }).done();

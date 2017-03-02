@@ -1,10 +1,9 @@
-var q = require('q'),
-    path = require('path'),
-    glob = require('glob'),
-    assign = require('object-assign'),
-    debug = require('debug')('protractor-cucumber-framework'),
-    Cucumber = require('./lib/cucumberLoader').load(),
-    state = require('./lib/runState');
+let q = require('q');
+let path = require('path');
+let glob = require('glob');
+let debug = require('debug')('protractor-cucumber-framework');
+let Cucumber = require('./lib/cucumberLoader').load();
+let state = require('./lib/runState');
 
 /**
  * Execute the Runner's test cases through Cucumber.
@@ -14,15 +13,15 @@ var q = require('q'),
  * @return {q.Promise} Promise resolved with the test results
  */
 exports.run = function(runner, specs) {
-  var results = {};
+  let results = {};
 
   return runner.runTestPreparer().then(function() {
-    var config = runner.getConfig();
-    var opts = assign({}, config.cucumberOpts, config.capabilities.cucumberOpts);
+    let config = runner.getConfig();
+    let opts = Object.assign({}, config.cucumberOpts, config.capabilities.cucumberOpts);
     state.initialize(runner, results, opts.strict);
 
     return q.promise(function(resolve, reject) {
-      var cliArguments = convertOptionsToCliArguments(opts);
+      let cliArguments = convertOptionsToCliArguments(opts);
       cliArguments.push('--require', path.resolve(__dirname, 'lib', 'resultsCapturer.js'));
       cliArguments = cliArguments.concat(specs);
 
@@ -34,9 +33,9 @@ exports.run = function(runner, specs) {
         Cucumber.Cli(cliArguments).run(runDone);
       }
 
-      function runDone(isSuccessful) {
+      function runDone() {
         try {
-          var complete = q();
+          let complete = q();
           if (runner.getConfig().onComplete) {
             complete = q(runner.getConfig().onComplete());
           }
@@ -55,15 +54,13 @@ exports.run = function(runner, specs) {
   }
 
   function convertOptionsToCliArguments(options) {
-    var cliArguments = ['node', 'cucumberjs'];
+    let cliArguments = ['node', 'cucumberjs'];
 
-    for (var option in options) {
-      var cliArgumentValues = convertOptionValueToCliValues(option, options[option]);
+    for (let option in options) {
+      let cliArgumentValues = convertOptionValueToCliValues(option, options[option]);
 
       if (Array.isArray(cliArgumentValues)) {
-        cliArgumentValues.forEach(function (value) {
-          cliArguments.push('--' + option, value);
-        });
+        cliArgumentValues.forEach((value) => cliArguments.push('--' + option, value));
       } else if (cliArgumentValues) {
         cliArguments.push('--' + option);
       }
@@ -73,31 +70,19 @@ exports.run = function(runner, specs) {
   }
 
   function convertRequireOptionValuesToCliValues(values) {
-    var configDir = runner.getConfig().configDir;
+    let configDir = runner.getConfig().configDir;
 
-    return toArray(values).map(function(path) {
-      // Handle glob matching
-      return glob.sync(path, {cwd: configDir});
-    }).reduce(function(opts, globPaths) {
-      // Combine paths into flattened array
-      return opts.concat(globPaths);
-    }, []).map(function(requirePath) {
-      // Resolve require absolute path
-      return path.resolve(configDir, requirePath);
-    }).filter(function(item, pos, orig) {
-      // Make sure requires are unique
-      return orig.indexOf(item) == pos;
-    });
+    return toArray(values)
+      .map((path) => glob.sync(path, {cwd: configDir}))           // Handle glob matching
+      .reduce((opts, globPaths) => opts.concat(globPaths), [])    // Combine paths into flattened array
+      .map((requirePath) => path.resolve(configDir, requirePath)) // Resolve require absolute path
+      .filter((item, pos, orig) => orig.indexOf(item) == pos);    // Make sure requires are unique
   }
 
   function convertTagsToV2CliValues(values) {
-    var converted = toArray(values)
-      .filter(function(tag) {
-        return !!tag.replace;
-      })
-      .map(function(tag) {
-        return tag.replace(/~/, 'not ');
-      })
+    let converted = toArray(values)
+      .filter((tag) => !!tag.replace)
+      .map((tag) => tag.replace(/~/, 'not '))
       .join(' and ');
 
     return [converted];
@@ -115,7 +100,7 @@ exports.run = function(runner, specs) {
     if (option === 'require') {
       return convertRequireOptionValuesToCliValues(values);
     } else if (option === 'tags' && isCucumber2()) {
-      return convertTagsToV2CliValues(values)
+      return convertTagsToV2CliValues(values);
     } else {
       return convertGenericOptionValuesToCliValues(values);
     }
