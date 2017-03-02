@@ -90,10 +90,15 @@ exports.run = function(runner, specs) {
     });
   }
 
-  function convertTagsToCliValues(values) {
-    var converted = toArray(values).map(function(tag) {
-      return tag.replace(/~/, 'not ');
-    }).join(' and ');
+  function convertTagsToV2CliValues(values) {
+    var converted = toArray(values)
+      .filter(function(tag) {
+        return !!tag.replace;
+      })
+      .map(function(tag) {
+        return tag.replace(/~/, 'not ');
+      })
+      .join(' and ');
 
     return [converted];
   }
@@ -110,7 +115,7 @@ exports.run = function(runner, specs) {
     if (option === 'require') {
       return convertRequireOptionValuesToCliValues(values);
     } else if (option === 'tags' && isCucumber2()) {
-      return convertTagsToCliValues(values)
+      return convertTagsToV2CliValues(values)
     } else {
       return convertGenericOptionValuesToCliValues(values);
     }

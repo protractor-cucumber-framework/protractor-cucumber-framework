@@ -186,7 +186,7 @@ var CommandlineTest = function(command) {
 
       self.expectedOutput_.forEach(function(out) {
         if (output.indexOf(out) < 0) {
-          flushAndFail('expecting output `' + out + '`');
+          flushAndFail('expecting output `' + out + '`' + ' in `' + output + '`');
         }
       })
 

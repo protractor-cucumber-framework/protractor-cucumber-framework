@@ -11,6 +11,7 @@ exports.config = {
   cucumberOpts: {
     require: 'stepDefinitions/**/cucumber2Steps.js',
     tags: '@cucumber2',
-    strict: true
+    strict: true,
+    'format-options': '{"colorsEnabled": false}'
   }
 };

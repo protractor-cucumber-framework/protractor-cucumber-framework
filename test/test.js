@@ -10,6 +10,8 @@ testStrictOption();
 testUndefinedWithoutStrictOption();
 testMultiCapsOverrideBaseOptsAndCliOpts();
 testCucumber2();
+testCucumber2Tags();
+testCucumber2TagsPassedAsBoolean();
 
 executor.execute();
 
@@ -57,4 +59,18 @@ function testCucumber2() {
     .cucumberVersion2()
     .expectExitCode(0)
     .expectErrors([]);
+}
+
+function testCucumber2Tags() {
+  executor.addCommandlineTest('node_modules/protractor/bin/protractor test/cucumber/cucumber2Conf.js --cucumberOpts.tags @cucumber2 --cucumberOpts.tags ~@failing')
+    .cucumberVersion2()
+    .expectOutput('1 scenario (1 passed)')
+    .expectExitCode(0)
+    .expectErrors([]);
+}
+
+function testCucumber2TagsPassedAsBoolean() {
+  executor.addCommandlineTest('node_modules/protractor/bin/protractor test/cucumber/cucumber2Conf.js --cucumberOpts.tags --specs **/cucumber2.feature')
+    .cucumberVersion2()
+    .expectExitCode(0);
 }

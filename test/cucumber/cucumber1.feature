@@ -9,11 +9,6 @@ Feature: Running Cucumber with Protractor
     Then it should still do normal tests
     Then it should expose the correct global variables
 
-  @cucumber2
-  Scenario: Using Cucumber 2
-    Given I go on "index.html"
-    Then the title should equal "My AngularJS App"
-
   @dev
   Scenario: Wrapping WebDriver
     Given I go on "index.html"
