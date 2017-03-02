@@ -1,7 +1,7 @@
 Protractor Cucumber Framework
 =============================
 
-[![Build Status](https://travis-ci.org/mattfritz/protractor-cucumber-framework.svg?branch=master)](https://travis-ci.org/mattfritz/protractor-cucumber-framework)
+[![Build Status](https://travis-ci.org/protractor-cucumber-framework/protractor-cucumber-framework.svg?branch=master)](https://travis-ci.org/protractor-cucumber-framework/protractor-cucumber-framework)
 
 This framework was originally part of [angular/protractor](https://github.com/angular/protractor) and
 is now a separate module to decouple [cucumber.js](https://github.com/cucumber/cucumber-js).
@@ -26,12 +26,13 @@ exports.config = {
   
   // require feature files
   specs: [
-		'path/to/feature/files/**/*.feature' // accepts a glob
-	],
+    'path/to/feature/files/**/*.feature' // accepts a glob
+  ],
+  
   cucumberOpts: {
-	  // require step definitions
+    // require step definitions
     require: [
-    	'path/to/step/definitions/**/*.steps.js' // accepts a glob
+      'path/to/step/definitions/**/*.steps.js' // accepts a glob
     ]
   }
 };
@@ -46,19 +47,18 @@ For Contributors
 ----------------
 Clone the github repository:
 
-    git clone https://github.com/mattfritz/protractor-cucumber-framework
+    git clone https://github.com/protractor-cucumber-framework/protractor-cucumber-framework
     cd protractor-cucumber-framework
     npm install
 
-Start up a selenium server. By default, the tests expect the selenium server to be running at `http://localhost:4444/wd/hub`. A selenium server can be started with `webdriver-manager`.
+Start up a selenium server:
 
-    node_modules/.bin/webdriver-manager update --standalone
-    node_modules/.bin/webdriver-manager start
+    npm run webdriver
 
-The test suite runs against the included test application. Start that up with
+Start up the test app that tests will be run against:
 
     npm start
 
-Then run the tests with
+Run the tests:
 
     npm test
