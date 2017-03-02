@@ -14,13 +14,13 @@ testCucumber2();
 executor.execute();
 
 function testSuccessfulFeatures() {
-  executor.addCommandlineTest('node_modules/protractor/bin/protractor spec/cucumberConf.js')
+  executor.addCommandlineTest('node_modules/protractor/bin/protractor test/cucumber/cucumber1Conf.js')
     .alwaysEnableStdio()
     .expectExitCode(0);
 }
 
 function testFailingFeatures() {
-  executor.addCommandlineTest('node_modules/protractor/bin/protractor spec/cucumberConf.js --cucumberOpts.tags @failing')
+  executor.addCommandlineTest('node_modules/protractor/bin/protractor test/cucumber/cucumber1Conf.js --cucumberOpts.tags @failing')
     .expectExitCode(1)
     .expectErrors([
       { message:"expected 'My AngularJS App' to equal 'Failing scenario 1'" },
@@ -29,31 +29,31 @@ function testFailingFeatures() {
 }
 
 function testFailFastFastOption() {
-  executor.addCommandlineTest('node_modules/protractor/bin/protractor spec/cucumberConf.js --cucumberOpts.tags @failing --cucumberOpts.fail-fast')
+  executor.addCommandlineTest('node_modules/protractor/bin/protractor test/cucumber/cucumber1Conf.js --cucumberOpts.tags @failing --cucumberOpts.fail-fast')
    .expectExitCode(1)
    .expectErrors([{ message: "expected 'My AngularJS App' to equal 'Failing scenario 1'" }]);
 }
 
 function testStrictOption() {
-  executor.addCommandlineTest('node_modules/protractor/bin/protractor spec/cucumberConf.js --cucumberOpts.tags @strict --cucumberOpts.strict')
+  executor.addCommandlineTest('node_modules/protractor/bin/protractor test/cucumber/cucumber1Conf.js --cucumberOpts.tags @strict --cucumberOpts.strict')
    .expectExitCode(1)
    .expectErrors([{ message: "Undefined steps are not allowed in strict mode" }]);
 }
 
 function testUndefinedWithoutStrictOption() {
-  executor.addCommandlineTest('node_modules/protractor/bin/protractor spec/cucumberConf.js --cucumberOpts.tags @strict')
+  executor.addCommandlineTest('node_modules/protractor/bin/protractor test/cucumber/cucumber1Conf.js --cucumberOpts.tags @strict')
    .expectExitCode(0)
    .expectErrors([]);
 }
 
 function testMultiCapsOverrideBaseOptsAndCliOpts() {
-  executor.addCommandlineTest('node_modules/protractor/bin/protractor spec/multiConf.js --cucumberOpts.tags @failing')
+  executor.addCommandlineTest('node_modules/protractor/bin/protractor test/cucumber/multiConf.js --cucumberOpts.tags @failing')
    .expectExitCode(0)
    .expectErrors([]);
 }
 
 function testCucumber2() {
-  executor.addCommandlineTest('node_modules/protractor/bin/protractor spec/cucumber2Conf.js')
+  executor.addCommandlineTest('node_modules/protractor/bin/protractor test/cucumber/cucumber2Conf.js')
     .cucumberVersion2()
     .expectExitCode(0)
     .expectErrors([]);

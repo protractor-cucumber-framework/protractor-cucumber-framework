@@ -8,9 +8,9 @@
   },
   "scripts": {
     "webdriver": "webdriver-manager update --standalone && webdriver-manager start",
-    "start": "node testapp/server",
-    "pretest": "multidep spec/multidep.js",
-    "test": "node scripts/test.js"
+    "start": "node test/testapp/server",
+    "pretest": "multidep test/multidep.js",
+    "test": "node test/test.js"
   },
   "repository": {
     "type": "git",

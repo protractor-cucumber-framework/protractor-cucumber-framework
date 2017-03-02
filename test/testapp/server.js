@@ -1,7 +1,7 @@
 let path = require('path');
 let express = require('express');
 
-let webServerPort = process.env.HTTP_PORT || require("../spec/environment").webServerDefaultPort;
+let webServerPort = process.env.HTTP_PORT || require("../cucumber/environment").webServerDefaultPort;
 
 let app = express();
 app.use(express.static(__dirname));

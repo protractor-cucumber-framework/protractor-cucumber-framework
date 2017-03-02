@@ -55,10 +55,10 @@ Start up a selenium server:
 
     npm run webdriver
 
-Start up the test app that tests will be run against:
+Start up the test app that tests will be run against in a separate shell:
 
     npm start
 
-Run the tests:
+Run the tests in a separate shell:
 
     npm test

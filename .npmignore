@@ -1,6 +1,4 @@
-testapp/
-spec/
-test.js
-test_util.js
+test/
 .npmignore
+.travis.yml
 npm-debug.log
