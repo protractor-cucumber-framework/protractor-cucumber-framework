@@ -11,6 +11,6 @@ exports.config = {
   cucumberOpts: {
     require: 'stepDefinitions/**/cucumber1Steps.js',
     tags: '@dev',
-    'no-source': true
+    'no-colors': true
   }
 };
