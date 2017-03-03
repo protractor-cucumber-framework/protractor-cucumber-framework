@@ -9,6 +9,7 @@ testSuccessfulFeatures();
 testFailingFeatures();
 testFailFastFastOption();
 testStrictOption();
+testMultipleNames();
 testUndefinedWithoutStrictOption();
 testMultiCapsOverrideBaseOptsAndCliOpts();
 testCucumber2();
@@ -42,6 +43,12 @@ function testStrictOption() {
   executor.addCommandlineTest(runProtractor('test/cucumber/cucumber1Conf.js --cucumberOpts.tags @strict --cucumberOpts.strict'))
    .expectExitCode(1)
    .expectErrors([{ message: "Undefined steps are not allowed in strict mode" }]);
+}
+
+function testMultipleNames() {
+  executor.addCommandlineTest(runProtractor('test/cucumber/cucumber1Conf.js --cucumberOpts.name Running --cucumberOpts.name Wrapping'))
+    .expectExitCode(0)
+    .expectOutput('2 scenarios (2 passed)');
 }
 
 function testUndefinedWithoutStrictOption() {
