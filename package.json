@@ -7,7 +7,7 @@
     "node": ">=6.9.x"
   },
   "scripts": {
-    "webdriver": "webdriver-manager update --standalone --versions.standalone=3.2.0 && webdriver-manager start --versions.standalone=3.2.0",
+    "webdriver": "webdriver-manager update --standalone --versions.standalone=2.53.1 && webdriver-manager start --versions.standalone=2.53.1",
     "start": "node test/testapp/server",
     "lint": "eslint .",
     "pretest": "npm run lint && multidep test/multidep.js",
