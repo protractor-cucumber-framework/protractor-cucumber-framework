@@ -38,6 +38,25 @@ exports.config = {
 };
 ```
 
+#### Passing Options to cucumberjs
+
+All of the `cucumberOpts` will be passed to `cucumberjs` as arguments.
+
+For example, to call cucumberjs with the `--strict`, `--no-colors`, and to specify custom formatters:
+
+```js
+cucumberOpts: {
+  strick: true,
+  'no-colors': true,
+  format: ['progress', 'pretty:output.txt'],
+  // ...
+}
+```
+
+The following parameters have special behavior:
+
+ * `require` - globs will be expanded to multiple `--require` arguments
+
 Contributing
 ------------
 
@@ -45,20 +64,39 @@ Pull requests are welcome. Commits should have an appropriate message and be squ
 
 For Contributors
 ----------------
+Ensure that the following dependencies are installed:
+
+ * Java SDK and JRE
+ * node.js
+ * Google Chrome
+
 Clone the github repository:
 
     git clone https://github.com/protractor-cucumber-framework/protractor-cucumber-framework
     cd protractor-cucumber-framework
     npm install
 
-Start up a selenium server:
+#### Testing
+
+Start a selenium server:
 
     npm run webdriver
 
-Start up the test app that tests will be run against in a separate shell:
+Start the test app that tests will be run against in a separate shell:
 
     npm start
 
 Run the tests in a separate shell:
 
     npm test
+
+For Maintainers
+---------------
+
+#### Releasing
+
+1. bump version
+1. `npm publish`
+1. tag release (`git tag v1.0.2 && git push origin master --tags`)
+1. build github release (`npm i -g release && release`)
+
