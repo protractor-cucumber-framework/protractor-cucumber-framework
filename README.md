@@ -46,7 +46,7 @@ For example, to call cucumberjs with the `--strict`, `--no-colors`, and to speci
 
 ```js
 cucumberOpts: {
-  strick: true,
+  strict: true,
   'no-colors': true,
   format: ['progress', 'pretty:output.txt'],
   // ...
