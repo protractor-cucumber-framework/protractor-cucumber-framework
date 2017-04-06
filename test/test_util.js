@@ -12,7 +12,8 @@ let cucumberConf = require(path.join(__dirname, '..', 'package.json')).cucumberC
 let CommandlineTest = function(command) {
   let self = this;
   this.command_ = command;
-  this.callback_ = false;
+  this.before_ = false;
+  this.after_ = false;
   this.expectedExitCode_ = 0;
   this.stdioOnlyOnFailures_ = true;
   this.expectedErrors_ = [];
@@ -46,8 +47,13 @@ let CommandlineTest = function(command) {
     return self;
   };
 
-  this.then = function(callback) {
-    self.callback_ = callback;
+  this.before = function(callback) {
+    self.before_ = callback;
+    return self;
+  };
+
+  this.after = function(callback) {
+    self.after_ = callback;
     return self;
   };
 
@@ -93,6 +99,10 @@ let CommandlineTest = function(command) {
     };
 
     return q.promise(function(resolve, reject) {
+      if (self.before_) {
+        self.before_();
+      }
+
       if (!self.assertExitCodeOnly_) {
         self.command_ = self.command_ + ' --resultJsonOutputFile ' + testOutputPath;
       }
@@ -210,8 +220,8 @@ let CommandlineTest = function(command) {
         flushAndFail('expecting test max duration: ' + self.expectedMaxTestDuration_ + ', actual: ' + duration);
       }
 
-      if (self.callback_) {
-        self.callback_();
+      if (self.after_) {
+        self.after_();
       }
     }).fin(function() {
       try {

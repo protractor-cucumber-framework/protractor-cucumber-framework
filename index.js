@@ -113,11 +113,19 @@ exports.run = function(runner, specs) {
       return convertRequireOptionValuesToCliValues(values);
     } else if (option === 'tags' && isCucumber2()) {
       return convertTagsToV2CliValues(values);
-    } else if (option === 'format' && runner.getConfig().capabilities.shardTestFiles) {
+    } else if (option === 'format' && areUniquePathsRequired()) {
       return makeFormatPathsUnique(values);
     } else {
       return convertGenericOptionValuesToCliValues(values);
     }
+  }
+
+  function areUniquePathsRequired() {
+    let config = runner.getConfig();
+
+    return (Array.isArray(config.multiCapabilities) && config.multiCapabilities.length > 0) ||
+           typeof config.getMultiCapabilities === 'function' ||
+           config.capabilities.shardTestFiles;
   }
 
   function toArray(values) {

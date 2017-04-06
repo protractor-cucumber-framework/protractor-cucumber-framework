@@ -57,12 +57,12 @@ The following parameters have special behavior:
 
  * `require` - globs will be expanded to multiple `--require` arguments
 
-#### Formatters when tests are sharded
+#### Formatters when tests are sharded or with multi capabilities
 
-If you have a formatter that outputs to a path and your tests are sharded then this library will
-add the PID to the path to make them unique. The reason for this is multiple processes can write to
-the same path which clobbers each other. You'll end up with 1 file per process that protractor
-spawns.
+If you have a formatter that outputs to a path and your tests are sharded or you have multi
+capabilities then this library will add the PID to the path to make them unique. The reason for
+this is multiple processes can write to the same path which ends up clobbering each other.
+You'll end up with 1 file per process that protractor spawns.
 
 ```js
 exports.config = {
@@ -84,6 +84,7 @@ If there were 2 feature files then you can expect the following output files...
   results.22222.json
 ```
 ...where the numbers will be the actual PIDs.
+
 
 Contributing
 ------------

@@ -9,6 +9,8 @@ let glob = require('glob');
 let Executor = require('./test_util').Executor;
 let executor = new Executor();
 
+let LOG_FILE_PREFIX = 'protractor-cucumber-framework-test';
+
 testSuccessfulFeatures();
 testFailingFeatures();
 testFailFastFastOption();
@@ -19,7 +21,10 @@ testMultiCapsOverrideBaseOptsAndCliOpts();
 testCucumber2();
 testCucumber2Tags();
 testCucumber2TagsPassedAsBoolean();
+testNormalLogFiles();
 testShardedLogFiles();
+testMultiCapabilitiesLogFiles();
+testGetMultiCapabilitiesLogFiles();
 
 executor.execute();
 
@@ -83,15 +88,36 @@ function testCucumber2Tags() {
     .expectErrors([]);
 }
 
-function testShardedLogFiles() {
-  let logFilePrefix = 'protractor-cucumber-framework-test';
-  let findLogFiles = () => glob.sync(`./${logFilePrefix}*.json`);
-  findLogFiles().forEach(fs.unlinkSync);
+function testNormalLogFiles() {
+  executor.addCommandlineTest(runProtractor(`test/cucumber/cucumber1Conf.js --cucumberOpts.format json:${LOG_FILE_PREFIX}.json`))
+    .before(cleanupLogFiles)
+    .expectExitCode(0)
+    .after(function() {
+      let logFiles = findLogFiles();
+      expect(logFiles).to.have.length(1);
+      expect(logFiles[0]).to.match(new RegExp(`${LOG_FILE_PREFIX}\.json`));
+    });
+}
 
-  executor.addCommandlineTest(runProtractor(`test/cucumber/cucumber1Conf.js --capabilities.shardTestFiles true --cucumberOpts.format json:${logFilePrefix}.json`)).expectExitCode(0).then(function() {
-    let logFiles = findLogFiles();
-    expect(logFiles).to.have.length(2);
-  });
+function testShardedLogFiles() {
+  executor.addCommandlineTest(runProtractor(`test/cucumber/cucumber1Conf.js --capabilities.shardTestFiles true --cucumberOpts.format json:${LOG_FILE_PREFIX}.json`))
+    .before(cleanupLogFiles)
+    .expectExitCode(0)
+    .after(() => expect(findLogFiles()).to.have.length(2));
+}
+
+function testMultiCapabilitiesLogFiles() {
+  executor.addCommandlineTest(runProtractor(`test/cucumber/cucumber1MultiConf.js --cucumberOpts.format json:${LOG_FILE_PREFIX}.json`))
+    .before(cleanupLogFiles)
+    .expectExitCode(0)
+    .after(() => expect(findLogFiles()).to.have.length(2));
+}
+
+function testGetMultiCapabilitiesLogFiles() {
+  executor.addCommandlineTest(runProtractor(`test/cucumber/cucumber1GetMultiConf.js --cucumberOpts.format json:${LOG_FILE_PREFIX}.json`))
+    .before(cleanupLogFiles)
+    .expectExitCode(0)
+    .after(() => expect(findLogFiles()).to.have.length(2));
 }
 
 function testCucumber2TagsPassedAsBoolean() {
@@ -104,3 +130,10 @@ function runProtractor(options) {
   return `node node_modules/protractor/bin/protractor ${options}`;
 }
 
+function cleanupLogFiles() {
+  findLogFiles().forEach(fs.unlinkSync);
+}
+
+function findLogFiles() {
+  return glob.sync(`./${LOG_FILE_PREFIX}*.json`);
+}
