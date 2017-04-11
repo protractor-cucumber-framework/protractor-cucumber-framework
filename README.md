@@ -87,6 +87,18 @@ If there were 2 feature files then you can expect the following output files...
 ...where the numbers will be the actual PIDs.
 
 
+#### Uncaught Exceptions
+
+If your process abruptly stops with an exit code `199` then your steps most likely threw an uncaught
+exception. Protractor is capturing these and exiting the process in this situation. The solution is
+to upgrade to at least protractor version 4.0.10 and add the following to your protractor conf...
+
+```
+  ignoreUncaughtExceptions: true
+```
+
+This allows cucumber to handle the exception and record it appropriately.
+
 Contributing
 ------------
 

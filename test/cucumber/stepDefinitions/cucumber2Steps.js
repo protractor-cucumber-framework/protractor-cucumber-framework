@@ -14,7 +14,7 @@ defineSupportCode(({Given, Then, When}) => {
     return expect(browser.getTitle()).to.eventually.equal(text);
   });
 
-  When(/I encounter an unexpected exception/, function() {
-    throw new Error('unexpected');
+  When(/an uncaught exception is thrown/, function(done) {
+    element(by.css('[nuthin-here]')).getText().then(done);
   });
 });

@@ -30,4 +30,8 @@ module.exports = function() {
   this.Then(/the title should equal "([^"]*)"$/, function(text, next) {
     expect(browser.getTitle()).to.eventually.equal(text).and.notify(next);
   });
+
+  this.When(/an uncaught exception is thrown/, function(done) {
+    element(by.css('[nuthin-here]')).getText().then(done);
+  });
 };
