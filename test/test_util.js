@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-/* eslint no-console: 0 */
-
 let child_process = require('child_process');
 let fs = require('fs');
 let path = require('path');
@@ -223,6 +221,10 @@ let CommandlineTest = function(command) {
       if (self.after_) {
         self.after_();
       }
+
+      if (self.then_) {
+        self.then_();
+      }
     }).fin(function() {
       try {
         fs.unlinkSync(testOutputPath);
@@ -233,39 +235,11 @@ let CommandlineTest = function(command) {
   };
 };
 
-/**
- * Util for running tests and testing functionalities including:
- *   exitCode, test durations, expected errors, and expected stackTrace
- * Note, this will work with any commandline tests, but only if it supports
- *   the flag '--resultJsonOutputFile', unless only exitCode is being tested.
- *   For now, this means protractor tests (jasmine/mocha/cucumber).
- */
-exports.Executor = function() {
-  let tests = [];
-  this.addCommandlineTest = function(command) {
-    let test = new CommandlineTest(command);
-    tests.push(test);
-    return test;
-  };
+function runOne(options) {
+  let test = new CommandlineTest(`node node_modules/protractor/bin/protractor ${options}`);
+  return test;
+}
 
-  this.execute = function() {
-    let failed = false;
-
-    (function runTests(i) {
-      if (i < tests.length) {
-        console.log('running: ' + tests[i].command_);
-        tests[i].run().then(function() {
-          console.log('>>> \x1B[1;32mpass\x1B[0m');
-        }, function(err) {
-          failed = true;
-          console.log('>>> \x1B[1;31mfail: ' + err.toString() + '\x1B[0m');
-        }).fin(function() {
-          runTests(i + 1);
-        }).done();
-      } else {
-        console.log('Summary: ' + (failed ? 'fail' : 'pass'));
-        process.exit(failed ? 1 : 0);
-      }
-    }(0));
-  };
+module.exports = {
+  runOne
 };

@@ -1,2 +1,0 @@
-webdriver: webdriver-manager update --standalone && webdriver-manager start
-web: node test/testapp/server
