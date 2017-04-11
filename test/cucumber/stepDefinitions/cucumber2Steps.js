@@ -5,12 +5,16 @@ chai.use(chaiAsPromised);
 var expect = chai.expect;
 var {defineSupportCode} = require(path.join(__dirname, '..', '..', '..', 'lib', 'cucumberLoader')).load();
 
-defineSupportCode(({Given, Then}) => {
+defineSupportCode(({Given, Then, When}) => {
   Given(/^I go on(?: the website)? "([^"]*)"$/, function(url) {
     return browser.get(url);
   });
 
   Then(/the title should equal "([^"]*)"$/, function(text) {
     return expect(browser.getTitle()).to.eventually.equal(text);
+  });
+
+  When(/I encounter an unexpected exception/, function() {
+    throw new Error('unexpected');
   });
 });
