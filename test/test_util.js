@@ -4,6 +4,13 @@ let child_process = require('child_process');
 let fs = require('fs');
 let path = require('path');
 let q = require('q');
+let chai = require('chai');
+let chaiLike = require('chai-like');
+chaiLike.extend({
+  match: (object, expected) => typeof object === 'string' && expected instanceof RegExp,
+  assert: (object, expected) => expected.test(object)
+});
+chai.use(chaiLike);
 
 let cucumberConf = require(path.join(__dirname, '..', 'package.json')).cucumberConf;
 
@@ -13,10 +20,10 @@ let CommandlineTest = function(command) {
   this.before_ = false;
   this.after_ = false;
   this.expectedExitCode_ = 0;
-  this.stdioOnlyOnFailures_ = true;
+  this.verbose_ = false;
   this.expectedErrors_ = [];
-  this.assertExitCodeOnly_ = false;
   this.expectedOutput_ = [];
+  this.expectedEvents_ = [];
   this.cucumberVesion_ = cucumberConf.version1;
 
   this.cucumberVersion2 = function() {
@@ -24,22 +31,6 @@ let CommandlineTest = function(command) {
     return self;
   };
 
-  // If stdioOnlyOnFailures_ is true, do not stream stdio unless test failed.
-  // This is to prevent tests with expected failures from polluting the output.
-  this.alwaysEnableStdio = function() {
-    self.stdioOnlyOnFailures_ = false;
-    return self;
-  };
-
-  // Only assert the exit code and not failures.
-  // This must be true if the command you're running does not support
-  //   the flag '--resultJsonOutputFile'.
-  this.assertExitCodeOnly = function() {
-    self.assertExitCodeOnly_ = true;
-    return self;
-  };
-
-  // Set the expected exit code for the test command.
   this.expectExitCode = function(exitCode) {
     self.expectedExitCode_ = exitCode;
     return self;
@@ -55,10 +46,8 @@ let CommandlineTest = function(command) {
     return self;
   };
 
-  // Set the expected total test duration in milliseconds.
-  this.expectTestDuration = function(min, max) {
-    self.expectedMinTestDuration_ = min;
-    self.expectedMaxTestDuration_ = max;
+  this.verbose = function(verbose) {
+    self.verbose_ = verbose;
     return self;
   };
 
@@ -84,6 +73,11 @@ let CommandlineTest = function(command) {
     return self;
   };
 
+  this.expectEvents = function(expectedEvents) {
+    self.expectedEvents_ = self.expectedEvents_.concat(expectedEvents);
+    return self;
+  };
+
   this.run = function() {
     process.env.MULTIDEP_CUCUMBER_VERSION = self.cucumberVesion_;
 
@@ -97,49 +91,25 @@ let CommandlineTest = function(command) {
     };
 
     return q.promise(function(resolve, reject) {
-      if (self.before_) {
-        self.before_();
-      }
+      if (self.before_) self.before_();
 
-      if (!self.assertExitCodeOnly_) {
-        self.command_ = self.command_ + ' --resultJsonOutputFile ' + testOutputPath;
-      }
+      self.command_ = self.command_ + ' --resultJsonOutputFile ' + testOutputPath;
       let args = self.command_.split(/\s/);
-
       let test_process;
 
-      if (self.stdioOnlyOnFailures_) {
-        test_process = child_process.spawn(args[0], args.slice(1));
-
-        test_process.stdout.on('data', function(data) {
-          output += data;
-        });
-
-        test_process.stderr.on('data', function(data) {
-          output += data;
-        });
-      } else {
+      if (self.verbose_) {
         test_process = child_process.spawn(args[0], args.slice(1), {stdio: 'inherit'});
+      } else {
+        test_process = child_process.spawn(args[0], args.slice(1));
+        test_process.stdout.on('data', (data) => output += data);
+        test_process.stderr.on('data', (data) => output += data);
       }
 
-      test_process.on('error', function(err) {
-        reject(err);
-      });
-
-      test_process.on('exit', function(exitCode) {
-        resolve(exitCode);
-      });
+      test_process.on('error', (err) => reject(err));
+      test_process.on('exit', (exitCode) => resolve(exitCode));
     }).then(function(exitCode) {
       if (self.expectedExitCode_ !== exitCode) {
-        flushAndFail('expecting exit code: ' + self.expectedExitCode_ +
-              ', actual: ' + exitCode);
-      }
-
-      // Skip the rest if we are only verify exit code.
-      // Note: we're expecting a file populated by '--resultJsonOutputFile' after
-      //   this point.
-      if (self.assertExitCodeOnly_) {
-        return;
+        flushAndFail(`expecting exit code: ${self.expectedExitCode_}, actual: ${exitCode}`);
       }
 
       let testOutput;
@@ -152,18 +122,21 @@ let CommandlineTest = function(command) {
       }
 
       let actualErrors = [];
-      let duration = 0;
+      let actualEvents = [];
+
       testOutput.forEach(function(specResult) {
-        duration += specResult.duration;
+        actualEvents = actualEvents.concat(specResult.events);
+
         specResult.assertions.forEach(function(assertion) {
-          if (!assertion.passed) {
-            actualErrors.push(assertion);
-          }
+          if (!assertion.passed) actualErrors.push(assertion);
         });
       });
 
+      chai.expect(actualEvents).to.be.like(self.expectedEvents_);
+
       self.expectedErrors_.forEach(function(expectedError) {
         let found = false;
+
         for (var i = 0; i < actualErrors.length; ++i) {
           let actualError = actualErrors[i];
 
@@ -173,27 +146,25 @@ let CommandlineTest = function(command) {
               continue;
             }
           }
+
           // if expected stackTrace is defined and stackTraces don't match
           if (expectedError.stackTrace) {
             if (!actualError.stackTrace || !actualError.stackTrace.match(new RegExp(expectedError.stackTrace))) {
               continue;
             }
           }
+
           found = true;
           break;
         }
 
         if (!found) {
           if (expectedError.message && expectedError.stackTrace) {
-            flushAndFail('did not fail with expected error with message: [' +
-              expectedError.message + '] and stackTrace: [' +
-              expectedError.stackTrace + ']');
+            flushAndFail('did not fail with expected error with message: [' + expectedError.message + '] and stackTrace: [' + expectedError.stackTrace + ']');
           } else if (expectedError.message) {
-            flushAndFail('did not fail with expected error with message: [' +
-              expectedError.message + ']');
+            flushAndFail('did not fail with expected error with message: [' + expectedError.message + ']');
           } else if (expectedError.stackTrace) {
-            flushAndFail('did not fail with expected error with stackTrace: [' +
-              expectedError.stackTrace + ']');
+            flushAndFail('did not fail with expected error with stackTrace: [' + expectedError.stackTrace + ']');
           }
         } else {
           actualErrors.splice(i, 1);
@@ -210,21 +181,8 @@ let CommandlineTest = function(command) {
         flushAndFail('failed with ' + actualErrors.length + ' unexpected failures');
       }
 
-      if (self.expectedMinTestDuration_ && duration < self.expectedMinTestDuration_) {
-        flushAndFail('expecting test min duration: ' + self.expectedMinTestDuration_ + ', actual: ' + duration);
-      }
-
-      if (self.expectedMaxTestDuration_ && duration > self.expectedMaxTestDuration_) {
-        flushAndFail('expecting test max duration: ' + self.expectedMaxTestDuration_ + ', actual: ' + duration);
-      }
-
-      if (self.after_) {
-        self.after_();
-      }
-
-      if (self.then_) {
-        self.then_();
-      }
+      if (self.after_) self.after_();
+      if (self.then_) self.then_();
     }).fin(function() {
       try {
         fs.unlinkSync(testOutputPath);

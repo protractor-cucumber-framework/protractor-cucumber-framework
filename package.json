@@ -1,6 +1,6 @@
 {
   "name": "protractor-cucumber-framework",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Protractor framework for Cucumber.js",
   "main": "index.js",
   "engines": {
@@ -53,6 +53,7 @@
   "devDependencies": {
     "chai": "3.5.0",
     "chai-as-promised": "6.0.0",
+    "chai-like": "0.2.10",
     "eslint": "3.19.0",
     "express": "4.15.2",
     "httpster": "1.0.3",
