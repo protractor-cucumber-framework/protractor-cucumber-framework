@@ -1,6 +1,7 @@
 Protractor Cucumber Framework
 =============================
 
+[![Join the chat at https://gitter.im/protractor-cucumber-framework/protractor-cucumber-framework](https://badges.gitter.im/protractor-cucumber-framework/protractor-cucumber-framework.svg)](https://gitter.im/protractor-cucumber-framework/protractor-cucumber-framework?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/protractor-cucumber-framework/protractor-cucumber-framework.svg?branch=master)](https://travis-ci.org/protractor-cucumber-framework/protractor-cucumber-framework)
 
 This framework was originally part of [angular/protractor](https://github.com/angular/protractor) and
