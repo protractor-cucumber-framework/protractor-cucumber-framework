@@ -1,0 +1,9 @@
+{
+  "globals": {
+    "browser": true,
+    "protractor": true,
+    "by": true,
+    "element": true,
+    "$": true
+  }
+}

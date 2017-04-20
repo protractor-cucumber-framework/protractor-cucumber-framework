@@ -1,15 +1,21 @@
 {
   "name": "protractor-cucumber-framework",
-  "version": "0.6.0",
+  "version": "3.1.0",
   "description": "Protractor framework for Cucumber.js",
   "main": "index.js",
+  "engines": {
+    "node": ">=6.9.x"
+  },
   "scripts": {
-    "start": "httpster -d testapp/ -p `node -p 'process.env.HTTP_PORT || require(\"./spec/environment\").webServerDefaultPort'`",
-    "test": "node test.js"
+    "webdriver": "webdriver-manager update --standalone --versions.standalone=2.53.1 && webdriver-manager start --versions.standalone=2.53.1",
+    "start": "node test/testapp/server",
+    "lint": "eslint .",
+    "pretest": "npm run lint && multidep test/multidep.js",
+    "test": "mocha -c -s 10000 -t 20000 test/**/*.spec.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mattfritz/protractor-cucumber-framework"
+    "url": "https://github.com/protractor-cucumber-framework/protractor-cucumber-framework"
   },
   "keywords": [
     "angular",
@@ -26,25 +32,37 @@
     "bdd"
   ],
   "author": "Matt Fritz <mfritzer@gmail.com>",
+  "contributors": [
+    "Matt Fritz <mfritzer@gmail.com>",
+    "Darrin Holst <darrinholst@gmail.com>"
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mattfritz/protractor-cucumber-framework/issues"
+    "url": "https://github.com/protractor-cucumber-framework/protractor-cucumber-framework/issues"
   },
-  "homepage": "https://github.com/mattfritz/protractor-cucumber-framework",
+  "homepage": "https://github.com/protractor-cucumber-framework/protractor-cucumber-framework",
   "dependencies": {
     "debug": "^2.2.0",
     "glob": "^7.0.3",
-    "object-assign": "^4.0.1",
     "q": "^1.4.1"
   },
   "peerDependencies": {
-    "cucumber": ">= 0.9.1"
+    "cucumber": ">= 1.3.0 || >= 2.0.0-rc.0",
+    "protractor": ">= 3.0.0"
   },
   "devDependencies": {
-    "chai": "^3.4.1",
-    "chai-as-promised": "^5.2.0",
-    "cucumber": "^1.0.0",
-    "httpster": "^1.0.1",
-    "protractor": "^3.2.0"
+    "chai": "3.5.0",
+    "chai-as-promised": "6.0.0",
+    "chai-like": "0.2.10",
+    "eslint": "3.19.0",
+    "express": "4.15.2",
+    "httpster": "1.0.3",
+    "mocha": "3.2.0",
+    "multidep": "2.0.2",
+    "protractor": "5.1.1"
+  },
+  "cucumberConf": {
+    "version1": "1.3.2",
+    "version2": "2.0.0-rc.8"
   }
 }
