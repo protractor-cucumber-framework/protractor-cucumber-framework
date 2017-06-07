@@ -41,6 +41,14 @@ describe('output files', function() {
       .run();
   });
 
+  it('should handle custom formatters', function() {
+    return util.runOne(`test/cucumber/conf/cucumber2Conf.js --capabilities.shardTestFiles true --cucumberOpts.format ./test/cucumber/formatters/custom.js:${LOG_FILE_PREFIX}.json`)
+      .cucumberVersion2()
+      .expectExitCode(0)
+      .after(() => expect(findLogFiles()).to.have.length(3))
+      .run();
+  });
+
   function cleanupLogFiles() {
     findLogFiles().forEach(fs.unlinkSync);
   }

@@ -96,13 +96,12 @@ exports.run = function(runner, specs) {
 
   function makeFormatPathsUnique(values) {
     return toArray(values).map(function(format) {
-      let formatPathMatch = format.match(/(\w+:)(.+)/);
-
+      let formatPathMatch = format.match(/(.+):(.+)/);
       if (!formatPathMatch) return format;
 
       let pathParts = formatPathMatch[2].split('.');
-      pathParts.splice(pathParts.length - 1, 0, process.pid);
-      return formatPathMatch[1] + pathParts.join('.');
+      pathParts.splice(pathParts.length - 1 || 1, 0, process.pid);
+      return `${formatPathMatch[1]}:${pathParts.join('.')}`;
     });
   }
 
