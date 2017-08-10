@@ -15,7 +15,7 @@ describe('output files', function() {
       .after(function() {
         let logFiles = findLogFiles();
         expect(logFiles).to.have.length(1);
-        expect(logFiles[0]).to.match(new RegExp(`${LOG_FILE_PREFIX}\.json`));
+        expect(logFiles[0]).to.match(new RegExp(`${LOG_FILE_PREFIX}.json`));
       })
       .run();
   });

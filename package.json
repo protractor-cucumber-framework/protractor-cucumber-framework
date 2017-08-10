@@ -51,18 +51,19 @@
     "protractor": ">= 3.0.0"
   },
   "devDependencies": {
-    "chai": "3.5.0",
-    "chai-as-promised": "6.0.0",
-    "chai-like": "0.2.10",
-    "eslint": "3.19.0",
-    "express": "4.15.2",
+    "chai": "^4.1.1",
+    "chai-as-promised": "^7.1.1",
+    "chai-like": "^0.2.14",
+    "eslint": "^4.4.1",
+    "express": "^4.15.4",
     "httpster": "1.0.3",
-    "mocha": "3.2.0",
+    "mocha": "^3.5.0",
     "multidep": "2.0.2",
-    "protractor": "5.1.1"
+    "protractor": "^5.1.2"
   },
   "cucumberConf": {
-    "version1": "1.3.2",
-    "version2": "2.0.0-rc.8"
+    "version1": "1.3.3",
+    "version2": "2.3.1",
+    "version3": "3.0.0"
   }
 }
