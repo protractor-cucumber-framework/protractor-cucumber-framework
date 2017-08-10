@@ -7,12 +7,14 @@ let q = require('q');
 let chai = require('chai');
 let chaiLike = require('chai-like');
 chaiLike.extend({
-  match: (object, expected) => typeof object === 'string' && expected instanceof RegExp,
+  match: (object, expected) =>
+    typeof object === 'string' && expected instanceof RegExp,
   assert: (object, expected) => expected.test(object)
 });
 chai.use(chaiLike);
 
-let cucumberConf = require(path.join(__dirname, '..', 'package.json')).cucumberConf;
+let cucumberConf = require(path.join(__dirname, '..', 'package.json'))
+  .cucumberConf;
 
 let CommandlineTest = function(command) {
   let self = this;
@@ -28,6 +30,11 @@ let CommandlineTest = function(command) {
 
   this.cucumberVersion2 = function() {
     self.cucumberVesion_ = cucumberConf.version2;
+    return self;
+  };
+
+  this.cucumberVersion3 = function() {
+    self.cucumberVesion_ = cucumberConf.version3;
     return self;
   };
 
@@ -90,111 +97,147 @@ let CommandlineTest = function(command) {
       throw new Error(errorMsg);
     };
 
-    return q.promise(function(resolve, reject) {
-      if (self.before_) self.before_();
+    return q
+      .promise(function(resolve, reject) {
+        if (self.before_) self.before_();
 
-      self.command_ = self.command_ + ' --resultJsonOutputFile ' + testOutputPath;
-      let args = self.command_.split(/\s/);
-      let test_process;
+        self.command_ =
+          self.command_ + ' --resultJsonOutputFile ' + testOutputPath;
+        let args = self.command_.split(/\s/);
+        let test_process;
 
-      if (self.verbose_) {
-        test_process = child_process.spawn(args[0], args.slice(1), {stdio: 'inherit'});
-      } else {
-        test_process = child_process.spawn(args[0], args.slice(1));
-        test_process.stdout.on('data', (data) => output += data);
-        test_process.stderr.on('data', (data) => output += data);
-      }
-
-      test_process.on('error', (err) => reject(err));
-      test_process.on('exit', (exitCode) => resolve(exitCode));
-    }).then(function(exitCode) {
-      if (self.expectedExitCode_ !== exitCode) {
-        flushAndFail(`expecting exit code: ${self.expectedExitCode_}, actual: ${exitCode}`);
-      }
-
-      let testOutput;
-
-      if (fs.existsSync(testOutputPath)) {
-        let raw_data = fs.readFileSync(testOutputPath);
-        testOutput = JSON.parse(raw_data);
-      } else {
-        testOutput = [];
-      }
-
-      let actualErrors = [];
-      let actualEvents = [];
-
-      testOutput.forEach(function(specResult) {
-        actualEvents = actualEvents.concat(specResult.events);
-
-        specResult.assertions.forEach(function(assertion) {
-          if (!assertion.passed) actualErrors.push(assertion);
-        });
-      });
-
-      chai.expect(actualEvents).to.be.like(self.expectedEvents_);
-
-      self.expectedErrors_.forEach(function(expectedError) {
-        let found = false;
-
-        for (var i = 0; i < actualErrors.length; ++i) {
-          let actualError = actualErrors[i];
-
-          // if expected message is defined and messages don't match
-          if (expectedError.message) {
-            if (!actualError.errorMsg || !actualError.errorMsg.match(new RegExp(expectedError.message))) {
-              continue;
-            }
-          }
-
-          // if expected stackTrace is defined and stackTraces don't match
-          if (expectedError.stackTrace) {
-            if (!actualError.stackTrace || !actualError.stackTrace.match(new RegExp(expectedError.stackTrace))) {
-              continue;
-            }
-          }
-
-          found = true;
-          break;
-        }
-
-        if (!found) {
-          if (expectedError.message && expectedError.stackTrace) {
-            flushAndFail('did not fail with expected error with message: [' + expectedError.message + '] and stackTrace: [' + expectedError.stackTrace + ']');
-          } else if (expectedError.message) {
-            flushAndFail('did not fail with expected error with message: [' + expectedError.message + ']');
-          } else if (expectedError.stackTrace) {
-            flushAndFail('did not fail with expected error with stackTrace: [' + expectedError.stackTrace + ']');
-          }
+        if (self.verbose_) {
+          test_process = child_process.spawn(args[0], args.slice(1), {
+            stdio: 'inherit'
+          });
         } else {
-          actualErrors.splice(i, 1);
+          test_process = child_process.spawn(args[0], args.slice(1));
+          test_process.stdout.on('data', data => (output += data));
+          test_process.stderr.on('data', data => (output += data));
+        }
+
+        test_process.on('error', err => reject(err));
+        test_process.on('exit', exitCode => resolve(exitCode));
+      })
+      .then(function(exitCode) {
+        if (self.expectedExitCode_ !== exitCode) {
+          flushAndFail(
+            `expecting exit code: ${self.expectedExitCode_}, actual: ${exitCode}`
+          );
+        }
+
+        let testOutput;
+
+        if (fs.existsSync(testOutputPath)) {
+          let raw_data = fs.readFileSync(testOutputPath);
+          testOutput = JSON.parse(raw_data);
+        } else {
+          testOutput = [];
+        }
+
+        let actualErrors = [];
+        let actualEvents = [];
+
+        testOutput.forEach(function(specResult) {
+          actualEvents = actualEvents.concat(specResult.events);
+
+          specResult.assertions.forEach(function(assertion) {
+            if (!assertion.passed) actualErrors.push(assertion);
+          });
+        });
+
+        chai.expect(actualEvents).to.be.like(self.expectedEvents_);
+
+        self.expectedErrors_.forEach(function(expectedError) {
+          let found = false;
+
+          for (var i = 0; i < actualErrors.length; ++i) {
+            let actualError = actualErrors[i];
+
+            // if expected message is defined and messages don't match
+            if (expectedError.message) {
+              if (
+                !actualError.errorMsg ||
+                !actualError.errorMsg.match(new RegExp(expectedError.message))
+              ) {
+                continue;
+              }
+            }
+
+            // if expected stackTrace is defined and stackTraces don't match
+            if (expectedError.stackTrace) {
+              if (
+                !actualError.stackTrace ||
+                !actualError.stackTrace.match(
+                  new RegExp(expectedError.stackTrace)
+                )
+              ) {
+                continue;
+              }
+            }
+
+            found = true;
+            break;
+          }
+
+          if (!found) {
+            if (expectedError.message && expectedError.stackTrace) {
+              flushAndFail(
+                'did not fail with expected error with message: [' +
+                  expectedError.message +
+                  '] and stackTrace: [' +
+                  expectedError.stackTrace +
+                  ']'
+              );
+            } else if (expectedError.message) {
+              flushAndFail(
+                'did not fail with expected error with message: [' +
+                  expectedError.message +
+                  ']'
+              );
+            } else if (expectedError.stackTrace) {
+              flushAndFail(
+                'did not fail with expected error with stackTrace: [' +
+                  expectedError.stackTrace +
+                  ']'
+              );
+            }
+          } else {
+            actualErrors.splice(i, 1);
+          }
+        });
+
+        self.expectedOutput_.forEach(function(out) {
+          if (output.indexOf(out) < 0) {
+            flushAndFail(
+              'expecting output `' + out + '`' + ' in `' + output + '`'
+            );
+          }
+        });
+
+        if (actualErrors.length > 0) {
+          flushAndFail(
+            'failed with ' + actualErrors.length + ' unexpected failures'
+          );
+        }
+
+        if (self.after_) self.after_();
+        if (self.then_) self.then_();
+      })
+      .fin(function() {
+        try {
+          fs.unlinkSync(testOutputPath);
+        } catch (err) {
+          // don't do anything
         }
       });
-
-      self.expectedOutput_.forEach(function(out) {
-        if (output.indexOf(out) < 0) {
-          flushAndFail('expecting output `' + out + '`' + ' in `' + output + '`');
-        }
-      });
-
-      if (actualErrors.length > 0) {
-        flushAndFail('failed with ' + actualErrors.length + ' unexpected failures');
-      }
-
-      if (self.after_) self.after_();
-      if (self.then_) self.then_();
-    }).fin(function() {
-      try {
-        fs.unlinkSync(testOutputPath);
-      } catch (err) {
-        // don't do anything
-      }
-    });
   };
 };
 
 function runOne(options) {
-  let test = new CommandlineTest(`node node_modules/protractor/bin/protractor ${options}`);
+  let test = new CommandlineTest(
+    `node node_modules/protractor/bin/protractor ${options}`
+  );
   return test;
 }
 
