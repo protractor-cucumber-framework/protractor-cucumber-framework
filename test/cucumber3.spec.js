@@ -6,7 +6,7 @@ describe('cucumber version 3', function() {
       .runOne('test/cucumber/conf/cucumber3Conf.js')
       .cucumberVersion3()
       .expectExitCode(0)
-      //.expectOutput('1 scenario (1 passed)')
+      .expectOutput('1 scenario (1 passed)')
       .expectErrors([])
       .run();
   });

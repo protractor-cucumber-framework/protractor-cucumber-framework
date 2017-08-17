@@ -1,7 +1,9 @@
-let q = require('q');
-let path = require('path');
-let glob = require('glob');
 let debug = require('debug')('protractor-cucumber-framework');
+let glob = require('glob');
+let path = require('path');
+let q = require('q');
+let fs = require('fs');
+
 let cucumberLoader = require('./lib/cucumberLoader');
 let Cucumber = cucumberLoader.load();
 let cucumberVersion = cucumberLoader.majorVersion();
@@ -29,8 +31,15 @@ exports.run = function(runner, specs) {
 
     return q.promise(function(resolve, reject) {
       let cliArguments = convertOptionsToCliArguments(opts);
-      cliArguments.push(cucumberVersion < 3 ? '--require' : '--format');
-      cliArguments.push(path.resolve(__dirname, 'lib', 'resultsCapturer.js'));
+      let capturer = path.resolve(__dirname, 'lib', 'resultsCapturer.js');
+      let tempFile;
+
+      if (cucumberVersion < 3) {
+        cliArguments.push('--require', capturer);
+      } else {
+        tempFile = '.will-be-removed-after-cucumber-runs.tmp';
+        cliArguments.push('--format', `${capturer}:${tempFile}`);
+      }
 
       if (opts.rerun) {
         cliArguments.push(opts.rerun);
@@ -52,7 +61,17 @@ exports.run = function(runner, specs) {
         Cucumber.Cli(cliArguments).run(runDone);
       }
 
+      /*
+       * This can be removed when https://github.com/cucumber/cucumber-js/issues/900
+       * is resolved
+       */
+      function cleanupTempFile() {
+        if (tempFile) fs.unlinkSync(path.join(cucumberLocation, tempFile));
+      }
+
       function runDone() {
+        cleanupTempFile();
+
         try {
           let complete = q();
 
