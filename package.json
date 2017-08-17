@@ -42,7 +42,7 @@
   },
   "homepage": "https://github.com/protractor-cucumber-framework/protractor-cucumber-framework",
   "dependencies": {
-    "debug": "^2.2.0",
+    "debug": "^3.0.0",
     "glob": "^7.0.3",
     "q": "^1.4.1"
   },
