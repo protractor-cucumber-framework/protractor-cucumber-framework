@@ -3,9 +3,18 @@ var chai = require('chai');
 var chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 var expect = chai.expect;
-var {defineSupportCode} = require(path.join(__dirname, '..', '..', '..', 'lib', 'cucumberLoader')).load();
+var {defineSupportCode} = require(path.join(
+  __dirname,
+  '..',
+  '..',
+  '..',
+  'lib',
+  'cucumberLoader'
+)).load();
 
-defineSupportCode(({Given, Then, When}) => {
+defineSupportCode(({After, Given, Then, When}) => {
+  After((scenario, done) => done());
+
   Given(/^I go on(?: the website)? "([^"]*)"$/, function(url) {
     return browser.get(url);
   });
