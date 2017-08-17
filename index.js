@@ -7,7 +7,7 @@ let fs = require('fs');
 let cucumberLoader = require('./lib/cucumberLoader');
 let Cucumber = cucumberLoader.load();
 let cucumberVersion = cucumberLoader.majorVersion();
-let cucumberLocation = cucumberLoader.location();
+let cwd = cucumberLoader.cwd();
 let state = require('./lib/runState');
 
 /**
@@ -52,7 +52,7 @@ exports.run = function(runner, specs) {
       if (cucumberVersion >= 2) {
         let cli = new Cucumber.Cli({
           argv: cliArguments,
-          cwd: cucumberLocation,
+          cwd,
           stdout: process.stdout
         });
 
@@ -66,7 +66,7 @@ exports.run = function(runner, specs) {
        * is resolved
        */
       function cleanupTempFile() {
-        if (tempFile) fs.unlinkSync(path.join(cucumberLocation, tempFile));
+        if (tempFile) fs.unlinkSync(path.join(cwd, tempFile));
       }
 
       function runDone() {
