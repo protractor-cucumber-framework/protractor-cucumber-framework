@@ -3,6 +3,7 @@ let glob = require('glob');
 let path = require('path');
 let q = require('q');
 let fs = require('fs');
+let relative = require('relative');
 
 let cucumberLoader = require('./lib/cucumberLoader');
 let Cucumber = cucumberLoader.load();
@@ -37,8 +38,9 @@ exports.run = function(runner, specs) {
       if (cucumberVersion < 3) {
         cliArguments.push('--require', capturer);
       } else {
+        let relativePath = relative(cwd, capturer);
         tempFile = '.will-be-removed-after-cucumber-runs.tmp';
-        cliArguments.push('--format', `${capturer}:${tempFile}`);
+        cliArguments.push('--format', `${relativePath}:${tempFile}`);
       }
 
       if (opts.rerun) {
