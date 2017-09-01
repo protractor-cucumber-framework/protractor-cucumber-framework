@@ -19,6 +19,10 @@ defineSupportCode(({After, Given, Then, When}) => {
     return browser.get(url);
   });
 
+  Given(/^I go on(?: the website)? ([^"]*)$/, function(url) {
+    return browser.get(url);
+  });
+
   Then(/the title should equal "([^"]*)"$/, function(text) {
     return expect(browser.getTitle()).to.eventually.equal(text);
   });
