@@ -1,5 +1,5 @@
 {
-  "extends": "eslint:recommended",
+  "extends": ["eslint:recommended", "prettier"],
 
   "parserOptions": {
     "sourceType": "module"
@@ -10,7 +10,13 @@
     "es6": true
   },
 
+  "plugins": [
+    "mocha",
+    "prettier"
+  ],
+
   "rules": {
+    "mocha/no-exclusive-tests": 2,
     "indent": [2, 2, {"SwitchCase": 1}],
     "linebreak-style": [2, "unix"],
     "quotes": [2, "single"],
