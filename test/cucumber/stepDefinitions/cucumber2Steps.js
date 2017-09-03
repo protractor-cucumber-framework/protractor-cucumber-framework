@@ -28,6 +28,8 @@ defineSupportCode(({After, Given, Then, When}) => {
   });
 
   When(/an uncaught exception is thrown/, function(done) {
-    element(by.css('[nuthin-here]')).getText().then(done);
+    element(by.css('[nuthin-here]'))
+      .getText()
+      .then(done);
   });
 });

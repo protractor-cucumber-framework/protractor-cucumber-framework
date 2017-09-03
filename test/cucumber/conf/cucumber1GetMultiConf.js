@@ -4,10 +4,7 @@ exports.config = Object.assign({}, env, {
   capabilities: false,
 
   getMultiCapabilities: function() {
-    return [
-      env.capabilities,
-      env.capabilities
-    ];
+    return [env.capabilities, env.capabilities];
   },
 
   cucumberOpts: {

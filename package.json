@@ -9,7 +9,7 @@
   "scripts": {
     "webdriver": "webdriver-manager update --standalone --versions.standalone=2.53.1 && webdriver-manager start --versions.standalone=2.53.1 --logging ../../../../logging.properties",
     "start": "node test/testapp/server",
-    "lint": "eslint .",
+    "lint": "eslint . --fix",
     "pretest": "npm run lint && multidep test/multidep.js",
     "test": "mocha -c -s 10000 -t 20000 test/**/*.spec.js"
   },
