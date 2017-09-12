@@ -1,14 +1,13 @@
 {
   "name": "protractor-cucumber-framework",
-  "version": "4.0.5",
+  "version": "4.0.6",
   "description": "Protractor framework for Cucumber.js",
   "main": "index.js",
   "engines": {
     "node": ">=6.9.x"
   },
   "scripts": {
-    "webdriver":
-      "webdriver-manager update --standalone --versions.standalone=2.53.1 && webdriver-manager start --versions.standalone=2.53.1 --logging ../../../../logging.properties",
+    "webdriver": "webdriver-manager update --standalone --versions.standalone=2.53.1 && webdriver-manager start --versions.standalone=2.53.1 --logging ../../../../logging.properties",
     "start": "node test/testapp/server",
     "lint": "eslint . --fix",
     "pretest": "npm run lint && multidep test/multidep.js",
@@ -16,8 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url":
-      "https://github.com/protractor-cucumber-framework/protractor-cucumber-framework"
+    "url": "https://github.com/protractor-cucumber-framework/protractor-cucumber-framework"
   },
   "keywords": [
     "angular",
@@ -40,18 +38,12 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url":
-      "https://github.com/protractor-cucumber-framework/protractor-cucumber-framework/issues"
+    "url": "https://github.com/protractor-cucumber-framework/protractor-cucumber-framework/issues"
   },
-  "homepage":
-    "https://github.com/protractor-cucumber-framework/protractor-cucumber-framework",
+  "homepage": "https://github.com/protractor-cucumber-framework/protractor-cucumber-framework",
   "dependencies": {
     "debug": "^3.0.1",
-    "eslint-config-prettier": "^2.4.0",
-    "eslint-plugin-mocha": "^4.11.0",
-    "eslint-plugin-prettier": "^2.2.0",
     "glob": "^7.0.3",
-    "prettier": "^1.6.1",
     "q": "^1.4.1",
     "relative": "^3.0.2",
     "tmp": "^0.0.33"
@@ -65,10 +57,14 @@
     "chai-as-promised": "^7.1.1",
     "chai-like": "^0.2.14",
     "eslint": "^4.6.0",
+    "eslint-config-prettier": "^2.4.0",
+    "eslint-plugin-mocha": "^4.11.0",
+    "eslint-plugin-prettier": "^2.2.0",
     "express": "^4.15.4",
     "httpster": "1.0.3",
     "mocha": "^3.5.0",
     "multidep": "2.0.2",
+    "prettier": "^1.6.1",
     "protractor": "^5.1.2"
   },
   "cucumberConf": {
