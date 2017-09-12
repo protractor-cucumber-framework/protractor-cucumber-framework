@@ -39,7 +39,7 @@ exports.run = function(runner, specs) {
       } else {
         let relativePath = relative(cwd, capturer);
         let tempFile = tmp.fileSync();
-        cliArguments.push('--format', `${relativePath}:${tempFile}`);
+        cliArguments.push('--format', `${relativePath}:${tempFile.name}`);
       }
 
       if (opts.rerun) {
