@@ -87,9 +87,11 @@ exports.run = function(runner, specs) {
       );
 
       if (Array.isArray(cliArgumentValues)) {
-        cliArgumentValues.forEach(value =>
-          cliArguments.push('--' + option, value)
-        );
+        cliArgumentValues.forEach(value => {
+          if (value) {
+            cliArguments.push('--' + option, value);
+          }
+        });
       } else if (cliArgumentValues) {
         cliArguments.push('--' + option);
       }
