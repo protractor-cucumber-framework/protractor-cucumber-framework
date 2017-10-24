@@ -1,6 +1,6 @@
 {
   "name": "protractor-cucumber-framework",
-  "version": "4.0.9",
+  "version": "4.1.0",
   "description": "Protractor framework for Cucumber.js",
   "main": "index.js",
   "engines": {
@@ -33,8 +33,18 @@
   ],
   "author": "Matt Fritz <mfritzer@gmail.com>",
   "contributors": [
+    "Aron Erdei <a-r-o-n@users.noreply.github.com>",
+    "Cody Ray Freeman Hoeft <crhoeft@gmail.com>",
+    "Craig Spence <craigspence0@gmail.com>",
+    "Darrin Holst <darrinholst@gmail.com>",
+    "David McGregor <dmcgregor@odecee.com.au>",
+    "Ed Snodgrass <ed.snodgrass@csgi.com>",
+    "kalmykov-sergey <kalmykov.sergei@gmail.com>",
+    "Loïc Mahieu <mahieuloic@gmail.com>",
     "Matt Fritz <mfritzer@gmail.com>",
-    "Darrin Holst <darrinholst@gmail.com>"
+    "Maxime CARUCHET <maxime.caruchet@niji.fr>",
+    "Nathan Thompson <nathan.thompson@readytalk.com>",
+    "Sammy Jelin <sjelin@gmail.com>"
   ],
   "license": "MIT",
   "bugs": {
