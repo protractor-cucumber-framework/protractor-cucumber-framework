@@ -2,7 +2,6 @@ let debug = require('debug')('protractor-cucumber-framework');
 let glob = require('glob');
 let path = require('path');
 let q = require('q');
-let relative = require('relative');
 let tmp = require('tmp');
 
 let cucumberLoader = require('./lib/cucumberLoader');
@@ -37,9 +36,8 @@ exports.run = function(runner, specs) {
       if (cucumberVersion < 3) {
         cliArguments.push('--require', capturer);
       } else {
-        let relativePath = relative(cwd, capturer);
         let tempFile = tmp.fileSync();
-        cliArguments.push('--format', `${relativePath}:${tempFile.name}`);
+        cliArguments.push('--format', `${capturer}:${tempFile.name}`);
       }
 
       if (opts.rerun) {
