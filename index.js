@@ -114,7 +114,7 @@ exports.run = function(runner, specs) {
       .map(tag => tag.replace(/~/, 'not '))
       .join(' and ');
 
-    return [converted];
+    return converted ? [converted] : '';
   }
 
   function makeFormatPathsUnique(values) {

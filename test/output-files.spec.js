@@ -70,7 +70,7 @@ describe('output files', () => {
   });
 
   it('should handle relative paths with cucumber 3', () => {
-    let cmd = `test/cucumber/conf/cucumber3Conf.js --cucumberOpts.format json:../${LOG_FILE_NAME}.json`;
+    let cmd = `test/cucumber/conf/cucumber3Conf.js --cucumberOpts.tags @cucumber3 --cucumberOpts.format json:../${LOG_FILE_NAME}.json`;
     let packageJson = require('../package.json');
     let cwd = cucumberLoader.cwd(packageJson.cucumberConf.version3);
 
