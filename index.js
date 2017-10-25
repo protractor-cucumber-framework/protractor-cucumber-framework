@@ -87,11 +87,9 @@ exports.run = function(runner, specs) {
       );
 
       if (Array.isArray(cliArgumentValues)) {
-        cliArgumentValues.forEach(value => {
-          if (value) {
-            cliArguments.push('--' + option, value);
-          }
-        });
+        cliArgumentValues.forEach(value =>
+          cliArguments.push('--' + option, value)
+        );
       } else if (cliArgumentValues) {
         cliArguments.push('--' + option);
       }
@@ -116,7 +114,7 @@ exports.run = function(runner, specs) {
       .map(tag => tag.replace(/~/, 'not '))
       .join(' and ');
 
-    return [converted];
+    return converted ? [converted] : '';
   }
 
   function makeFormatPathsUnique(values) {
