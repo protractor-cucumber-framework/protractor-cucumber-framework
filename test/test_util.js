@@ -6,19 +6,21 @@ let path = require('path');
 let q = require('q');
 let chai = require('chai');
 let chaiLike = require('chai-like');
+
 chaiLike.extend({
   match: (object, expected) =>
     typeof object === 'string' && expected instanceof RegExp,
   assert: (object, expected) => expected.test(object)
 });
+
 chai.use(chaiLike);
 
 let cucumberConf = require(path.join(__dirname, '..', 'package.json'))
   .cucumberConf;
 
-let CommandlineTest = function(command) {
+let CommandlineTest = function(args) {
   let self = this;
-  this.command_ = command;
+  this.args_ = Array.isArray(args) ? args : args.split(/\s/);
   this.before_ = false;
   this.after_ = false;
   this.expectedExitCode_ = 0;
@@ -101,17 +103,21 @@ let CommandlineTest = function(command) {
       .promise(function(resolve, reject) {
         if (self.before_) self.before_();
 
-        self.command_ =
-          self.command_ + ' --resultJsonOutputFile ' + testOutputPath;
-        let args = self.command_.split(/\s/);
+        const cmd = 'node';
+        const args = [
+          'node_modules/protractor/bin/protractor',
+          '--resultJsonOutputFile',
+          testOutputPath
+        ].concat(self.args_);
+
         let test_process;
 
         if (self.verbose_) {
-          test_process = child_process.spawn(args[0], args.slice(1), {
+          test_process = child_process.spawn(cmd, args, {
             stdio: 'inherit'
           });
         } else {
-          test_process = child_process.spawn(args[0], args.slice(1));
+          test_process = child_process.spawn(cmd, args);
           test_process.stdout.on('data', data => (output += data));
           test_process.stderr.on('data', data => (output += data));
         }
@@ -234,11 +240,8 @@ let CommandlineTest = function(command) {
   };
 };
 
-function runOne(options) {
-  let test = new CommandlineTest(
-    `node node_modules/protractor/bin/protractor ${options}`
-  );
-  return test;
+function runOne(args) {
+  return new CommandlineTest(args);
 }
 
 module.exports = {
