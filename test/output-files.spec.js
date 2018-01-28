@@ -34,7 +34,7 @@ describe('output files', () => {
     return util
       .runOne(cmd)
       .expectExitCode(0)
-      .after(() => expect(findLogFiles()).to.have.length(4)) //note: this will increase for every feature file we have
+      .after(() => expect(findLogFiles()).to.have.length(5)) //note: this will increase for every feature file we have
       .run();
   });
 
@@ -65,7 +65,7 @@ describe('output files', () => {
       .runOne(cmd)
       .cucumberVersion2()
       .expectExitCode(0)
-      .after(() => expect(findLogFiles()).to.have.length(4))
+      .after(() => expect(findLogFiles()).to.have.length(5))
       .run();
   });
 

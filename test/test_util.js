@@ -40,6 +40,11 @@ let CommandlineTest = function(args) {
     return self;
   };
 
+  this.cucumberVersion4 = function() {
+    self.cucumberVesion_ = cucumberConf.version4;
+    return self;
+  };
+
   this.expectExitCode = function(exitCode) {
     self.expectedExitCode_ = exitCode;
     return self;

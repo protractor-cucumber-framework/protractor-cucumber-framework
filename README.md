@@ -148,6 +148,6 @@ For Maintainers
 
 1. bump version
 1. `npm publish`
-1. tag release (`git tag v1.0.2 && git push origin master --tags`)
-1. build github release (`npm i -g release && release`)
+1. tag release (`git tag vx.x.x && git push origin master --tags`)
+1. build github release (`npx release`)
 
