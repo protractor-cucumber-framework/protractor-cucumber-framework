@@ -87,9 +87,19 @@ exports.run = function(runner, specs) {
       );
 
       if (Array.isArray(cliArgumentValues)) {
-        cliArgumentValues.forEach(value =>
-          cliArguments.push('--' + option, value)
-        );
+        cliArgumentValues.forEach(function (value) {
+          if (config.capabilities.shardTestFiles || config.capabilities.parallel>0) {
+              if (option == 'format') {
+                  var parts = value.split(':');
+                  if (typeof(parts[1]) !== 'undefined') {
+                      var featureName = specs[0].split('/').pop().split('.')[0];
+                      parts[1] = parts[1].split('/').slice(0, -1).join('/') + "/" + featureName + ".json";
+                      value = parts.join(':');
+                  }
+              }
+          }
+          cliArguments.push('--' + option, value);
+        });
       } else if (cliArgumentValues) {
         cliArguments.push('--' + option);
       }
