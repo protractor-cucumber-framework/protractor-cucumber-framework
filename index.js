@@ -87,7 +87,7 @@ exports.run = function(runner, specs) {
       );
 
       if (Array.isArray(cliArgumentValues)) {
-        cliArgumentValues.forEach(value =>
+        cliArgumentValues.forEach(function (value) {
           if (config.capabilities.shardTestFiles || config.capabilities.parallel>0) {
               if (option == 'format') {
                   var parts = value.split(':');
@@ -99,7 +99,7 @@ exports.run = function(runner, specs) {
               }
           }
           cliArguments.push('--' + option, value);
-        );
+        });
       } else if (cliArgumentValues) {
         cliArguments.push('--' + option);
       }
