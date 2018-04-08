@@ -18,17 +18,38 @@ chai.use(chaiLike);
 let cucumberConf = require(path.join(__dirname, '..', 'package.json'))
   .cucumberConf;
 
-let CommandlineTest = function(args) {
+let CommandlineTest = function(cucumberVersion, args) {
   let self = this;
   this.args_ = Array.isArray(args) ? args : args.split(/\s/);
   this.before_ = false;
   this.after_ = false;
   this.expectedExitCode_ = 0;
   this.verbose_ = false;
+  this.debug_ = false;
   this.expectedErrors_ = [];
   this.expectedOutput_ = [];
   this.expectedEvents_ = [];
-  this.cucumberVesion_ = cucumberConf.version1;
+
+  switch (cucumberVersion) {
+    case 1:
+      this.cucumberVesion_ = cucumberConf.version1;
+      break;
+
+    case 2:
+      this.cucumberVesion_ = cucumberConf.version2;
+      break;
+
+    case 3:
+      this.cucumberVesion_ = cucumberConf.version3;
+      break;
+
+    case 4:
+      this.cucumberVesion_ = cucumberConf.version4;
+      break;
+
+    default:
+      throw new Error(`Cucumber ${cucumberVersion} not supported`);
+  }
 
   this.cucumberVersion2 = function() {
     self.cucumberVesion_ = cucumberConf.version2;
@@ -42,6 +63,13 @@ let CommandlineTest = function(args) {
 
   this.cucumberVersion4 = function() {
     self.cucumberVesion_ = cucumberConf.version4;
+    return self;
+  };
+
+  this.expectSuccessfulRun = function(expectedOutput) {
+    this.expectExitCode(0);
+    this.expectErrors([]);
+    if (expectedOutput) this.expectOutput(expectedOutput);
     return self;
   };
 
@@ -60,8 +88,13 @@ let CommandlineTest = function(args) {
     return self;
   };
 
-  this.verbose = function(verbose) {
-    self.verbose_ = verbose;
+  this.verbose = function() {
+    self.verbose_ = true;
+    return self;
+  };
+
+  this.debug = function() {
+    self.debug_ = true;
     return self;
   };
 
@@ -131,6 +164,10 @@ let CommandlineTest = function(args) {
         test_process.on('exit', exitCode => resolve(exitCode));
       })
       .then(function(exitCode) {
+        if (self.debug_) {
+          console.log(output); // eslint-disable-line
+        }
+
         if (self.expectedExitCode_ !== exitCode) {
           flushAndFail(
             `expecting exit code: ${self.expectedExitCode_}, actual: ${exitCode}`
@@ -245,10 +282,14 @@ let CommandlineTest = function(args) {
   };
 };
 
-function runOne(args) {
-  return new CommandlineTest(args);
+function runOne(cucumberVersion, args) {
+  return new CommandlineTest(cucumberVersion, args);
 }
 
 module.exports = {
-  runOne
+  runOne: runOne.bind(null, 1),
+  testCucumber1: runOne.bind(null, 1),
+  testCucumber2: runOne.bind(null, 2),
+  testCucumber3: runOne.bind(null, 3),
+  testCucumber4: runOne.bind(null, 4)
 };
