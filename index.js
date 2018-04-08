@@ -1,14 +1,15 @@
-let debug = require('debug')('protractor-cucumber-framework');
-let glob = require('glob');
-let path = require('path');
-let q = require('q');
-let tmp = require('tmp');
+const debug = require('debug')('protractor-cucumber-framework');
+const glob = require('glob');
+const path = require('path');
+const q = require('q');
+const tmp = require('tmp');
 
-let cucumberLoader = require('./lib/cucumberLoader');
-let Cucumber = cucumberLoader.load();
-let cucumberVersion = cucumberLoader.majorVersion();
-let cwd = cucumberLoader.cwd();
-let state = require('./lib/runState');
+const cucumberLoader = require('./lib/cucumberLoader');
+const Cucumber = cucumberLoader.load();
+const cucumberVersion = cucumberLoader.majorVersion();
+const cwd = cucumberLoader.cwd();
+const state = require('./lib/runState');
+const extraFlags = ['cucumberOpts'];
 
 /**
  * Execute the Runner's test cases through Cucumber.
@@ -18,49 +19,20 @@ let state = require('./lib/runState');
  * @return {q.Promise} Promise resolved with the test results
  */
 exports.run = function(runner, specs) {
-  let results = {};
-
-  return runner.runTestPreparer().then(function() {
-    let config = runner.getConfig();
-    let opts = Object.assign(
+  return runner.runTestPreparer(extraFlags).then(() => {
+    const results = {};
+    const config = runner.getConfig();
+    const opts = Object.assign(
       {},
       config.cucumberOpts,
       config.capabilities.cucumberOpts
     );
+    const cliArgs = buildCliArgsFrom(opts);
+
     state.initialize(runner, results, opts.strict);
 
     return q.promise(function(resolve, reject) {
-      let cliArguments = convertOptionsToCliArguments(opts);
-      let capturer = path.resolve(__dirname, 'lib', 'resultsCapturer.js');
-
-      if (cucumberVersion < 3) {
-        cliArguments.push('--require', capturer);
-      } else {
-        let tempFile = tmp.fileSync();
-        cliArguments.push('--format', `${capturer}:${tempFile.name}`);
-      }
-
-      if (opts.rerun) {
-        cliArguments.push(opts.rerun);
-      } else {
-        cliArguments = cliArguments.concat(specs);
-      }
-
-      debug('cucumber command: "' + cliArguments.join(' ') + '"');
-
-      if (cucumberVersion >= 2) {
-        let cli = new Cucumber.Cli({
-          argv: cliArguments,
-          cwd,
-          stdout: process.stdout
-        });
-
-        cli.run().then(runDone);
-      } else {
-        Cucumber.Cli(cliArguments).run(runDone);
-      }
-
-      function runDone() {
+      runCucumber(cliArgs, () => {
         try {
           let complete = q();
 
@@ -72,30 +44,65 @@ exports.run = function(runner, specs) {
         } catch (err) {
           reject(err);
         }
-      }
+      });
     });
   });
 
-  function convertOptionsToCliArguments(options) {
-    let cliArguments = ['node', 'cucumberjs'];
+  function runCucumber(argv, done) {
+    debug('cucumber command: "' + argv.join(' ') + '"');
+
+    if (cucumberVersion >= 2) {
+      let cli = new Cucumber.Cli({
+        argv: argv,
+        cwd,
+        stdout: process.stdout
+      });
+
+      return cli.run().then(done);
+    } else {
+      Cucumber.Cli(argv).run(done);
+    }
+  }
+
+  function buildCliArgsFrom(opts) {
+    let argv = convertOptionsToCliArgs(opts);
+    let capturer = path.resolve(__dirname, 'lib', 'resultsCapturer.js');
+
+    if (cucumberVersion < 3) {
+      argv.push('--require', capturer);
+    } else {
+      let tempFile = tmp.fileSync();
+      argv.push('--format', `${capturer}:${tempFile.name}`);
+    }
+
+    if (opts.rerun) {
+      argv.push(opts.rerun);
+    } else {
+      argv = argv.concat(specs);
+    }
+
+    return argv;
+  }
+
+  function convertOptionsToCliArgs(options) {
+    let argv = ['node', 'cucumberjs'];
 
     for (let option in options) {
       if (option === 'rerun') continue;
+
       let cliArgumentValues = convertOptionValueToCliValues(
         option,
         options[option]
       );
 
       if (Array.isArray(cliArgumentValues)) {
-        cliArgumentValues.forEach(value =>
-          cliArguments.push('--' + option, value)
-        );
+        cliArgumentValues.forEach(value => argv.push('--' + option, value));
       } else if (cliArgumentValues) {
-        cliArguments.push('--' + option);
+        argv.push('--' + option);
       }
     }
 
-    return cliArguments;
+    return argv;
   }
 
   function convertRequireOptionValuesToCliValues(values) {
