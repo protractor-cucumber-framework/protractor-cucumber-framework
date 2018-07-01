@@ -170,7 +170,9 @@ let CommandlineTest = function(cucumberVersion, args) {
 
         if (self.expectedExitCode_ !== exitCode) {
           flushAndFail(
-            `expecting exit code: ${self.expectedExitCode_}, actual: ${exitCode}`
+            `expecting exit code: ${
+              self.expectedExitCode_
+            }, actual: ${exitCode}`
           );
         }
 
