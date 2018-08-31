@@ -32,7 +32,10 @@ exports.run = function(runner, specs) {
     state.initialize(runner, results, opts.strict);
 
     return q.promise(function(resolve, reject) {
-      runCucumber(cliArgs, () => {
+      runCucumber(cliArgs, error => {
+        if (error instanceof Error) {
+          return reject(error);
+        }
         try {
           let complete = q();
 
@@ -58,7 +61,10 @@ exports.run = function(runner, specs) {
         stdout: process.stdout
       });
 
-      return cli.run().then(done);
+      return cli
+        .run()
+        .then(done)
+        .catch(done);
     } else {
       Cucumber.Cli(argv).run(done);
     }
