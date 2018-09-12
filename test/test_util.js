@@ -66,6 +66,11 @@ let CommandlineTest = function(cucumberVersion, args) {
     return self;
   };
 
+  this.cucumberVersion5 = function() {
+    self.cucumberVesion_ = cucumberConf.version5;
+    return self;
+  };
+
   this.expectSuccessfulRun = function(expectedOutput) {
     this.expectExitCode(0);
     this.expectErrors([]);
