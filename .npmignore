@@ -1,4 +1,8 @@
-test/
+.eslintignore
+.eslintrc
+.nvmrc
 .npmignore
 .travis.yml
+logging.properties
 npm-debug.log
+test/
