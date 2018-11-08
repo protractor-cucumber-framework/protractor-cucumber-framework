@@ -26,5 +26,37 @@ describe('tags', function() {
         .expectOutput('3 scenarios (3 passed)')
         .run();
     });
+
+    it('can not', function() {
+      const command = [
+        'test/cucumber/conf/cucumber3Conf.js',
+        '--specs',
+        'test/cucumber/features/cucumber3.feature',
+        '--cucumberOpts.tags',
+        'not @tag2'
+      ];
+      return util
+        .runOne(command)
+        .cucumberVersion3()
+        .expectExitCode(0)
+        .expectOutput('1 scenario (1 passed)')
+        .run();
+    });
+
+    it('converts old ~ syntax to not', function() {
+      const command = [
+        'test/cucumber/conf/cucumber3Conf.js',
+        '--specs',
+        'test/cucumber/features/cucumber3.feature',
+        '--cucumberOpts.tags',
+        '~@tag2'
+      ];
+      return util
+        .runOne(command)
+        .cucumberVersion3()
+        .expectExitCode(0)
+        .expectOutput('1 scenario (1 passed)')
+        .run();
+    });
   });
 });
