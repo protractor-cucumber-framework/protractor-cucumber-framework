@@ -132,7 +132,7 @@ exports.run = function(runner, specs) {
 
   function makeFormatPathsUnique(values) {
     return toArray(values).map(function(format) {
-      let formatPathMatch = format.match(/(.+):(.+)/);
+      let formatPathMatch = format.match(/(..+):(.+)/);
       if (!formatPathMatch) return format;
 
       let pathParts = formatPathMatch[2].split('.');
