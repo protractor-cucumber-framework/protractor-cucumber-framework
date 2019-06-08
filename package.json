@@ -1,6 +1,6 @@
 {
   "name": "protractor-cucumber-framework",
-  "version": "6.1.1",
+  "version": "6.1.2",
   "description": "Protractor framework for Cucumber.js",
   "main": "index.js",
   "engines": {
@@ -46,7 +46,8 @@
     "Nathan Thompson <nathan.thompson@readytalk.com>",
     "Pehr Johansson <pehr.johansson@nab.com.au>",
     "Sammy Jelin <sjelin@gmail.com>",
-    "Wim Selles <wim@wswebcreation.nl>"
+    "Wim Selles <wim@wswebcreation.nl>",
+    "Flavien Cathala"
   ],
   "license": "MIT",
   "bugs": {
