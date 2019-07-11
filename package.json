@@ -1,6 +1,6 @@
 {
   "name": "protractor-cucumber-framework",
-  "version": "6.1.2",
+  "version": "6.1.3",
   "description": "Protractor framework for Cucumber.js",
   "main": "index.js",
   "engines": {
@@ -33,6 +33,7 @@
   ],
   "author": "Matt Fritz <mfritzer@gmail.com>",
   "contributors": [
+    "Alexandros Dallas <dallas.alexandros@gmail.com>",
     "Aron Erdei <a-r-o-n@users.noreply.github.com>",
     "Cody Ray Freeman Hoeft <crhoeft@gmail.com>",
     "Craig Spence <craigspence0@gmail.com>",
