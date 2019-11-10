@@ -32,19 +32,27 @@ let CommandlineTest = function(cucumberVersion, args) {
 
   switch (cucumberVersion) {
     case 1:
-      this.cucumberVesion_ = cucumberConf.version1;
+      this.cucumberVersion_ = cucumberConf.version1;
       break;
 
     case 2:
-      this.cucumberVesion_ = cucumberConf.version2;
+      this.cucumberVersion_ = cucumberConf.version2;
       break;
 
     case 3:
-      this.cucumberVesion_ = cucumberConf.version3;
+      this.cucumberVersion_ = cucumberConf.version3;
       break;
 
     case 4:
-      this.cucumberVesion_ = cucumberConf.version4;
+      this.cucumberVersion_ = cucumberConf.version4;
+      break;
+
+    case 5:
+      this.cucumberVersion_ = cucumberConf.version5;
+      break;
+
+    case 6:
+      this.cucumberVersion_ = cucumberConf.version6;
       break;
 
     default:
@@ -52,22 +60,27 @@ let CommandlineTest = function(cucumberVersion, args) {
   }
 
   this.cucumberVersion2 = function() {
-    self.cucumberVesion_ = cucumberConf.version2;
+    self.cucumberVersion_ = cucumberConf.version2;
     return self;
   };
 
   this.cucumberVersion3 = function() {
-    self.cucumberVesion_ = cucumberConf.version3;
+    self.cucumberVersion_ = cucumberConf.version3;
     return self;
   };
 
   this.cucumberVersion4 = function() {
-    self.cucumberVesion_ = cucumberConf.version4;
+    self.cucumberVersion_ = cucumberConf.version4;
     return self;
   };
 
   this.cucumberVersion5 = function() {
-    self.cucumberVesion_ = cucumberConf.version5;
+    self.cucumberVersion_ = cucumberConf.version5;
+    return self;
+  };
+
+  this.cucumberVersion6 = function() {
+    self.cucumberVersion_ = cucumberConf.version6;
     return self;
   };
 
@@ -131,7 +144,7 @@ let CommandlineTest = function(cucumberVersion, args) {
   };
 
   this.run = function() {
-    process.env.MULTIDEP_CUCUMBER_VERSION = self.cucumberVesion_;
+    process.env.MULTIDEP_CUCUMBER_VERSION = self.cucumberVersion_;
 
     let start = new Date().getTime();
     let testOutputPath = 'test_output_' + start + '.tmp';
@@ -298,5 +311,7 @@ module.exports = {
   testCucumber1: runOne.bind(null, 1),
   testCucumber2: runOne.bind(null, 2),
   testCucumber3: runOne.bind(null, 3),
-  testCucumber4: runOne.bind(null, 4)
+  testCucumber4: runOne.bind(null, 4),
+  testCucumber5: runOne.bind(null, 5),
+  testCucumber6: runOne.bind(null, 6)
 };

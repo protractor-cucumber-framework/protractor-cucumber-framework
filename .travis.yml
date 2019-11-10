@@ -1,22 +1,19 @@
-dist: precise
 language: node_js
 sudo: false
 node_js:
-  - "6"
-  - "7"
   - "8"
   - "9"
-
+  - "10"
+  - "12"
+services:
+  - xvfb
+addons:
+  # This version must match the value of webdriver-manager --versions.standalone= argument
+  firefox: "46.0"
 before_script:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - "sleep 3" # give xvfb some time to start
-  - "npm run webdriver 2>&1 &"
-  - "sleep 3"
-  - "echo webdriver started"
-  - "npm start 2>&1 &"
-  - "sleep 1"
-  - "echo test app started"
-
+  - npm start &
+  - export DISPLAY=:99.0
+  - npm run webdriver &
+  - sleep 3  # give webdriver some time to start
 script:
   - TEST_BROWSER_NAME=firefox npm test
