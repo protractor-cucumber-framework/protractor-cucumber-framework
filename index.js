@@ -29,7 +29,7 @@ exports.run = function(runner, specs) {
     );
     const cliArgs = buildCliArgsFrom(opts);
 
-    state.initialize(runner, results, opts.strict);
+    state.initialize(runner, results, opts.strict, opts.retry);
 
     return q.promise(function(resolve, reject) {
       runCucumber(cliArgs, error => {
