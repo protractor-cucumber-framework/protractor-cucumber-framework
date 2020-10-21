@@ -78,7 +78,7 @@
     "mocha": "^5.2.0",
     "multidep": "2.0.2",
     "prettier": "^1.14.2",
-    "protractor": "^5.4.0"
+    "protractor": "^7.0.0"
   },
   "cucumberConf": {
     "version1": "1.3.3",
