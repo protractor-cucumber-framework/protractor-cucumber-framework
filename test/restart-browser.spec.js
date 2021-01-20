@@ -100,4 +100,18 @@ describe('restart browsers between tests', function() {
         .run();
     });
   });
+
+  describe('cucumber v7', () => {
+    it('should run', () => {
+      return util
+        .testCucumber6([
+          'test/cucumber/conf/cucumber4-5-6Conf.js',
+          '--cucumberOpts.tags',
+          '@cucumber7',
+          '--restartBrowserBetweenTests'
+        ])
+        .expectSuccessfulRun('1 scenario (1 passed)')
+        .run();
+    });
+  });
 });
