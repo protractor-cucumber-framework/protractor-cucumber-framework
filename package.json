@@ -11,7 +11,7 @@
     "start": "node test/testapp/server",
     "lint": "eslint . --fix",
     "pretest": "npm run lint && multidep test/multidep.js",
-    "test": "mocha -c -s 10000 -t 30000 test/**/*.spec.js"
+    "test": "mocha -c -s 10000 -t 30000 'test/{,!(multidep_modules)/**}/*.spec.js'"
   },
   "repository": {
     "type": "git",
@@ -48,7 +48,7 @@
     "Pehr Johansson <pehr.johansson@nab.com.au>",
     "Sammy Jelin <sjelin@gmail.com>",
     "Wim Selles <wim@wswebcreation.nl>",
-    "Flavien Cathala"
+    "Flavien Cathala <flavien.cathala@gmail.com>"
   ],
   "license": "MIT",
   "bugs": {
@@ -66,19 +66,20 @@
     "protractor": ">= 3.0.0"
   },
   "devDependencies": {
+    "@cucumber/cucumber": "^7.0.0",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "chai-like": "^0.2.14",
-    "eslint": "^5.16.0",
-    "eslint-config-prettier": "^3.0.1",
-    "eslint-plugin-mocha": "^5.2.0",
-    "eslint-plugin-prettier": "^2.6.2",
+    "eslint": "^7.18.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-mocha": "^8.0.0",
+    "eslint-plugin-prettier": "^3.3.1",
     "express": "^4.16.3",
     "httpster": "^1.0.4",
     "mocha": "^5.2.0",
     "multidep": "2.0.2",
     "prettier": "^1.14.2",
-    "protractor": "^5.4.0"
+    "protractor": "^5.4.4"
   },
   "cucumberConf": {
     "version1": "1.3.3",
@@ -86,7 +87,8 @@
     "version3": "3.2.1",
     "version4": "4.2.1",
     "version5": "5.1.0",
-    "version6": "6.0.2"
+    "version6": "6.0.2",
+    "version7": "7.0.0"
   },
   "prettier": {
     "printWidth": 80,

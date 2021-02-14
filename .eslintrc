@@ -2,7 +2,8 @@
   "extends": ["eslint:recommended", "prettier"],
 
   "parserOptions": {
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaVersion": 8
   },
 
   "env": {
@@ -18,7 +19,6 @@
   "rules": {
     "prettier/prettier": [2, {"bracketSpacing": false, "singleQuote": true}],
     "mocha/no-exclusive-tests": 2,
-    "indent": [2, 2, {"SwitchCase": 1}],
     "linebreak-style": [2, "unix"],
     "quotes": [2, "single"],
     "semi": 2
