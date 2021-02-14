@@ -1,6 +1,6 @@
 {
   "name": "protractor-cucumber-framework",
-  "version": "6.2.1",
+  "version": "7.0.0",
   "description": "Protractor framework for Cucumber.js",
   "main": "index.js",
   "engines": {
