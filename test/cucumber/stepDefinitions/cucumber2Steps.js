@@ -13,23 +13,22 @@ var {defineSupportCode} = require(path.join(
 )).load();
 
 defineSupportCode(({After, Given, Then, When}) => {
-  After((scenario, done) => done());
+  After((scenario) => {});
 
-  Given(/^I go on(?: the website)? "([^"]*)"$/, function(url) {
-    return browser.get(url);
+  Given(/^I go on(?: the website)? "([^"]*)"$/, async function(url) {
+    await browser.get(url);
   });
 
-  Given(/^I go on(?: the website)? ([^"]*)$/, function(url) {
-    return browser.get(url);
+  Given(/^I go on(?: the website)? ([^"]*)$/, async function(url) {
+    await browser.get(url);
   });
 
-  Then(/the title should equal "([^"]*)"$/, function(text) {
-    return expect(browser.getTitle()).to.eventually.equal(text);
+  Then(/the title should equal "([^"]*)"$/, async function(text) {
+    expect(await browser.getTitle()).to.equal(text);
   });
 
-  When(/an uncaught exception is thrown/, function(done) {
-    element(by.css('[nuthin-here]'))
-      .getText()
-      .then(done);
+  When(/an uncaught exception is thrown/, async function() {
+    await element(by.css('[nuthin-here]'))
+      .getText();
   });
 });

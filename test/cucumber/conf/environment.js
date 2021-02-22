@@ -9,7 +9,7 @@ module.exports = {
   specs: [path.join(__dirname, '..', '**', '*.feature')],
 
   chromeDriver: require(`chromedriver/lib/chromedriver`).path,
-  // SELENIUM_PROMISE_MANAGER: false,   // todo: tests break when Promise Manager is disabled
+  SELENIUM_PROMISE_MANAGER: false,
   directConnect: true,
 
   capabilities: {
