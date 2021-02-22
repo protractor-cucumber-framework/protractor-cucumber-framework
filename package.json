@@ -1,6 +1,6 @@
 {
   "name": "protractor-cucumber-framework",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "description": "Protractor framework for Cucumber.js",
   "main": "index.js",
   "engines": {
@@ -63,7 +63,7 @@
     "tmp": "^0.0.33"
   },
   "peerDependencies": {
-    "cucumber": ">= 1.3.0",
+    "@cucumber/cucumber": ">= 7.0.0",
     "protractor": ">= 3.0.0"
   },
   "devDependencies": {
