@@ -1,4 +1,5 @@
-let env = require('./environment.js');
+const chromeOptions = require('./chromeOptions.js');
+const env = require('./environment.js');
 
 exports.config = Object.assign({}, env, {
   capabilities: false,
@@ -10,7 +11,9 @@ exports.config = Object.assign({}, env, {
       cucumberOpts: {
         tags: '@dev',
         format: 'pretty'
-      }
+      },
+
+      chromeOptions
     }
   ],
 

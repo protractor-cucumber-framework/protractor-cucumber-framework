@@ -14,8 +14,9 @@
     "webdriver": "webdriver-manager update --standalone --versions.standalone=2.53.1 && webdriver-manager start --versions.standalone=2.53.1 --logging ../../../../logging.properties",
     "start": "node test/testapp/server",
     "lint": "eslint . --fix",
-    "pretest": "npm run lint && multidep test/multidep.js",
-    "test": "mocha -c -s 10000 -t 30000 'test/{,!(multidep_modules)/**}/*.spec.js'"
+    "pretest": "multidep test/multidep.js",
+    "test": "mocha -c -s 10000 -t 30000 'test/{,!(multidep_modules)/**}/*.spec.js'",
+    "test:ci": "start-server-and-test http://localhost:8081"
   },
   "repository": {
     "type": "git",
@@ -76,6 +77,7 @@
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "chai-like": "^0.2.14",
+    "chromedriver": "^88.0.0",
     "eslint": "^7.18.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-mocha": "^8.0.0",
@@ -85,7 +87,8 @@
     "mocha": "^5.2.0",
     "multidep": "2.0.2",
     "prettier": "^1.14.2",
-    "protractor": "^5.4.4"
+    "protractor": "^5.4.4",
+    "start-server-and-test": "^1.12.0"
   },
   "cucumberConf": {
     "version1": "1.3.3",

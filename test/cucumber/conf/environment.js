@@ -1,16 +1,22 @@
-let path = require('path');
-let webServerDefaultPort = 8081;
+const path = require('path');
+const webServerDefaultPort = 8081;
+const chromeOptions = require('./chromeOptions')
 
 module.exports = {
   framework: 'custom',
   frameworkPath: path.join(__dirname, '..', '..', '..', 'index.js'),
   ignoreUncaughtExceptions: true,
-  seleniumAddress: process.env.SELENIUM_URL || 'http://localhost:4444/wd/hub',
   specs: [path.join(__dirname, '..', '**', '*.feature')],
+
+  chromeDriver: require(`chromedriver/lib/chromedriver`).path,
+  // SELENIUM_PROMISE_MANAGER: false,   // todo: tests break when Promise Manager is disabled
+  directConnect: true,
 
   capabilities: {
     browserName: process.env.TEST_BROWSER_NAME || 'chrome',
-    version: process.env.TEST_BROWSER_VERSION || 'ANY'
+    version: process.env.TEST_BROWSER_VERSION || 'ANY',
+
+    chromeOptions
   },
 
   webServerDefaultPort: webServerDefaultPort,
