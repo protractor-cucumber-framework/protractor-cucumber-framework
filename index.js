@@ -7,7 +7,7 @@ const tmp = require('tmp');
 const cucumberLoader = require('./lib/cucumberLoader');
 const Cucumber = cucumberLoader.load();
 const cucumberVersion = cucumberLoader.majorVersion();
-const cwd = cucumberLoader.cwd();
+const cwd = cucumberLoader.cwd(process.env.MULTIDEP_CUCUMBER_CONF);
 const state = require('./lib/runState');
 const extraFlags = ['cucumberOpts'];
 
