@@ -153,7 +153,7 @@ let CommandlineTest = function(cucumberVersion, args) {
   };
 
   this.run = function() {
-    process.env.MULTIDEP_CUCUMBER_VERSION = self.cucumberVersion_;
+    process.env.MULTIDEP_CUCUMBER_CONF = JSON.stringify(self.cucumberVersion_, null, 0);
 
     let start = new Date().getTime();
     let testOutputPath = 'test_output_' + start + '.tmp';

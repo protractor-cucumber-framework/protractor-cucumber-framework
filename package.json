@@ -65,11 +65,11 @@
     "tmp": "^0.0.33"
   },
   "peerDependencies": {
-    "cucumber": ">= 1.3.0",
+    "cucumber": "^1.3.3 || ^2.3.1 || ^3.2.1 || ^4.2.1 || ^5.0.0 || ^6.0.2",
+    "@cucumber/cucumber": "^7.0.0",
     "protractor": "^5.0.0 || ^7.0.0"
   },
   "devDependencies": {
-    "@cucumber/cucumber": "^7.0.0",
     "chai": "^4.3.0",
     "chai-as-promised": "^7.1.1",
     "chai-like": "^0.2.14",
@@ -87,13 +87,34 @@
     "start-server-and-test": "^1.12.0"
   },
   "cucumberConf": {
-    "version1": "1.3.3",
-    "version2": "2.3.1",
-    "version3": "3.2.1",
-    "version4": "4.2.1",
-    "version5": "5.1.0",
-    "version6": "6.0.2",
-    "version7": "7.0.0"
+    "version1": {
+      "module": "cucumber",
+      "version": "1.3.3"
+    },
+    "version2": {
+      "module": "cucumber",
+      "version": "2.3.1"
+    },
+    "version3": {
+      "module": "cucumber",
+      "version": "3.2.1"
+    },
+    "version4": {
+      "module": "cucumber",
+      "version": "4.2.1"
+    },
+    "version5": {
+      "module": "cucumber",
+      "version": "5.1.0"
+    },
+    "version6": {
+      "module": "cucumber",
+      "version": "6.0.2"
+    },
+    "version7": {
+      "module": "@cucumber/cucumber",
+      "version": "7.0.0"
+    }
   },
   "prettier": {
     "printWidth": 80,
