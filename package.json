@@ -1,10 +1,10 @@
 {
   "name": "protractor-cucumber-framework",
-  "version": "8.0.0",
+  "version": "7.0.2",
   "description": "Protractor framework for Cucumber.js",
   "main": "index.js",
   "engines": {
-    "node": ">=8.0.x"
+    "node": ">=10.13.x"
   },
   "scripts": {
     "webdriver": "webdriver-manager update --standalone --versions.standalone=2.53.1 && webdriver-manager start --versions.standalone=2.53.1 --logging ../../../../logging.properties",
