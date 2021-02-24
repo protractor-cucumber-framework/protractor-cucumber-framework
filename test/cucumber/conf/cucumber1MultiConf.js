@@ -6,7 +6,7 @@ exports.config = Object.assign({}, env, {
   multiCapabilities: [env.capabilities, env.capabilities],
 
   cucumberOpts: {
-    require: '../stepDefinitions/**/cucumber1Steps.js',
+    require: `${ __dirname }/../stepDefinitions/**/cucumber1Steps.js`,
     tags: '@dev'
   }
 });

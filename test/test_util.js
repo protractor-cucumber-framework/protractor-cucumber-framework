@@ -153,8 +153,6 @@ let CommandlineTest = function(cucumberVersion, args) {
   };
 
   this.run = function() {
-    process.env.MULTIDEP_CUCUMBER_CONF = JSON.stringify(self.cucumberVersion_, null, 0);
-
     let start = new Date().getTime();
     let testOutputPath = 'test_output_' + start + '.tmp';
     let output = '';
@@ -170,19 +168,30 @@ let CommandlineTest = function(cucumberVersion, args) {
 
         const cmd = 'node';
         const args = [
-          'node_modules/protractor/bin/protractor',
+          require.resolve('protractor/bin/protractor'),
+          '--disableChecks',
           '--resultJsonOutputFile',
           testOutputPath
         ].concat(self.args_);
+
+        const env = {
+          ...process.env,
+          NODE_PATH: path.resolve(
+              __dirname,
+              `multidep_modules/${ self.cucumberVersion_.module }-${ self.cucumberVersion_.version }/node_modules`
+          ),
+          MULTIDEP_CUCUMBER_CONF: JSON.stringify(self.cucumberVersion_, null, 0)
+        };
 
         let test_process;
 
         if (self.verbose_) {
           test_process = child_process.spawn(cmd, args, {
-            stdio: 'inherit'
+            stdio: 'inherit',
+            env,
           });
         } else {
-          test_process = child_process.spawn(cmd, args);
+          test_process = child_process.spawn(cmd, args, { env });
           test_process.stdout.on('data', data => (output += data));
           test_process.stderr.on('data', data => (output += data));
         }
