@@ -11,7 +11,7 @@
     "start": "node test/testapp/server",
     "lint": "eslint . --fix",
     "pretest": "npm run lint && multidep test/multidep.js",
-    "test": "mocha -c -s 10000 -t 30000 'test/{,!(multidep_modules)/**}/*.spec.js'"
+    "test": "mocha -c -s 10000 -t 30000 \"test/{,!(multidep_modules)/**}/*.spec.js\""
   },
   "repository": {
     "type": "git",
