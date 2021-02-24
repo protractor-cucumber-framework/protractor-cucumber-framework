@@ -1,6 +1,6 @@
 {
   "name": "protractor-cucumber-framework",
-  "version": "7.0.1",
+  "version": "7.0.2",
   "description": "Protractor framework for Cucumber.js",
   "main": "index.js",
   "engines": {
@@ -49,7 +49,8 @@
     "Sammy Jelin <sjelin@gmail.com>",
     "Wim Selles <wim@wswebcreation.nl>",
     "Flavien Cathala <flavien.cathala@gmail.com>",
-    "Adrian Ber <beradrian@yahoo.com>"
+    "Adrian Ber <beradrian@yahoo.com>",
+    "Darlan Alves <darlan.alves1@fedex.com>"
   ],
   "license": "MIT",
   "bugs": {
