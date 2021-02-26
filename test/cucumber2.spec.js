@@ -10,7 +10,7 @@ describe('cucumber version 2', function() {
       .run();
   });
 
-  it.skip('converts multiple tags to the new format', function() {
+  it('converts multiple tags to the new format', function() {
     return util
       .runOne(
         'test/cucumber/conf/cucumber2Conf.js --cucumberOpts.tags @cucumber2 --cucumberOpts.tags ~@failing'
@@ -22,7 +22,7 @@ describe('cucumber version 2', function() {
       .run();
   });
 
-  it.skip('ignores tags when no value is passed', function() {
+  it('ignores tags when no value is passed', function() {
     return util
       .runOne(
         'test/cucumber/conf/cucumber2Conf.js --cucumberOpts.tags --specs **/cucumber2.feature'

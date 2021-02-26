@@ -9,7 +9,7 @@ describe('cucumber version 1', function() {
       .run();
   });
 
-  it.skip('runs failing features', function() {
+  it('runs failing features', function() {
     return util
       .runOne(
         'test/cucumber/conf/cucumber1Conf.js --cucumberOpts.tags @failing'
@@ -22,7 +22,7 @@ describe('cucumber version 1', function() {
       .run();
   });
 
-  it.skip('accepts the fail fast option', function() {
+  it('accepts the fail fast option', function() {
     return util
       .runOne(
         'test/cucumber/conf/cucumber1Conf.js --cucumberOpts.tags @failing --cucumberOpts.fail-fast'
@@ -34,27 +34,27 @@ describe('cucumber version 1', function() {
       .run();
   });
 
-  it.skip('fails undefined steps with strict', function() {
+  it('fails undefined steps with strict', function() {
     return util
       .runOne(
         'test/cucumber/conf/cucumber1Conf.js --cucumberOpts.tags @strict --cucumberOpts.strict'
       )
       .expectExitCode(1)
       .expectErrors([
-        {message: 'Undefined steps are not allowed in strict mode'}
+        {message: 'Step not implemented'}
       ])
       .run();
   });
 
-  it.skip('passes undefined steps without strict', function() {
+  it('passes undefined steps without strict', function() {
     return util
-      .runOne('test/cucumber/conf/cucumber1Conf.js --cucumberOpts.tags @strict')
+      .runOne('test/cucumber/conf/cucumber1Conf.js --cucumberOpts.tags @strict --cucumberOpts.noStrict')
       .expectExitCode(0)
       .expectErrors([])
       .run();
   });
 
-  it.skip('accepts multiple name options', function() {
+  it('accepts multiple name options', function() {
     return util
       .runOne(
         'test/cucumber/conf/cucumber1Conf.js --cucumberOpts.name Running --cucumberOpts.name Wrapping'
@@ -64,7 +64,7 @@ describe('cucumber version 1', function() {
       .run();
   });
 
-  it.skip('overrides base and cli options with multi capability options', function() {
+  it('overrides base and cli options with multi capability options', function() {
     return util
       .runOne('test/cucumber/conf/multiConf.js --cucumberOpts.tags @failing')
       .expectExitCode(0)
