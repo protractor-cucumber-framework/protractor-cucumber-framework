@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-let child_process = require('child_process');
-let fs = require('fs');
-let path = require('path');
-let q = require('q');
-let chai = require('chai');
-let chaiLike = require('chai-like');
+const
+    child_process = require('child_process'),
+    fs = require('fs'),
+    path = require('path'),
+    chai = require('chai'),
+    chaiLike = require('chai-like');
 
 chaiLike.extend({
   match: (object, expected) =>
@@ -157,13 +157,20 @@ let CommandlineTest = function(cucumberVersion, args) {
     let testOutputPath = 'test_output_' + start + '.tmp';
     let output = '';
 
-    let flushAndFail = function(errorMsg) {
+    function flushAndFail(errorMsg) {
       process.stdout.write(output);
       throw new Error(errorMsg);
     };
 
-    return q
-      .promise(function(resolve, reject) {
+    function removeTestOutput() {
+      try {
+        fs.unlinkSync(testOutputPath);
+      } catch (err) {
+        // don't do anything
+      }
+    }
+
+    return new Promise((resolve, reject) => {
         if (self.before_) self.before_();
 
         const cmd = 'node';
@@ -310,13 +317,7 @@ let CommandlineTest = function(cucumberVersion, args) {
         if (self.after_) self.after_();
         if (self.then_) self.then_();
       })
-      .fin(function() {
-        try {
-          fs.unlinkSync(testOutputPath);
-        } catch (err) {
-          // don't do anything
-        }
-      });
+      .then(removeTestOutput, removeTestOutput);
   };
 };
 
