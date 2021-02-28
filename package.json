@@ -4,7 +4,8 @@
   "description": "Protractor framework for Cucumber.js",
   "main": "index.js",
   "engines": {
-    "node": ">=10.13.x"
+    "node": "^10 || ^12 || ^14",
+    "npm": "^6 || ^7"
   },
   "scripts": {
     "webdriver": "webdriver-manager update --standalone --versions.standalone=2.53.1 && webdriver-manager start --versions.standalone=2.53.1 --logging ../../../../logging.properties",
@@ -62,14 +63,22 @@
   },
   "homepage": "https://github.com/protractor-cucumber-framework/protractor-cucumber-framework",
   "dependencies": {
-    "@serenity-js/core": "^2.24.0",
-    "@serenity-js/cucumber": "^2.24.0",
-    "@serenity-js/protractor": "^2.24.0"
+    "@serenity-js/core": "^2.24.1",
+    "@serenity-js/cucumber": "^2.24.1",
+    "@serenity-js/protractor": "^2.24.1"
   },
   "peerDependencies": {
     "cucumber": "^1.3.3 || ^2.3.1 || ^3.2.1 || ^4.2.1 || ^5.0.0 || ^6.0.0",
     "@cucumber/cucumber": "^7.0.0",
     "protractor": "^5.0.0 || ^7.0.0"
+  },
+  "peerDependenciesMeta": {
+    "cucumber": {
+      "optional": true
+    },
+    "@cucumber/cucumber": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "chai": "^4.3.0",
