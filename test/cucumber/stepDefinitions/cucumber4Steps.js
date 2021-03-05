@@ -3,19 +3,12 @@ const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 const expect = chai.expect;
-const {Given, Then} = require(path.join(
-  __dirname,
-  '..',
-  '..',
-  '..',
-  'lib',
-  'cucumberLoader'
-)).load();
+const {Given, Then} = require('cucumber');
 
-Given('I go on {string}', function(url) {
-  return browser.get(url);
+Given('I go on {string}', async function(url) {
+  await browser.get(url);
 });
 
-Then(/the title should equal "([^"]*)"$/, function(text) {
-  return expect(browser.getTitle()).to.eventually.equal(text);
+Then(/the title should equal "([^"]*)"$/, async function(text) {
+  expect(await browser.getTitle()).to.equal(text);
 });

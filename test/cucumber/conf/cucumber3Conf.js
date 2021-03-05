@@ -3,7 +3,7 @@ let env = require('./environment.js');
 exports.config = Object.assign({}, env, {
   SELENIUM_PROMISE_MANAGER: false,
   cucumberOpts: {
-    require: '../stepDefinitions/**/cucumber2Steps.js',
+    require: `${ __dirname }/../stepDefinitions/**/cucumber2Steps.js`,
     tags: '',
     format: 'summary',
     strict: true,

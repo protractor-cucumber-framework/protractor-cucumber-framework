@@ -3,8 +3,6 @@ let fs = require('fs');
 let glob = require('glob');
 let path = require('path');
 
-let cucumberLoader = require('../lib/cucumberLoader');
-
 let util = require('./test_util');
 let LOG_FILE_LOCATION = path.resolve(__dirname);
 let LOG_FILE_NAME = 'protractor-cucumber-framework-test';
@@ -71,8 +69,11 @@ describe('output files', () => {
 
   it('should handle relative paths with cucumber 3', () => {
     let cmd = `test/cucumber/conf/cucumber3Conf.js --cucumberOpts.tags @cucumber3 --cucumberOpts.format json:../${LOG_FILE_NAME}.json`;
-    let packageJson = require('../package.json');
-    let cwd = cucumberLoader.cwd(packageJson.cucumberConf.version3);
+    let cucumberConf = require('../package.json').cucumberConf.version3;
+    let cwd = path.join(
+        __dirname,
+        `multidep_modules/${ cucumberConf.module }-${ cucumberConf.version }`
+    );
 
     return util
       .runOne(cmd)

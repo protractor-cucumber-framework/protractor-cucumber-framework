@@ -3,33 +3,25 @@ var chai = require('chai');
 var chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 var expect = chai.expect;
-var {defineSupportCode} = require(path.join(
-  __dirname,
-  '..',
-  '..',
-  '..',
-  'lib',
-  'cucumberLoader'
-)).load();
+var { defineSupportCode } = require('cucumber');
 
 defineSupportCode(({After, Given, Then, When}) => {
-  After((scenario, done) => done());
+  After((scenario) => {});
 
-  Given(/^I go on(?: the website)? "([^"]*)"$/, function(url) {
-    return browser.get(url);
+  Given(/^I go on(?: the website)? "([^"]*)"$/, async function(url) {
+    await browser.get(url);
   });
 
-  Given(/^I go on(?: the website)? ([^"]*)$/, function(url) {
-    return browser.get(url);
+  Given(/^I go on(?: the website)? ([^"]*)$/, async function(url) {
+    await browser.get(url);
   });
 
-  Then(/the title should equal "([^"]*)"$/, function(text) {
-    return expect(browser.getTitle()).to.eventually.equal(text);
+  Then(/the title should equal "([^"]*)"$/, async function(text) {
+    expect(await browser.getTitle()).to.equal(text);
   });
 
-  When(/an uncaught exception is thrown/, function(done) {
-    element(by.css('[nuthin-here]'))
-      .getText()
-      .then(done);
+  When(/an uncaught exception is thrown/, async function() {
+    await element(by.css('[nuthin-here]'))
+      .getText();
   });
 });

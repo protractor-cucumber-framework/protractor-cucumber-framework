@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-let child_process = require('child_process');
-let fs = require('fs');
-let path = require('path');
-let q = require('q');
-let chai = require('chai');
-let chaiLike = require('chai-like');
+const
+    child_process = require('child_process'),
+    fs = require('fs'),
+    path = require('path'),
+    chai = require('chai'),
+    chaiLike = require('chai-like');
 
 chaiLike.extend({
   match: (object, expected) =>
@@ -153,36 +153,52 @@ let CommandlineTest = function(cucumberVersion, args) {
   };
 
   this.run = function() {
-    process.env.MULTIDEP_CUCUMBER_VERSION = self.cucumberVersion_;
-
     let start = new Date().getTime();
     let testOutputPath = 'test_output_' + start + '.tmp';
     let output = '';
 
-    let flushAndFail = function(errorMsg) {
+    function flushAndFail(errorMsg) {
       process.stdout.write(output);
       throw new Error(errorMsg);
     };
 
-    return q
-      .promise(function(resolve, reject) {
+    function removeTestOutput() {
+      try {
+        fs.unlinkSync(testOutputPath);
+      } catch (err) {
+        // don't do anything
+      }
+    }
+
+    return new Promise((resolve, reject) => {
         if (self.before_) self.before_();
 
         const cmd = 'node';
         const args = [
-          'node_modules/protractor/bin/protractor',
+          require.resolve('protractor/bin/protractor'),
+          '--disableChecks',
           '--resultJsonOutputFile',
           testOutputPath
         ].concat(self.args_);
+
+        const env = {
+          ...process.env,
+          NODE_PATH: path.resolve(
+              __dirname,
+              `multidep_modules/${ self.cucumberVersion_.module }-${ self.cucumberVersion_.version }/node_modules`
+          ),
+          MULTIDEP_CUCUMBER_CONF: JSON.stringify(self.cucumberVersion_, null, 0)
+        };
 
         let test_process;
 
         if (self.verbose_) {
           test_process = child_process.spawn(cmd, args, {
-            stdio: 'inherit'
+            stdio: 'inherit',
+            env,
           });
         } else {
-          test_process = child_process.spawn(cmd, args);
+          test_process = child_process.spawn(cmd, args, { env });
           test_process.stdout.on('data', data => (output += data));
           test_process.stderr.on('data', data => (output += data));
         }
@@ -301,13 +317,7 @@ let CommandlineTest = function(cucumberVersion, args) {
         if (self.after_) self.after_();
         if (self.then_) self.then_();
       })
-      .fin(function() {
-        try {
-          fs.unlinkSync(testOutputPath);
-        } catch (err) {
-          // don't do anything
-        }
-      });
+      .then(removeTestOutput, removeTestOutput);
   };
 };
 

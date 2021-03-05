@@ -1,3 +1,6 @@
+# IDE
+.idea
+
 node_modules/
 npm-debug.log
 multidep_modules

@@ -1,13 +1,6 @@
 const path = require('path');
 
-const {BeforeAll} = require(path.join(
-  __dirname,
-  '..',
-  '..',
-  '..',
-  'lib',
-  'cucumberLoader'
-)).load();
+const { BeforeAll } = require('cucumber');
 
 BeforeAll(function(callback) {
   callback('Failed');

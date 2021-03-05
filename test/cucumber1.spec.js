@@ -41,14 +41,14 @@ describe('cucumber version 1', function() {
       )
       .expectExitCode(1)
       .expectErrors([
-        {message: 'Undefined steps are not allowed in strict mode'}
+        {message: 'Step not implemented'}
       ])
       .run();
   });
 
   it('passes undefined steps without strict', function() {
     return util
-      .runOne('test/cucumber/conf/cucumber1Conf.js --cucumberOpts.tags @strict')
+      .runOne('test/cucumber/conf/cucumber1Conf.js --cucumberOpts.tags @strict --cucumberOpts.noStrict')
       .expectExitCode(0)
       .expectErrors([])
       .run();
