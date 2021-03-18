@@ -12,7 +12,7 @@
     "start": "node test/testapp/server",
     "lint": "eslint . --fix",
     "pretest": "multidep test/multidep.js",
-    "test": "mocha -c -s 10000 -t 30000 'test/{,!(multidep_modules)/**}/*.spec.js'",
+    "test": "mocha -c -s 10000 -t 60000 'test/{,!(multidep_modules)/**}/*.spec.js'",
     "test:ci": "start-server-and-test http://localhost:8081"
   },
   "repository": {
