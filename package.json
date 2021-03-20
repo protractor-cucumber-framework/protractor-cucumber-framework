@@ -1,6 +1,6 @@
 {
   "name": "protractor-cucumber-framework",
-  "version": "8.0.0",
+  "version": "8.0.1",
   "description": "Protractor framework for Cucumber.js",
   "main": "index.js",
   "engines": {
@@ -12,7 +12,7 @@
     "start": "node test/testapp/server",
     "lint": "eslint . --fix",
     "pretest": "multidep test/multidep.js",
-    "test": "mocha -c -s 10000 -t 30000 'test/{,!(multidep_modules)/**}/*.spec.js'",
+    "test": "mocha -c -s 10000 -t 60000 'test/{,!(multidep_modules)/**}/*.spec.js'",
     "test:ci": "start-server-and-test http://localhost:8081"
   },
   "repository": {
@@ -63,9 +63,9 @@
   },
   "homepage": "https://github.com/protractor-cucumber-framework/protractor-cucumber-framework",
   "dependencies": {
-    "@serenity-js/core": "^2.24.1",
-    "@serenity-js/cucumber": "^2.24.1",
-    "@serenity-js/protractor": "^2.24.1"
+    "@serenity-js/core": "^2.25.1",
+    "@serenity-js/cucumber": "^2.25.1",
+    "@serenity-js/protractor": "^2.25.1"
   },
   "peerDependencies": {
     "cucumber": "^1.3.3 || ^2.3.1 || ^3.2.1 || ^4.2.1 || ^5.0.0 || ^6.0.0",

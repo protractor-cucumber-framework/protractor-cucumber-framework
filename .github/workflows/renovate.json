@@ -1,0 +1,16 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "rangeStrategy": "bump",
+  "dependencies": {
+    "bumpVersion": true
+  },
+  "packageRules": [
+    {
+      "packagePatterns": ["^@serenity-js"],
+      "groupName": "Serenity/JS",
+      "automerge": true
+    }
+  ]
+}

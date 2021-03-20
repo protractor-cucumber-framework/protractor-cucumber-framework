@@ -3,7 +3,7 @@ Protractor Cucumber Framework
 
 [![npm-version](https://img.shields.io/npm/v/protractor-cucumber-framework.svg)](https://www.npmjs.com/package/protractor-cucumber-framework)
 [![Join the chat at https://gitter.im/protractor-cucumber-framework/protractor-cucumber-framework](https://badges.gitter.im/protractor-cucumber-framework/protractor-cucumber-framework.svg)](https://gitter.im/protractor-cucumber-framework/protractor-cucumber-framework?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Build Status](https://travis-ci.org/protractor-cucumber-framework/protractor-cucumber-framework.svg?branch=master)](https://travis-ci.org/protractor-cucumber-framework/protractor-cucumber-framework)
+[![Build Status](https://github.com/protractor-cucumber-framework/protractor-cucumber-framework/workflows/build/badge.svg)](https://github.com/protractor-cucumber-framework/protractor-cucumber-framework/actions)
 [![dependencies](https://david-dm.org/protractor-cucumber-framework/protractor-cucumber-framework/status.svg)](https://david-dm.org/protractor-cucumber-framework/protractor-cucumber-framework)
 [![dev dependencies](https://david-dm.org/protractor-cucumber-framework/protractor-cucumber-framework/dev-status.svg)](https://david-dm.org/protractor-cucumber-framework/protractor-cucumber-framework?type=dev)
 [![peer dependencies](https://david-dm.org/protractor-cucumber-framework/protractor-cucumber-framework/peer-status.svg)](https://david-dm.org/protractor-cucumber-framework/protractor-cucumber-framework?type=peer)
@@ -11,9 +11,10 @@ Protractor Cucumber Framework
 [![open-issues](https://img.shields.io/github/issues/protractor-cucumber-framework/protractor-cucumber-framework.svg)](https://github.com/protractor-cucumber-framework/protractor-cucumber-framework/issues)
 [![contributors](https://img.shields.io/github/contributors/protractor-cucumber-framework/protractor-cucumber-framework.svg)](https://github.com/protractor-cucumber-framework/protractor-cucumber-framework/graphs/contributors)
 
-
 This framework was originally part of [angular/protractor](https://github.com/angular/protractor) and
 is now a separate module to decouple [cucumber.js](https://github.com/cucumber/cucumber-js).
+
+The project relies on [Serenity/JS](https://serenity-js.org) to enable integration between Protractor and Cucumber 1.x - 7.x and offer support for both [Cucumber.js-native](https://cucumber.io/docs/cucumber/reporting/) and [Serenity/JS reporters](https://serenity-js.org/handbook/reporting/index.html). 
 
 Install
 -------
@@ -47,7 +48,10 @@ exports.config = {
 };
 ```
 
-#### Passing Options to cucumberjs
+To configure [Serenity/JS reporting services](https://serenity-js.org/handbook/reporting/index.html),
+consult the [Serenity/JS Handbook](https://serenity-js.org/handbook/integration/serenityjs-and-protractor.html#integrating-protractor-with-serenity-js-and-cucumber).
+
+#### Passing Options to Cucumber.js
 
 All of the `cucumberOpts` will be passed to `cucumberjs` as arguments.
 
