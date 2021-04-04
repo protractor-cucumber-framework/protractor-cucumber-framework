@@ -59,7 +59,7 @@ exports.config = {
 ```
 
 To configure [Serenity/JS reporting services](https://serenity-js.org/handbook/reporting/index.html),
-checkout the [demo project](https://github.com/jan-molak/protractor-cucumber-framework-demo)
+check out the [demo project](https://github.com/jan-molak/protractor-cucumber-framework-demo)
 and consult the [Serenity/JS Handbook](https://serenity-js.org/handbook/integration/serenityjs-and-protractor.html#integrating-protractor-with-serenity-js-and-cucumber).
 
 #### Passing Options to Cucumber.js
