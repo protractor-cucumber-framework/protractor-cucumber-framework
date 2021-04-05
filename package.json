@@ -81,6 +81,11 @@
     }
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/commit-analyzer": "^8.0.1",
+    "@semantic-release/github": "^7.2.0",
+    "@semantic-release/npm": "^7.1.0",
+    "@semantic-release/release-notes-generator": "^9.0.2",
     "chai": "^4.3.0",
     "chai-as-promised": "^7.1.1",
     "chai-like": "^0.2.14",
@@ -96,6 +101,7 @@
     "multidep": "^2.0.2",
     "prettier": "^2.2.1",
     "protractor": "^7.0.0",
+    "semantic-release": "^17.4.2",
     "start-server-and-test": "^1.12.0"
   },
   "cucumberConf": {
