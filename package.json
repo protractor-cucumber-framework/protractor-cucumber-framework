@@ -13,7 +13,8 @@
     "lint": "eslint . --fix",
     "pretest": "multidep test/multidep.js",
     "test": "mocha -c -s 10000 -t 60000 'test/{,!(multidep_modules)/**}/*.spec.js'",
-    "test:ci": "start-server-and-test http://localhost:8081"
+    "test:ci": "start-server-and-test http://localhost:8081",
+    "commit": "git-cz"
   },
   "repository": {
     "type": "git",
@@ -90,6 +91,8 @@
     "chai-as-promised": "^7.1.1",
     "chai-like": "^0.2.14",
     "chromedriver": "^88.0.0",
+    "commitizen": "^4.2.3",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.20.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-mocha": "^8.0.0",
@@ -138,5 +141,10 @@
     "printWidth": 80,
     "singleQuote": true,
     "bracketSpacing": false
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   }
 }
