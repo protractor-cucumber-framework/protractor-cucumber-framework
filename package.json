@@ -1,6 +1,6 @@
 {
   "name": "protractor-cucumber-framework",
-  "version": "8.0.1",
+  "version": "0.0.0-development",
   "description": "Protractor framework for Cucumber.js",
   "main": "index.js",
   "engines": {
@@ -14,7 +14,8 @@
     "pretest": "multidep test/multidep.js",
     "test": "mocha -c -s 10000 -t 60000 'test/{,!(multidep_modules)/**}/*.spec.js'",
     "test:ci": "start-server-and-test http://localhost:8081",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
