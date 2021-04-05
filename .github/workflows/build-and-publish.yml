@@ -1,9 +1,6 @@
-name: publish
+name: build-and-publish
 
-on:
-  push:
-    branches:
-      - master
+on: [ push, pull_request ]
 
 jobs:
   build:
@@ -21,7 +18,9 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: npm ci
       - run: npm run test:ci
-      - run: npx semantic-release
+      - name: 'Release'
+        if: github.ref == 'refs/heads/master' && matrix.node-version == '14.x'
+        run: npx semantic-release
         env:
           CI: true
           NPM_TOKEN: ${{secrets.npm_token}}
