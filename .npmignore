@@ -2,6 +2,8 @@
 .eslintrc
 .nvmrc
 .npmignore
+.releaserc.json
+.github
 .travis.yml
 logging.properties
 npm-debug.log

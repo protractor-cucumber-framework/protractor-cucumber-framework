@@ -1,4 +1,4 @@
-name: build
+name: build-and-publish
 
 on: [ push, pull_request ]
 
@@ -15,8 +15,13 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+          registry-url: https://registry.npmjs.org/
       - run: npm ci
       - run: npm run test:ci
+      - name: 'Release'
+        if: github.ref == 'refs/heads/master' && matrix.node-version == '14.x'
+        run: npx semantic-release
         env:
           CI: true
-
+          NPM_TOKEN: ${{secrets.npm_token}}
+          GH_TOKEN: ${{secrets.gh_token}}
