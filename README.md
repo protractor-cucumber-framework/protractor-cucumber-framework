@@ -14,12 +14,22 @@ Protractor Cucumber Framework
 This framework was originally part of [angular/protractor](https://github.com/angular/protractor) and
 is now a separate module to decouple [cucumber.js](https://github.com/cucumber/cucumber-js).
 
-The project relies on [Serenity/JS](https://serenity-js.org) to enable integration between Protractor and Cucumber 1.x - 7.x and offer support for both [Cucumber.js-native](https://cucumber.io/docs/cucumber/reporting/) and [Serenity/JS reporters](https://serenity-js.org/handbook/reporting/index.html). 
+The project relies on [Serenity/JS](https://serenity-js.org) to enable integration between Protractor and Cucumber 1.x - 7.x and offer support for both [Cucumber.js-native](https://cucumber.io/docs/cucumber/reporting/) and [Serenity/JS reporters](https://serenity-js.org/handbook/reporting/index.html).
+
+To see Serenity/JS reports in action, check out the [demo project](https://github.com/jan-molak/protractor-cucumber-framework-demo) and the [reports](https://jan-molak.github.io/protractor-cucumber-framework-demo/) it produces.
 
 Install
 -------
 
-`npm install --save-dev protractor-cucumber-framework`
+To install this module, run the following command in your computer terminal:
+
+```
+npm install --save-dev protractor-cucumber-framework
+```
+
+Please note that to use `protractor-cucumber-framework` you'll need a recent [Long-Term Support](https://nodejs.org/en/about/releases/) versions of Node.js, so **10**, **12**, or **14**.
+
+Odd-numbered Node.js releases (11, 13, 15, etc.) are not on the LTS line, should be considered experimental, and should not be used in production.
 
 Implementation
 --------------
@@ -49,7 +59,8 @@ exports.config = {
 ```
 
 To configure [Serenity/JS reporting services](https://serenity-js.org/handbook/reporting/index.html),
-consult the [Serenity/JS Handbook](https://serenity-js.org/handbook/integration/serenityjs-and-protractor.html#integrating-protractor-with-serenity-js-and-cucumber).
+check out the [demo project](https://github.com/serenity-js/protractor-cucumber-framework-demo)
+and consult the [Serenity/JS Handbook](https://serenity-js.org/handbook/integration/serenityjs-and-protractor.html#integrating-protractor-with-serenity-js-and-cucumber).
 
 #### Passing Options to Cucumber.js
 
