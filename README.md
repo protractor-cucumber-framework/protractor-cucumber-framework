@@ -27,7 +27,7 @@ To install this module, run the following command in your computer terminal:
 npm install --save-dev protractor-cucumber-framework
 ```
 
-Please note that to use `protractor-cucumber-framework` you'll need a recent [Long-Term Support](https://nodejs.org/en/about/releases/) versions of Node.js, so **10**, **12**, or **14**.
+Please note that to use `protractor-cucumber-framework` you'll need a recent [Long-Term Support](https://nodejs.org/en/about/releases/) versions of Node.js, so **12**, **14**, or **16**.
 
 Odd-numbered Node.js releases (11, 13, 15, etc.) are not on the LTS line, should be considered experimental, and should not be used in production.
 
@@ -133,7 +133,7 @@ For Contributors
 Ensure that the following dependencies are installed:
 
  * Java SDK and JRE
- * node.js
+ * Node.js
  * Google Chrome
 
 Clone the github repository:
