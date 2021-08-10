@@ -21,6 +21,5 @@ module.exports = {
 
   webServerDefaultPort: webServerDefaultPort,
   interactiveTestPort: 6969,
-  baseUrl: `http://${process.env.HTTP_HOST || 'localhost'}:${process.env
-    .HTTP_PORT || webServerDefaultPort}`
+  baseUrl: `http://${process.env.HTTP_HOST || 'localhost'}:${process.env.HTTP_PORT || webServerDefaultPort}`
 };
