@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [10.x, 12.x, 14.x]
+        node-version: [12.x, 14.x, 16.x]
 
     steps:
       - uses: actions/checkout@v2
@@ -22,7 +22,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org/
-      - run: npm ci
+      - name: Install Node Modules
+        uses: bahmutov/npm-install@v1
+        env:
+          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
+
       - run: npm run test:ci
         env:
           CI: true
@@ -37,9 +41,13 @@ jobs:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: 16
           registry-url: https://registry.npmjs.org/
-      - run: npm ci
+      - name: Install Node Modules
+        uses: bahmutov/npm-install@v1
+        env:
+          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
+
       - name: Release
         run: npx semantic-release --debug
         env:
