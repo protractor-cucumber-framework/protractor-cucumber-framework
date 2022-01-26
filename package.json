@@ -5,7 +5,7 @@
   "main": "index.js",
   "engines": {
     "node": "^12 || ^14 || ^16",
-    "npm": "^6 || ^7"
+    "npm": "^6 || ^7 || ^8"
   },
   "scripts": {
     "webdriver": "webdriver-manager update --standalone --versions.standalone=2.53.1 && webdriver-manager start --versions.standalone=2.53.1 --logging ../../../../logging.properties",
