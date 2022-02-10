@@ -65,9 +65,9 @@
   },
   "homepage": "https://github.com/protractor-cucumber-framework/protractor-cucumber-framework",
   "dependencies": {
-    "@serenity-js/core": "^2.33.0",
-    "@serenity-js/cucumber": "^2.33.0",
-    "@serenity-js/protractor": "^2.33.0"
+    "@serenity-js/core": "^2.33.1",
+    "@serenity-js/cucumber": "^2.33.1",
+    "@serenity-js/protractor": "^2.33.1"
   },
   "peerDependencies": {
     "@cucumber/cucumber": "^7.3.2",
@@ -91,7 +91,7 @@
     "chai": "^4.3.6",
     "chai-as-promised": "^7.1.1",
     "chai-like": "^1.1.1",
-    "chromedriver": "^97.0.4",
+    "chromedriver": "^98.0.0",
     "colors": "^1.4.0",
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",
