@@ -1,7 +1,7 @@
 let util = require('./test_util');
 
-describe('cucumber version 1', function() {
-  it('runs successful features', function() {
+describe('cucumber version 1', function () {
+  it('runs successful features', function () {
     return util
       .runOne('test/cucumber/conf/cucumber1Conf.js')
       .expectExitCode(0)
