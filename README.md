@@ -166,7 +166,7 @@ you can depend on them directly to make sure you always get the latest and great
 To configure your project to use Serenity/JS, remove the dependency on `protractor-cucumber-framework` and install the following dependencies instead:
 
 ```
-npm install --save-dev @serenity-js/{core,cucumber,protractor}
+npm install --save-dev @serenity-js/{core,cucumber,web,protractor}
 ```
 
 Next, configure your `protractor.conf.js` file as follows:
@@ -199,7 +199,7 @@ To use [Serenity/JS reporting services](https://serenity-js.org/handbook/reporti
 
 To use [Serenity/JS console reporter](https://serenity-js.org/handbook/reporting/console-reporter.html), install the following dependencies:
 ```
-npm install --save-dev @serenity-js/{core,cucumber,protractor,console-reporter}
+npm install --save-dev @serenity-js/{core,cucumber,web,protractor,console-reporter}
 ```
 
 Next, configure your `protractor.conf.js` as follows:
@@ -229,7 +229,7 @@ exports.config = {
 To use the [Serenity BDD reporter](https://serenity-js.org/handbook/reporting/serenity-bdd-reporter.html), install the following dependencies:
 
 ```
-npm install --save-dev @serenity-js/{core,cucumber,protractor,serenity-bdd} npm-failsafe rimraf
+npm install --save-dev @serenity-js/{core,cucumber,web,protractor,serenity-bdd} npm-failsafe rimraf
 ```
 
 Next, configure your `protractor.conf.js` as follows:
