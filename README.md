@@ -54,7 +54,7 @@ Just like Serenity/JS, this module:
 - supports both Protractor v5 and v7,
 - is backward compatible with previous major versions of `protractor-cucumber-framework`.
 
-To stay up to date with the latest features, patches, and security fixes make sure to **always use the latest version** of `protractor-cucumber-framework` as this module offers **backward compatibility** with other dependencies, like  [`cucumber`](https://www.npmjs.com/package/cucumber), [`@cucumber/cucumber`](https://www.npmjs.com/package/@cucumber/cucumber), or [`protractor`](https://www.npmjs.com/package/protractor)
+To stay up to date with the latest features, patches, and security fixes make sure to **always use the latest version** of `protractor-cucumber-framework` as this module offers **backward compatibility** with other dependencies, like  [`cucumber`](https://www.npmjs.com/package/cucumber), [`@cucumber/cucumber`](https://www.npmjs.com/package/@cucumber/cucumber), or [`protractor`](https://www.npmjs.com/package/protractor).
 
 ## Configuration
 
