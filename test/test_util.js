@@ -93,6 +93,11 @@ let CommandlineTest = function(cucumberVersion, args) {
     return self;
   };
 
+  this.cucumberVersion8 = function() {
+    self.cucumberVersion_ = cucumberConf.version8;
+    return self;
+  };
+
   this.expectSuccessfulRun = function(expectedOutput) {
     this.expectExitCode(0);
     this.expectErrors([]);

@@ -1,7 +1,7 @@
 let util = require('./test_util');
 
-describe('cucumber version 3', function() {
-  it('runs successful features', function() {
+describe('cucumber version 3', function () {
+  it('runs successful features', function () {
     return util
       .runOne(
         'test/cucumber/conf/cucumber3Conf.js --cucumberOpts.tags @cucumber3'

@@ -1,25 +1,37 @@
-Protractor Cucumber Framework
-=============================
+# Protractor Cucumber Framework
 
-[![npm-version](https://img.shields.io/npm/v/protractor-cucumber-framework.svg)](https://www.npmjs.com/package/protractor-cucumber-framework)
-[![Join the chat at https://gitter.im/protractor-cucumber-framework/protractor-cucumber-framework](https://badges.gitter.im/protractor-cucumber-framework/protractor-cucumber-framework.svg)](https://gitter.im/protractor-cucumber-framework/protractor-cucumber-framework?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Build Status](https://github.com/protractor-cucumber-framework/protractor-cucumber-framework/workflows/build/badge.svg)](https://github.com/protractor-cucumber-framework/protractor-cucumber-framework/actions)
-[![dependencies](https://david-dm.org/protractor-cucumber-framework/protractor-cucumber-framework/status.svg)](https://david-dm.org/protractor-cucumber-framework/protractor-cucumber-framework)
-[![dev dependencies](https://david-dm.org/protractor-cucumber-framework/protractor-cucumber-framework/dev-status.svg)](https://david-dm.org/protractor-cucumber-framework/protractor-cucumber-framework?type=dev)
-[![peer dependencies](https://david-dm.org/protractor-cucumber-framework/protractor-cucumber-framework/peer-status.svg)](https://david-dm.org/protractor-cucumber-framework/protractor-cucumber-framework?type=peer)
+[![NPM Version](https://badge.fury.io/js/protractor-cucumber-framework.svg)](https://badge.fury.io/js/protractor-cucumber-framework)
+[![Known Vulnerabilities](https://snyk.io/test/github/protractor-cucumber-framework/protractor-cucumber-framework/badge.svg)](https://snyk.io/test/github/protractor-cucumber-framework/protractor-cucumber-framework)
 ![download-count](https://img.shields.io/npm/dm/protractor-cucumber-framework.svg)
 [![open-issues](https://img.shields.io/github/issues/protractor-cucumber-framework/protractor-cucumber-framework.svg)](https://github.com/protractor-cucumber-framework/protractor-cucumber-framework/issues)
 [![contributors](https://img.shields.io/github/contributors/protractor-cucumber-framework/protractor-cucumber-framework.svg)](https://github.com/protractor-cucumber-framework/protractor-cucumber-framework/graphs/contributors)
 
+[![Build Status](https://github.com/protractor-cucumber-framework/protractor-cucumber-framework/workflows/build/badge.svg)](https://github.com/protractor-cucumber-framework/protractor-cucumber-framework/actions)
+[![Libraries.io dependency status for latest release, scoped npm package](https://img.shields.io/librariesio/release/npm/protractor-cucumber-framework)](https://libraries.io/npm/protractor-cucumber-framework)
+[![Serenity/JS on StackOverflow](https://img.shields.io/badge/stackoverflow-serenity--js-important?logo=stackoverflow)](https://stackoverflow.com/questions/tagged/serenity-js)
+[![Chat on Gitter](https://badges.gitter.im/serenity-js/Lobby.svg)](https://gitter.im/serenity-js/Lobby)
+
 This framework was originally part of [angular/protractor](https://github.com/angular/protractor) and
 is now a separate module to decouple [cucumber.js](https://github.com/cucumber/cucumber-js).
 
-The project relies on [Serenity/JS](https://serenity-js.org) to enable integration between Protractor and Cucumber 1.x - 7.x and offer support for both [Cucumber.js-native](https://cucumber.io/docs/cucumber/reporting/) and [Serenity/JS reporters](https://serenity-js.org/handbook/reporting/index.html).
+The project relies on [Serenity/JS](https://serenity-js.org) to enable integration between **Protractor** and **Cucumber
+1.x - 8.x** and offer support for both [Cucumber.js-native](https://cucumber.io/docs/cucumber/reporting/)
+and [Serenity/JS reporters](https://serenity-js.org/handbook/reporting/index.html).
 
-To see Serenity/JS reports in action, check out the [demo project](https://github.com/jan-molak/protractor-cucumber-framework-demo) and the [reports](https://jan-molak.github.io/protractor-cucumber-framework-demo/) it produces.
+To see Serenity/JS reports in action, check out
+the [reference implementation](https://github.com/jan-molak/protractor-cucumber-framework-demo) and
+the [Serenity BDD reports](https://jan-molak.github.io/protractor-cucumber-framework-demo/) it produces.
 
-Install
--------
+Learn more:
+
+- [Reference implementation](https://github.com/jan-molak/protractor-cucumber-framework-demo)
+  with [Serenity BDD reports](https://jan-molak.github.io/protractor-cucumber-framework-demo/)
+- [Cucumber.js docs](https://github.com/cucumber/cucumber-js)
+- [Protractor docs](https://www.protractortest.org/#/)
+- [Serenity/JS docs](https://serenity-js.org)
+- [Gherkin reference](https://cucumber.io/docs/gherkin/reference/)
+
+## Installation
 
 To install this module, run the following command in your computer terminal:
 
@@ -27,60 +39,277 @@ To install this module, run the following command in your computer terminal:
 npm install --save-dev protractor-cucumber-framework
 ```
 
-Please note that to use `protractor-cucumber-framework` you'll need a recent [Long-Term Support](https://nodejs.org/en/about/releases/) versions of Node.js, so **12**, **14**, or **16**.
+Please note that to use `protractor-cucumber-framework` you'll need a recent [Long-Term Support](https://nodejs.org/en/about/releases/) versions of Node.js, so **14**, **16**, or **18**.
 
-Odd-numbered Node.js releases (11, 13, 15, etc.) are not on the LTS line, should be considered experimental, and should not be used in production.
+Odd-numbered Node.js releases (13, 15, 19, etc.) are not on the LTS line, should be considered experimental, and should
+not be used in production.
 
-Implementation
---------------
+## Upgrading from previous versions and backward compatibility
 
-To implement this framework, utilize the `protractor` custom framework config option:
+`protractor-cucumber-framework` is a thin wrapper around
+[`@serenity-js/cucumber`](https://www.npmjs.com/package/@serenity-js/cucumber) and [`@serenity-js/protractor`](https://www.npmjs.com/package/@serenity-js/protractor) modules.
+
+Just like Serenity/JS, this module:
+- supports **all the major versions** of Cucumber.js,
+- supports both Protractor v5 and v7,
+- is backward compatible with previous major versions of `protractor-cucumber-framework`.
+
+To stay up to date with the latest features, patches, and security fixes make sure to **always use the latest version** of `protractor-cucumber-framework` as this module offers **backward compatibility** with other dependencies, like  [`cucumber`](https://www.npmjs.com/package/cucumber), [`@cucumber/cucumber`](https://www.npmjs.com/package/@cucumber/cucumber), or [`protractor`](https://www.npmjs.com/package/protractor).
+
+## Configuration
+
+To use `protractor-cucumber-framework`, configure it as a `custom` framework
+in your `protractor.conf.js`:
 
 ```js
 exports.config = {
-  // set to "custom" instead of cucumber.
-  framework: 'custom',
+    // set to "custom" instead of cucumber.
+    framework: 'custom',
 
-  // path relative to the current config file
-  frameworkPath: require.resolve('protractor-cucumber-framework'),
+    // path relative to the current config file
+    frameworkPath: require.resolve('protractor-cucumber-framework'),
 
-  // require feature files
-  specs: [
-    'path/to/feature/files/**/*.feature' // accepts a glob
-  ],
+    // require feature files
+    specs: [
+        'path/to/feature/files/**/*.feature' // accepts a glob
+    ],
 
-  cucumberOpts: {
-    // require step definitions
-    require: [
-      'path/to/step/definitions/**/*.steps.js' // accepts a glob
-    ]
-  }
+    cucumberOpts: {
+        // require step definitions
+        require: [
+            'features/step_definitions/**/*.steps.js', // accepts a glob
+            'features/support/*.ts',
+        ]
+    }
 };
 ```
 
-To configure [Serenity/JS reporting services](https://serenity-js.org/handbook/reporting/index.html),
-check out the [demo project](https://github.com/serenity-js/protractor-cucumber-framework-demo)
-and consult the [Serenity/JS Handbook](https://serenity-js.org/handbook/integration/serenityjs-and-protractor.html#integrating-protractor-with-serenity-js-and-cucumber).
+### Using TypeScript
 
-#### Passing Options to Cucumber.js
+Cucumber step definitions can be implemented in [TypeScript](https://www.typescriptlang.org/) and transpiled in memory
+to JavaScript via [`ts-node`](https://github.com/TypeStrong/ts-node).
 
-All of the `cucumberOpts` will be passed to `cucumberjs` as arguments.
+To use TypeScript, install the following dependencies:
 
-For example, to call cucumberjs with the `--strict`, `--no-colors`, and to specify custom formatters:
+```
+npm install --save-dev typescript ts-node @types/node
+```
 
-```js
-cucumberOpts: {
-  strict: true,
-  'no-colors': true,
-  format: ['progress', 'pretty:output.txt'],
-  // ...
+Next, create a [`tsconfig.json`](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html) file in the root
+directory of your project:
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "lib": [
+      "ES2019"
+    ],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "declaration": false
+  },
+  "include": [
+    "features/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
 ```
 
-The following parameters have special behavior:
+Finally, set the `cucumberOpts.requireModule` option in `protractor.conf.js` to `ts-node/register`
+and configure Cucumber to load `.ts` files instead of `.js`:
 
- * `require` - globs will be expanded to multiple `--require` arguments
- * `rerun` - value is passed as an argument; for use with the [rerun feature](https://github.com/cucumber/cucumber-js/blob/master/features/rerun_formatter.feature)
+```js
+exports.config = {
+    framework: 'custom',
+    frameworkPath: require.resolve('protractor-cucumber-framework'),
+
+    specs: [
+        'features/**/*.feature'
+    ],
+
+    cucumberOpts: {
+        require: [
+            'features/step_definitions/**/*.steps.ts',  // *.ts instead of *.js
+            'features/support/*.ts',
+        ],
+        requireModule: [
+            'ts-node/register'  // use ts-node to transpile TypeScript in memory
+        ],
+    },
+};
+```
+
+You can now implement Cucumber step definitions in TypeScript, for example:
+
+```typescript
+// features/step_definitions/example.steps.ts
+import { When, Then } from '@cucumber/cucumber'
+
+When('developers like type safety', () => {
+    
+});
+
+Then('they should use TypeScript', () => {
+
+});
+```
+
+## Using Serenity/JS directly
+
+Since `protractor-cucumber-framework` is just a thin wrapper around Serenity/JS modules,
+you can depend on them directly to make sure you always get the latest and greatest features.
+
+To configure your project to use Serenity/JS, remove the dependency on `protractor-cucumber-framework` and install the following dependencies instead:
+
+```
+npm install --save-dev @serenity-js/{core,cucumber,protractor}
+```
+
+Next, configure your `protractor.conf.js` file as follows:
+
+```js
+exports.config = {
+    framework:      'custom',
+    frameworkPath:  require.resolve('@serenity-js/protractor/adapter'),
+
+    serenity: {
+        runner: 'cucumber',
+        crew: [
+            // Serenity/JS reporting services
+        ]
+    },
+
+    cucumberOpts: {
+        // Cucumber config
+    }
+    
+    // other Protractor config
+};
+```
+
+### Using Serenity/JS reporting services
+
+To use [Serenity/JS reporting services](https://serenity-js.org/handbook/reporting/index.html), configure your project to depend on Serenity/JS directly as per the previous section to make sure that your Serenity/JS dependencies are up-to-date and compatible. 
+
+#### Using Serenity/JS console reporter
+
+To use [Serenity/JS console reporter](https://serenity-js.org/handbook/reporting/console-reporter.html), install the following dependencies:
+```
+npm install --save-dev @serenity-js/{core,cucumber,protractor,console-reporter}
+```
+
+Next, configure your `protractor.conf.js` as follows:
+
+```js
+const { ConsoleReporter } = require('@serenity-js/console-reporter');
+
+exports.config = {
+    framework:      'custom',
+    frameworkPath:  require.resolve('@serenity-js/protractor/adapter'),
+
+    specs: [ 'features/**/*.feature' ],
+
+    serenity: {
+        runner: 'cucumber',
+        crew: [
+            ConsoleReporter.forDarkTerminals(),
+        ]
+    },
+    
+    // other config
+};
+```
+
+#### Using Serenity BDD reporter
+
+To use the [Serenity BDD reporter](https://serenity-js.org/handbook/reporting/serenity-bdd-reporter.html), install the following dependencies:
+
+```
+npm install --save-dev @serenity-js/{core,cucumber,protractor,serenity-bdd} npm-failsafe rimraf
+```
+
+Next, configure your `protractor.conf.js` as follows:
+
+```js
+const
+    { ArtifactArchiver } = require('@serenity-js/core'),
+    { SerenityBDDReporter } = require('@serenity-js/serenity-bdd');
+
+exports.config = {
+    framework:      'custom',
+    frameworkPath:  require.resolve('@serenity-js/protractor/adapter'),
+
+    serenity: {
+        runner: 'cucumber',
+        crew: [
+            ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
+            new SerenityBDDReporter(),
+        ]
+    },
+
+    // other config
+};
+```
+
+To automatically download the Serenity BDD reporter CLI when you install your Node modules, add the following [`postinstall` script](https://docs.npmjs.com/cli/v9/using-npm/scripts) to your `package.json` file:
+
+```json
+{
+  "scripts": {
+    "postinstall": "serenity-bdd update",
+  } 
+}
+```
+To generate Serenity BDD reports when you run your tests, configure your `test` script to invoke `serenity-bdd run` when your tests are finished:
+
+
+```json
+{
+    "scripts": {
+        "postinstall": "serenity-bdd update",
+        "clean": "rimraf target",
+        "test": "failsafe clean test:execute test:report",
+        "test:execute": "protractor ./protractor.conf.js",
+        "test:report": "serenity-bdd run --features ./features"
+    }
+}
+```
+
+### Configuring Cucumber
+
+All of the `cucumberOpts` will be passed to `cucumberjs` as arguments.
+
+For example, to call Cucumber with the `--strict` flag and to specify custom formatters:
+
+```js
+exports.config = {
+    framework: 'custom',
+    frameworkPath: require.resolve('@serenity-js/protractor/adapter'),
+
+    specs: [
+        'features/**/*.feature'
+    ],
+    
+    cucumberOpts: {
+        strict: true,
+        format: [
+            'progress', 
+            'pretty:output.txt'
+        ],
+        // ...
+    }
+}
+```
+
+The following parameters have special behaviour:
+
+* `require` - globs will be expanded to multiple `--require` arguments
+* `rerun` - value is passed as an argument; for use with
+  the [rerun feature](https://github.com/cucumber/cucumber-js/blob/master/features/rerun_formatter.feature)
 
 #### Formatters when tests are sharded or with multi capabilities
 
@@ -91,31 +320,32 @@ You'll end up with 1 file per process that protractor spawns.
 
 ```js
 exports.config = {
-  capabilities: {
-    shardTestFiles: true,
-    // ...
-  },
+    capabilities: {
+        shardTestFiles: true,
+        // ...
+    },
 
-  cucumberOpts: {
-    format: 'json:results.json',
-    // ...
-  }
+    cucumberOpts: {
+        format: 'json:results.json',
+        // ...
+    }
 };
 ```
 
 If there were 2 feature files then you can expect the following output files...
+
 ```
   results.11111.json
   results.22222.json
 ```
-...where the numbers will be the actual PIDs.
 
+...where the numbers will be the actual PIDs.
 
 #### Uncaught Exceptions
 
 If your process abruptly stops with an exit code `199` then your steps most likely threw an uncaught
 exception. Protractor is capturing these and exiting the process in this situation. The solution is
-to upgrade to at least protractor version 4.0.10 and add the following to your protractor conf...
+to upgrade to at least protractor version 7.0.0 and add the following to your protractor conf...
 
 ```
   ignoreUncaughtExceptions: true
@@ -126,43 +356,45 @@ This allows cucumber to handle the exception and record it appropriately.
 Contributing
 ------------
 
-Pull requests are welcome. Commits should have an appropriate message and be squashed.
+Pull requests are welcome. Commits should be generated using `npm run commit` command.
 
 For Contributors
 ----------------
 Ensure that the following dependencies are installed:
 
- * Java SDK and JRE
- * Node.js
- * Google Chrome
+* Java Runtime Environment (JRE) 8 or newer
+* Node.js LTS
+* Google Chrome
 
 Clone the github repository:
 
-    git clone https://github.com/protractor-cucumber-framework/protractor-cucumber-framework
-    cd protractor-cucumber-framework
-    npm install
+```
+git clone https://github.com/protractor-cucumber-framework/protractor-cucumber-framework
+cd protractor-cucumber-framework
+npm install
+```
 
 #### Testing
 
-Start a selenium server:
+```
+npm test
+```
 
-    npm run webdriver
+## Your feedback matters!
 
-Start the test app that tests will be run against in a separate shell:
+Do you find Serenity/JS useful? [Give it a star](https://github.com/serenity-js/serenity-js)! &#9733;
 
-    npm start
+Found a bug? Need a feature? Raise [an issue](https://github.com/serenity-js/serenity-js/issues?state=open)
+or submit a pull request.
 
-Run the tests in a separate shell:
+Have feedback? Let me know on Twitter: [@JanMolak](https://twitter.com/JanMolak)
 
-    npm test
+If you'd like to chat with fellow users of Serenity/JS, join us on [Serenity/JS Community Chat](https://gitter.im/serenity-js/Lobby).
 
-For Maintainers
----------------
+New tutorials and videos are coming soon, follow us on [LinkedIn](https://www.linkedin.com/company/serenity-js) and subscribe to [Serenity/JS YouTube channel](https://www.youtube.com/channel/UC0RdeVPyjtJopVHvlLrXd1Q) to get notified when they're available!
 
-#### Releasing
+And if Serenity/JS has made your life a little bit easier, please [support its ongoing development](https://github.com/sponsors/serenity-js).
 
-1. bump version
-1. `npm publish`
-1. tag release (`git tag vx.x.x && git push origin master --tags`)
-1. build github release (`npx release`)
-
+[![LinkedIn Follow](https://img.shields.io/badge/Follow%20Serenity%2FJS-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/serenity-js)
+[![YouTube Follow](https://img.shields.io/badge/Watch%20@serenity&#8212;JS-FA120F?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@serenity-js)
+[![GitHub Sponsors](https://img.shields.io/badge/Support%20@serenity%2FJS-703EC8?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sponsors/serenity-js)
