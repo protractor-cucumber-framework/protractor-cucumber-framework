@@ -19,13 +19,13 @@ The project relies on [Serenity/JS](https://serenity-js.org) to enable integrati
 and [Serenity/JS reporters](https://serenity-js.org/handbook/reporting/index.html).
 
 To see Serenity/JS reports in action, check out
-the [reference implementation](https://github.com/jan-molak/protractor-cucumber-framework-demo) and
-the [Serenity BDD reports](https://jan-molak.github.io/protractor-cucumber-framework-demo/) it produces.
+the [reference implementation](https://github.com/serenity-js/protractor-cucumber-framework-demo) and
+the [Serenity BDD reports](https://serenity-js.github.io/protractor-cucumber-framework-demo/) it produces.
 
 Learn more:
 
-- [Reference implementation](https://github.com/jan-molak/protractor-cucumber-framework-demo)
-  with [Serenity BDD reports](https://jan-molak.github.io/protractor-cucumber-framework-demo/)
+- [Reference implementation](https://github.com/serenity-js/protractor-cucumber-framework-demo)
+  with [Serenity BDD reports](https://serenity-js.github.io/protractor-cucumber-framework-demo/)
 - [Cucumber.js docs](https://github.com/cucumber/cucumber-js)
 - [Protractor docs](https://www.protractortest.org/#/)
 - [Serenity/JS docs](https://serenity-js.org)
