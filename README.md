@@ -28,11 +28,11 @@ the [Serenity BDD reports](https://serenity-js.github.io/protractor-cucumber-fra
 
 Learn more:
 
+- [Serenity/JS website](https://serenity-js.org)
 - [Reference implementation](https://github.com/serenity-js/protractor-cucumber-framework-demo)
   with [Serenity BDD reports](https://serenity-js.github.io/protractor-cucumber-framework-demo/)
 - [Cucumber.js docs](https://github.com/cucumber/cucumber-js)
 - [Protractor docs](https://www.protractortest.org/#/)
-- [Serenity/JS docs](https://serenity-js.org)
 - [Gherkin reference](https://cucumber.io/docs/gherkin/reference/)
 
 ## Installation
