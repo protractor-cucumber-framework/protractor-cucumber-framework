@@ -1,5 +1,10 @@
 # Protractor Cucumber Framework
 
+[![Follow Serenity/JS on LinkedIn](https://img.shields.io/badge/Follow-Serenity%2FJS%20-0077B5?logo=linkedin)](https://www.linkedin.com/company/serenity-js)
+[![Watch Serenity/JS on YouTube](https://img.shields.io/badge/Watch-@serenity--js-E62117?logo=youtube)](https://www.youtube.com/@serenity-js)
+[![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
+[![Support Serenity/JS on GitHub](https://img.shields.io/badge/Support-@serenity--js-703EC8?logo=github)](https://github.com/sponsors/serenity-js)
+
 [![NPM Version](https://badge.fury.io/js/protractor-cucumber-framework.svg)](https://badge.fury.io/js/protractor-cucumber-framework)
 [![Known Vulnerabilities](https://snyk.io/test/github/protractor-cucumber-framework/protractor-cucumber-framework/badge.svg)](https://snyk.io/test/github/protractor-cucumber-framework/protractor-cucumber-framework)
 ![download-count](https://img.shields.io/npm/dm/protractor-cucumber-framework.svg)
@@ -9,7 +14,6 @@
 [![Build Status](https://github.com/protractor-cucumber-framework/protractor-cucumber-framework/workflows/build/badge.svg)](https://github.com/protractor-cucumber-framework/protractor-cucumber-framework/actions)
 [![Libraries.io dependency status for latest release, scoped npm package](https://img.shields.io/librariesio/release/npm/protractor-cucumber-framework)](https://libraries.io/npm/protractor-cucumber-framework)
 [![Serenity/JS on StackOverflow](https://img.shields.io/badge/stackoverflow-serenity--js-important?logo=stackoverflow)](https://stackoverflow.com/questions/tagged/serenity-js)
-[![Chat on Gitter](https://badges.gitter.im/serenity-js/Lobby.svg)](https://gitter.im/serenity-js/Lobby)
 
 This framework was originally part of [angular/protractor](https://github.com/angular/protractor) and
 is now a separate module to decouple [cucumber.js](https://github.com/cucumber/cucumber-js).
@@ -382,19 +386,21 @@ npm test
 
 ## Your feedback matters!
 
-Do you find Serenity/JS useful? [Give it a star](https://github.com/serenity-js/serenity-js)! &#9733;
+Do you find Serenity/JS useful? Give it a ⭐ star on GitHub and rate it on Openbase!
+
+[![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js)](https://github.com/serenity-js/serenity-js) [![Rate on Openbase](https://badges.openbase.io/js/rating/@serenity-js/core.svg)](https://openbase.io/js/@serenity-js/core?utm_source=embedded&utm_medium=badge&utm_campaign=rate-badge)
 
 Found a bug? Need a feature? Raise [an issue](https://github.com/serenity-js/serenity-js/issues?state=open)
 or submit a pull request.
 
-Have feedback? Let me know on Twitter: [@JanMolak](https://twitter.com/JanMolak)
+Have feedback? Let me know on [LinkedIn](https://www.linkedin.com/in/janmolak/) or leave a comment in [Serenity/JS discussions on GitHub](/serenity-js/serenity-js/discussions/categories/comments)
 
-If you'd like to chat with fellow users of Serenity/JS, join us on [Serenity/JS Community Chat](https://gitter.im/serenity-js/Lobby).
+If you'd like to chat with fellow users of Serenity/JS, join us on [Serenity/JS Community Chat](https://matrix.to/#/#serenity-js:gitter.im).
 
-New tutorials and videos are coming soon, follow us on [LinkedIn](https://www.linkedin.com/company/serenity-js) and subscribe to [Serenity/JS YouTube channel](https://www.youtube.com/channel/UC0RdeVPyjtJopVHvlLrXd1Q) to get notified when they're available!
+## Support Serenity/JS
 
-And if Serenity/JS has made your life a little bit easier, please [support its ongoing development](https://github.com/sponsors/serenity-js).
+Serenity/JS is a free open-source framework, so we rely on our [wonderful GitHub sponsors](https://github.com/sponsors/serenity-js) to keep the lights on.
 
-[![LinkedIn Follow](https://img.shields.io/badge/Follow%20Serenity%2FJS-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/serenity-js)
-[![YouTube Follow](https://img.shields.io/badge/Watch%20@serenity&#8212;JS-FA120F?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@serenity-js)
+If you appreciate all the effort that goes into making sophisticated tools easy to work with, please support our work and become a Serenity/JS GitHub Sponsor today!
+
 [![GitHub Sponsors](https://img.shields.io/badge/Support%20@serenity%2FJS-703EC8?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sponsors/serenity-js)
