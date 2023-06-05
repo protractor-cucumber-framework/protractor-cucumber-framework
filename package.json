@@ -4,8 +4,7 @@
   "description": "Protractor framework for Cucumber.js",
   "main": "index.js",
   "engines": {
-    "node": "^14 || ^16 || ^18",
-    "npm": "^6 || ^7 || ^8"
+    "node": "^16.13 || ^18.12 || ^20"
   },
   "scripts": {
     "webdriver": "webdriver-manager update --standalone --versions.standalone=2.53.1 && webdriver-manager start --versions.standalone=2.53.1 --logging ../../../../logging.properties",
@@ -84,30 +83,30 @@
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/commit-analyzer": "^9.0.2",
-    "@semantic-release/github": "^8.0.7",
+    "@semantic-release/commit-analyzer": "^10.0.0",
+    "@semantic-release/github": "^9.0.2",
     "@semantic-release/npm": "^10.0.3",
-    "@semantic-release/release-notes-generator": "^10.0.3",
+    "@semantic-release/release-notes-generator": "^11.0.2",
     "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
     "chai-like": "^1.1.1",
-    "chromedriver": "^111.0.0",
+    "chromedriver": "^113.0.0",
     "colors": "^1.4.0",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^8.38.0",
+    "eslint": "^8.42.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-mocha": "^10.1.0",
     "eslint-plugin-prettier": "^4.2.1",
     "express": "^4.18.2",
-    "glob": "^9.3.4",
+    "glob": "^10.2.6",
     "httpster": "^1.2.1",
     "mocha": "^10.2.0",
     "multidep": "^2.0.2",
-    "prettier": "^2.8.7",
+    "prettier": "^2.8.8",
     "protractor": "^7.0.0",
-    "rimraf": "^4.4.1",
-    "semantic-release": "^21.0.1",
+    "rimraf": "^5.0.1",
+    "semantic-release": "^21.0.3",
     "start-server-and-test": "^2.0.0"
   },
   "cucumberConf": {
@@ -145,7 +144,7 @@
     },
     "version9": {
       "module": "@cucumber/cucumber",
-      "version": "9.1.0"
+      "version": "9.1.2"
     }
   },
   "prettier": {
