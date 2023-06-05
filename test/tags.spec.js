@@ -1,8 +1,8 @@
 let util = require('./test_util');
 
-describe('tags', function() {
-  describe('cucumber 3', function() {
-    it('ands by default', function() {
+describe('tags', function () {
+  describe('cucumber 3', function () {
+    it('ands by default', function () {
       const command =
         'test/cucumber/conf/cucumber3Conf.js --cucumberOpts.tags @cucumber3 --cucumberOpts.tags @tag1';
       return util
@@ -13,11 +13,11 @@ describe('tags', function() {
         .run();
     });
 
-    it('can or', function() {
+    it('can or', function () {
       const command = [
         'test/cucumber/conf/cucumber3Conf.js',
         '--cucumberOpts.tags',
-        '@tag1 or @tag2'
+        '@tag1 or @tag2',
       ];
       return util
         .runOne(command)
@@ -27,13 +27,13 @@ describe('tags', function() {
         .run();
     });
 
-    it('can not', function() {
+    it('can not', function () {
       const command = [
         'test/cucumber/conf/cucumber3Conf.js',
         '--specs',
         'test/cucumber/features/cucumber3.feature',
         '--cucumberOpts.tags',
-        'not @tag2'
+        'not @tag2',
       ];
       return util
         .runOne(command)
@@ -43,13 +43,13 @@ describe('tags', function() {
         .run();
     });
 
-    it('converts old ~ syntax to not', function() {
+    it('converts old ~ syntax to not', function () {
       const command = [
         'test/cucumber/conf/cucumber3Conf.js',
         '--specs',
         'test/cucumber/features/cucumber3.feature',
         '--cucumberOpts.tags',
-        '~@tag2'
+        '~@tag2',
       ];
       return util
         .runOne(command)

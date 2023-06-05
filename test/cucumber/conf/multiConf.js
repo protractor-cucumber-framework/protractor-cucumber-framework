@@ -10,17 +10,17 @@ exports.config = Object.assign({}, env, {
       version: process.env.TEST_BROWSER_VERSION || 'ANY',
       cucumberOpts: {
         tags: '@dev',
-        format: 'pretty'
+        format: 'pretty',
       },
 
-      chromeOptions
-    }
+      chromeOptions,
+    },
   ],
 
   cucumberOpts: {
-    require: `${ __dirname }/../stepDefinitions/**/cucumber1Steps.js`,
+    require: `${__dirname}/../stepDefinitions/**/cucumber1Steps.js`,
     tags: '@failing',
     format: 'progress',
-    'no-source': true
-  }
+    'no-source': true,
+  },
 });

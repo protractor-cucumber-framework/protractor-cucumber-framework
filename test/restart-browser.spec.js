@@ -1,6 +1,6 @@
 let util = require('./test_util');
 
-describe('restart browsers between tests', function() {
+describe('restart browsers between tests', function () {
   describe('cucumber v1', () => {
     it('should run', () => {
       return util
@@ -8,7 +8,7 @@ describe('restart browsers between tests', function() {
           'test/cucumber/conf/cucumber1Conf.js',
           '--cucumberOpts.tags',
           '@justThisOne',
-          '--restartBrowserBetweenTests'
+          '--restartBrowserBetweenTests',
         ])
         .expectSuccessfulRun('1 scenario (1 passed)')
         .run();
@@ -22,7 +22,7 @@ describe('restart browsers between tests', function() {
           'test/cucumber/conf/cucumber2Conf.js',
           '--cucumberOpts.tags',
           '@cucumber2',
-          '--restartBrowserBetweenTests'
+          '--restartBrowserBetweenTests',
         ])
         .expectSuccessfulRun('1 scenario (1 passed)')
         .run();
@@ -38,7 +38,7 @@ describe('restart browsers between tests', function() {
           '@cucumber3',
           '--cucumberOpts.tags',
           '@tag1',
-          '--restartBrowserBetweenTests'
+          '--restartBrowserBetweenTests',
         ])
         .expectSuccessfulRun('1 scenario (1 passed)')
         .run();
@@ -52,7 +52,7 @@ describe('restart browsers between tests', function() {
           '@cucumber3',
           '--cucumberOpts.tags',
           '@tag1',
-          '--restartBrowserBetweenTests'
+          '--restartBrowserBetweenTests',
         ])
         .expectSuccessfulRun('1 scenario (1 passed)')
         .run();
@@ -66,7 +66,7 @@ describe('restart browsers between tests', function() {
           'test/cucumber/conf/cucumber4-5-6Conf.js',
           '--cucumberOpts.tags',
           '@cucumber4',
-          '--restartBrowserBetweenTests'
+          '--restartBrowserBetweenTests',
         ])
         .expectSuccessfulRun('1 scenario (1 passed)')
         .run();
@@ -80,7 +80,7 @@ describe('restart browsers between tests', function() {
           'test/cucumber/conf/cucumber4-5-6Conf.js',
           '--cucumberOpts.tags',
           '@cucumber5',
-          '--restartBrowserBetweenTests'
+          '--restartBrowserBetweenTests',
         ])
         .expectSuccessfulRun('1 scenario (1 passed)')
         .run();
@@ -94,7 +94,7 @@ describe('restart browsers between tests', function() {
           'test/cucumber/conf/cucumber4-5-6Conf.js',
           '--cucumberOpts.tags',
           '@cucumber6',
-          '--restartBrowserBetweenTests'
+          '--restartBrowserBetweenTests',
         ])
         .expectSuccessfulRun('1 scenario (1 passed)')
         .run();
@@ -108,7 +108,7 @@ describe('restart browsers between tests', function() {
           'test/cucumber/conf/cucumber4-5-6Conf.js',
           '--cucumberOpts.tags',
           '@cucumber7',
-          '--restartBrowserBetweenTests'
+          '--restartBrowserBetweenTests',
         ])
         .expectSuccessfulRun('1 scenario (1 passed)')
         .run();

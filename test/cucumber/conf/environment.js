@@ -1,6 +1,6 @@
 const path = require('path');
 const webServerDefaultPort = 8081;
-const chromeOptions = require('./chromeOptions')
+const chromeOptions = require('./chromeOptions');
 
 module.exports = {
   framework: 'custom',
@@ -16,10 +16,12 @@ module.exports = {
     browserName: process.env.TEST_BROWSER_NAME || 'chrome',
     version: process.env.TEST_BROWSER_VERSION || 'ANY',
 
-    chromeOptions
+    chromeOptions,
   },
 
   webServerDefaultPort: webServerDefaultPort,
   interactiveTestPort: 6969,
-  baseUrl: `http://${process.env.HTTP_HOST || 'localhost'}:${process.env.HTTP_PORT || webServerDefaultPort}`
+  baseUrl: `http://${process.env.HTTP_HOST || 'localhost'}:${
+    process.env.HTTP_PORT || webServerDefaultPort
+  }`,
 };
