@@ -13,7 +13,7 @@ describe('cucumber version 3', function () {
       .run();
   });
 
-  it('ignores tags when the value is an empty string', function() {
+  it('ignores tags when the value is an empty string', function () {
     return util
       .runOne(
         'test/cucumber/conf/cucumber3Conf.js --specs **/cucumber2.feature'

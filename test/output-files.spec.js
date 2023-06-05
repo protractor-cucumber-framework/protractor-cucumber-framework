@@ -71,8 +71,8 @@ describe('output files', () => {
     let cmd = `test/cucumber/conf/cucumber3Conf.js --cucumberOpts.tags @cucumber3 --cucumberOpts.format json:../${LOG_FILE_NAME}.json`;
     let cucumberConf = require('../package.json').cucumberConf.version3;
     let cwd = path.join(
-        __dirname,
-        `multidep_modules/${ cucumberConf.module }-${ cucumberConf.version }`
+      __dirname,
+      `multidep_modules/${cucumberConf.module}-${cucumberConf.version}`
     );
 
     return util

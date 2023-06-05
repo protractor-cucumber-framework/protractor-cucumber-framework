@@ -1,24 +1,26 @@
 #!/usr/bin/env node
 
-const
-    child_process = require('child_process'),
-    fs = require('fs'),
-    path = require('path'),
-    chai = require('chai'),
-    chaiLike = require('chai-like');
+const child_process = require('child_process'),
+  fs = require('fs'),
+  path = require('path'),
+  chai = require('chai'),
+  chaiLike = require('chai-like');
 
 chaiLike.extend({
   match: (object, expected) =>
     typeof object === 'string' && expected instanceof RegExp,
-  assert: (object, expected) => expected.test(object)
+  assert: (object, expected) => expected.test(object),
 });
 
 chai.use(chaiLike);
 
-let cucumberConf = require(path.join(__dirname, '..', 'package.json'))
-  .cucumberConf;
+let cucumberConf = require(path.join(
+  __dirname,
+  '..',
+  'package.json'
+)).cucumberConf;
 
-let CommandlineTest = function(cucumberVersion, args) {
+let CommandlineTest = function (cucumberVersion, args) {
   let self = this;
   this.args_ = Array.isArray(args) ? args : args.split(/\s/);
   this.before_ = false;
@@ -63,74 +65,74 @@ let CommandlineTest = function(cucumberVersion, args) {
       throw new Error(`Cucumber ${cucumberVersion} not supported`);
   }
 
-  this.cucumberVersion2 = function() {
+  this.cucumberVersion2 = function () {
     self.cucumberVersion_ = cucumberConf.version2;
     return self;
   };
 
-  this.cucumberVersion3 = function() {
+  this.cucumberVersion3 = function () {
     self.cucumberVersion_ = cucumberConf.version3;
     return self;
   };
 
-  this.cucumberVersion4 = function() {
+  this.cucumberVersion4 = function () {
     self.cucumberVersion_ = cucumberConf.version4;
     return self;
   };
 
-  this.cucumberVersion5 = function() {
+  this.cucumberVersion5 = function () {
     self.cucumberVersion_ = cucumberConf.version5;
     return self;
   };
 
-  this.cucumberVersion6 = function() {
+  this.cucumberVersion6 = function () {
     self.cucumberVersion_ = cucumberConf.version6;
     return self;
   };
 
-  this.cucumberVersion7 = function() {
+  this.cucumberVersion7 = function () {
     self.cucumberVersion_ = cucumberConf.version7;
     return self;
   };
 
-  this.cucumberVersion8 = function() {
+  this.cucumberVersion8 = function () {
     self.cucumberVersion_ = cucumberConf.version8;
     return self;
   };
 
-  this.cucumberVersion9 = function() {
+  this.cucumberVersion9 = function () {
     self.cucumberVersion_ = cucumberConf.version9;
     return self;
   };
 
-  this.expectSuccessfulRun = function(expectedOutput) {
+  this.expectSuccessfulRun = function (expectedOutput) {
     this.expectExitCode(0);
     this.expectErrors([]);
     if (expectedOutput) this.expectOutput(expectedOutput);
     return self;
   };
 
-  this.expectExitCode = function(exitCode) {
+  this.expectExitCode = function (exitCode) {
     self.expectedExitCode_ = exitCode;
     return self;
   };
 
-  this.before = function(callback) {
+  this.before = function (callback) {
     self.before_ = callback;
     return self;
   };
 
-  this.after = function(callback) {
+  this.after = function (callback) {
     self.after_ = callback;
     return self;
   };
 
-  this.verbose = function() {
+  this.verbose = function () {
     self.verbose_ = true;
     return self;
   };
 
-  this.debug = function() {
+  this.debug = function () {
     self.debug_ = true;
     return self;
   };
@@ -143,7 +145,7 @@ let CommandlineTest = function(cucumberVersion, args) {
    *   stackTrace: string, //optional regex
    * }
    */
-  this.expectErrors = function(expectedErrors) {
+  this.expectErrors = function (expectedErrors) {
     if (expectedErrors instanceof Array) {
       self.expectedErrors_ = self.expectedErrors_.concat(expectedErrors);
     } else {
@@ -152,17 +154,17 @@ let CommandlineTest = function(cucumberVersion, args) {
     return self;
   };
 
-  this.expectOutput = function(output) {
+  this.expectOutput = function (output) {
     self.expectedOutput_.push(output);
     return self;
   };
 
-  this.expectEvents = function(expectedEvents) {
+  this.expectEvents = function (expectedEvents) {
     self.expectedEvents_ = self.expectedEvents_.concat(expectedEvents);
     return self;
   };
 
-  this.run = function() {
+  this.run = function () {
     let start = new Date().getTime();
     let testOutputPath = 'test_output_' + start + '.tmp';
     let output = '';
@@ -170,7 +172,7 @@ let CommandlineTest = function(cucumberVersion, args) {
     function flushAndFail(errorMsg) {
       process.stdout.write(output);
       throw new Error(errorMsg);
-    };
+    }
 
     function removeTestOutput() {
       try {
@@ -181,51 +183,48 @@ let CommandlineTest = function(cucumberVersion, args) {
     }
 
     return new Promise((resolve, reject) => {
-        if (self.before_) self.before_();
+      if (self.before_) self.before_();
 
-        const cmd = 'node';
-        const args = [
-          require.resolve('protractor/bin/protractor'),
-          '--disableChecks',
-          '--resultJsonOutputFile',
-          testOutputPath
-        ].concat(self.args_);
+      const cmd = 'node';
+      const args = [
+        require.resolve('protractor/bin/protractor'),
+        '--disableChecks',
+        '--resultJsonOutputFile',
+        testOutputPath,
+      ].concat(self.args_);
 
-        const env = {
-          ...process.env,
-          NODE_PATH: path.resolve(
-              __dirname,
-              `multidep_modules/${ self.cucumberVersion_.module }-${ self.cucumberVersion_.version }/node_modules`
-          ),
-          MULTIDEP_CUCUMBER_CONF: JSON.stringify(self.cucumberVersion_, null, 0)
-        };
+      const env = Object.assign({}, process.env, {
+        NODE_PATH: path.resolve(
+          __dirname,
+          `multidep_modules/${self.cucumberVersion_.module}-${self.cucumberVersion_.version}/node_modules`
+        ),
+        MULTIDEP_CUCUMBER_CONF: JSON.stringify(self.cucumberVersion_, null, 0),
+      });
 
-        let test_process;
+      let test_process;
 
-        if (self.verbose_) {
-          test_process = child_process.spawn(cmd, args, {
-            stdio: 'inherit',
-            env,
-          });
-        } else {
-          test_process = child_process.spawn(cmd, args, { env });
-          test_process.stdout.on('data', data => (output += data));
-          test_process.stderr.on('data', data => (output += data));
-        }
+      if (self.verbose_) {
+        test_process = child_process.spawn(cmd, args, {
+          stdio: 'inherit',
+          env,
+        });
+      } else {
+        test_process = child_process.spawn(cmd, args, {env});
+        test_process.stdout.on('data', (data) => (output += data));
+        test_process.stderr.on('data', (data) => (output += data));
+      }
 
-        test_process.on('error', err => reject(err));
-        test_process.on('exit', exitCode => resolve(exitCode));
-      })
-      .then(function(exitCode) {
+      test_process.on('error', (err) => reject(err));
+      test_process.on('exit', (exitCode) => resolve(exitCode));
+    })
+      .then(function (exitCode) {
         if (self.debug_) {
           console.log(output); // eslint-disable-line
         }
 
         if (self.expectedExitCode_ !== exitCode) {
           flushAndFail(
-            `expecting exit code: ${
-              self.expectedExitCode_
-            }, actual: ${exitCode}`
+            `expecting exit code: ${self.expectedExitCode_}, actual: ${exitCode}`
           );
         }
 
@@ -241,17 +240,17 @@ let CommandlineTest = function(cucumberVersion, args) {
         let actualErrors = [];
         let actualEvents = [];
 
-        testOutput.forEach(function(specResult) {
+        testOutput.forEach(function (specResult) {
           actualEvents = actualEvents.concat(specResult.events);
 
-          specResult.assertions.forEach(function(assertion) {
+          specResult.assertions.forEach(function (assertion) {
             if (!assertion.passed) actualErrors.push(assertion);
           });
         });
 
         chai.expect(actualEvents).to.be.like(self.expectedEvents_);
 
-        self.expectedErrors_.forEach(function(expectedError) {
+        self.expectedErrors_.forEach(function (expectedError) {
           let found = false;
 
           for (var i = 0; i < actualErrors.length; ++i) {
@@ -310,7 +309,7 @@ let CommandlineTest = function(cucumberVersion, args) {
           }
         });
 
-        self.expectedOutput_.forEach(function(out) {
+        self.expectedOutput_.forEach(function (out) {
           if (output.indexOf(out) < 0) {
             flushAndFail(
               'expecting output `' + out + '`' + ' in `' + output + '`'
@@ -342,5 +341,5 @@ module.exports = {
   testCucumber3: runOne.bind(null, 3),
   testCucumber4: runOne.bind(null, 4),
   testCucumber5: runOne.bind(null, 5),
-  testCucumber6: runOne.bind(null, 6)
+  testCucumber6: runOne.bind(null, 6),
 };

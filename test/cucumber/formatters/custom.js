@@ -1,5 +1,5 @@
-module.exports = function(options) {
+module.exports = function (options) {
   return {
-    handleAfterFeatures: () => options.log('CUSTOM FORMATTER WAS HERE')
+    handleAfterFeatures: () => options.log('CUSTOM FORMATTER WAS HERE'),
   };
 };

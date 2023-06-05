@@ -1,7 +1,5 @@
-const path = require('path');
+const {BeforeAll} = require('cucumber');
 
-const { BeforeAll } = require('cucumber');
-
-BeforeAll(function(callback) {
+BeforeAll(function (callback) {
   callback('Failed');
 });

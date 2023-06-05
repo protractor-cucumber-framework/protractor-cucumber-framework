@@ -6,6 +6,6 @@ exports.config = Object.assign({}, env, {
     tags: '',
     format: 'summary',
     strict: true,
-    'format-options': '{"colorsEnabled": false}'
-  }
+    'format-options': '{"colorsEnabled": false}',
+  },
 });
