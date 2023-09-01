@@ -65,9 +65,9 @@
   },
   "homepage": "https://github.com/protractor-cucumber-framework/protractor-cucumber-framework",
   "dependencies": {
-    "@serenity-js/core": "^3.8.0",
-    "@serenity-js/cucumber": "^3.8.0",
-    "@serenity-js/protractor": "^3.8.0"
+    "@serenity-js/core": "^3.10.1",
+    "@serenity-js/cucumber": "^3.10.1",
+    "@serenity-js/protractor": "^3.10.1"
   },
   "peerDependencies": {
     "@cucumber/cucumber": "^7.3.2 || ^8.0.0 || ^9.0.0",
@@ -84,34 +84,34 @@
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/commit-analyzer": "^10.0.1",
+    "@semantic-release/commit-analyzer": "^10.0.4",
     "@semantic-release/github": "^9.0.4",
-    "@semantic-release/npm": "^10.0.4",
-    "@semantic-release/release-notes-generator": "^11.0.4",
-    "chai": "^4.3.7",
+    "@semantic-release/npm": "^10.0.5",
+    "@semantic-release/release-notes-generator": "^11.0.7",
+    "chai": "^4.3.8",
     "chai-as-promised": "^7.1.1",
     "chai-like": "^1.1.1",
-    "chromedriver": "^115.0.0",
+    "chromedriver": "^116.0.0",
     "colors": "^1.4.0",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^8.46.0",
-    "eslint-config-prettier": "^8.9.0",
-    "eslint-plugin-import": "^2.28.0",
+    "eslint": "^8.48.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-import": "^2.28.1",
     "eslint-plugin-mocha": "^10.1.0",
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-unicorn": "^48.0.1",
     "eslint-plugin-unused-imports": "^3.0.0",
     "express": "^4.18.2",
-    "glob": "^10.3.3",
+    "glob": "^10.3.4",
     "httpster": "^1.2.1",
     "mocha": "^10.2.0",
     "multidep": "^2.0.2",
-    "prettier": "^3.0.0",
+    "prettier": "^3.0.3",
     "protractor": "^7.0.0",
     "rimraf": "^5.0.1",
-    "semantic-release": "^21.0.7",
+    "semantic-release": "^21.1.1",
     "start-server-and-test": "^2.0.0"
   },
   "cucumberConf": {
@@ -149,7 +149,7 @@
     },
     "version9": {
       "module": "@cucumber/cucumber",
-      "version": "9.3.0"
+      "version": "9.4.0"
     }
   },
   "prettier": {
