@@ -40,7 +40,8 @@ Learn more:
 > [Serenity/JS](https://serenity-js.org) offers a smooth transition for your Protractor tests, allowing you to migrate
 > them gradually to WebdriverIO or Playwright while ensuring your test suite continues to work.
 > 
-> Learn more about [migrating from Protractor to Serenity/JS](https://serenity-js.org/handbook/getting-started/serenity-js-with-protractor/?pk_campaign=protractor_migration&pk_source=protractor-cucumber-framework).
+> Learn more about [migrating from Protractor to Serenity/JS](https://serenity-js.org/handbook/getting-started/serenity-js-with-protractor/?pk_campaign=protractor_migration&pk_source=protractor-cucumber-framework)
+> and [chat with the Serenity/JS community](https://matrix.to/#/#serenity-js:gitter.im) if you have any questions about the migration.
 
 ## Installation
 
