@@ -35,6 +35,13 @@ Learn more:
 - [Protractor docs](https://www.protractortest.org/#/)
 - [Gherkin reference](https://cucumber.io/docs/gherkin/reference/)
 
+> ### 📣 **Protractor has reached its end-of-life. It's time to migrate your tests to Serenity/JS** 💡
+>
+> [Serenity/JS](https://serenity-js.org) offers a smooth transition for your Protractor tests, allowing you to migrate
+> them gradually to WebdriverIO or Playwright while ensuring the continuity of your test suite.
+> 
+> Learn more about [migrating from Protractor to Serenity/JS](https://serenity-js.org/handbook/getting-started/serenity-js-with-protractor/?pk_campaign=protractor_migration&pk_source=protractor-cucumber-framework).
+
 ## Installation
 
 To install this module, run the following command in your computer terminal:
