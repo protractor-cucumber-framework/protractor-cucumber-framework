@@ -60,6 +60,10 @@
     "Jan Molak <jan.molak@serenity.io>"
   ],
   "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "bugs": {
     "url": "https://github.com/protractor-cucumber-framework/protractor-cucumber-framework/issues"
   },
