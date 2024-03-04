@@ -19,8 +19,8 @@ This framework was originally part of [angular/protractor](https://github.com/an
 is now a separate module to decouple [cucumber.js](https://github.com/cucumber/cucumber-js).
 
 The project relies on [Serenity/JS](https://serenity-js.org) to enable integration between **Protractor** and **Cucumber
-1.x - 9.x** and offer support for both [Cucumber.js-native](https://cucumber.io/docs/cucumber/reporting/)
-and [Serenity/JS reporters](https://serenity-js.org/handbook/reporting/index.html).
+1.x - 10.x** and offer support for both [Cucumber.js-native](https://cucumber.io/docs/cucumber/reporting/)
+and [Serenity/JS reporters](https://serenity-js.org/handbook/reporting/).
 
 To see Serenity/JS reports in action, check out
 the [reference implementation](https://github.com/serenity-js/protractor-cucumber-framework-demo) and
@@ -40,7 +40,7 @@ Learn more:
 > [Serenity/JS](https://serenity-js.org) offers a smooth transition for your Protractor tests, allowing you to migrate
 > them gradually to WebdriverIO or Playwright while ensuring your test suite continues to work.
 > 
-> Learn more about [migrating from Protractor to Serenity/JS](https://serenity-js.org/handbook/getting-started/serenity-js-with-protractor/?pk_campaign=protractor_migration&pk_source=protractor-cucumber-framework)
+> Learn more about [migrating from Protractor to Serenity/JS](https://serenity-js.org/handbook/getting-started/serenity-js-with-protractor/?pk_campaign=protractor_migration&pk_source=protractor-cucumber-framework#migrating-from-protractor-to-serenityjs)
 > and [chat with the Serenity/JS community](https://matrix.to/#/#serenity-js:gitter.im) if you have any questions about the migration.
 
 ## Installation
