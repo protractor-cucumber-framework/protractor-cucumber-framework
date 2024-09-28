@@ -4,7 +4,7 @@ describe('uncaught exceptions', function () {
   it('should not stop the process for cucumber 1', function () {
     return util
       .runOne(
-        'test/cucumber/conf/cucumber1Conf.js --cucumberOpts.tags @uncaughtException'
+        'test/cucumber/conf/cucumber1Conf.js --cucumberOpts.tags @uncaughtException',
       )
       .expectExitCode(1)
       .expectErrors([
@@ -18,7 +18,7 @@ describe('uncaught exceptions', function () {
   it('should not stop the process for cucumber 2', function () {
     return util
       .runOne(
-        'test/cucumber/conf/cucumber2Conf.js --cucumberOpts.tags @uncaughtException'
+        'test/cucumber/conf/cucumber2Conf.js --cucumberOpts.tags @uncaughtException',
       )
       .cucumberVersion2()
       .expectExitCode(1)

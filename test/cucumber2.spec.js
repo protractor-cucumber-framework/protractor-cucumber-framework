@@ -13,7 +13,7 @@ describe('cucumber version 2', function () {
   it('converts multiple tags to the new format', function () {
     return util
       .runOne(
-        'test/cucumber/conf/cucumber2Conf.js --cucumberOpts.tags @cucumber2 --cucumberOpts.tags ~@failing'
+        'test/cucumber/conf/cucumber2Conf.js --cucumberOpts.tags @cucumber2 --cucumberOpts.tags ~@failing',
       )
       .cucumberVersion2()
       .expectExitCode(0)
@@ -25,7 +25,7 @@ describe('cucumber version 2', function () {
   it('ignores tags when no value is passed', function () {
     return util
       .runOne(
-        'test/cucumber/conf/cucumber2Conf.js --cucumberOpts.tags --specs **/cucumber2.feature'
+        'test/cucumber/conf/cucumber2Conf.js --cucumberOpts.tags --specs **/cucumber2.feature',
       )
       .cucumberVersion2()
       .expectExitCode(0)

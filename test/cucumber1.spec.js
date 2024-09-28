@@ -12,7 +12,7 @@ describe('cucumber version 1', function () {
   it('runs failing features', function () {
     return util
       .runOne(
-        'test/cucumber/conf/cucumber1Conf.js --cucumberOpts.tags @failing'
+        'test/cucumber/conf/cucumber1Conf.js --cucumberOpts.tags @failing',
       )
       .expectExitCode(1)
       .expectErrors([
@@ -25,7 +25,7 @@ describe('cucumber version 1', function () {
   it('accepts the fail fast option', function () {
     return util
       .runOne(
-        'test/cucumber/conf/cucumber1Conf.js --cucumberOpts.tags @failing --cucumberOpts.fail-fast'
+        'test/cucumber/conf/cucumber1Conf.js --cucumberOpts.tags @failing --cucumberOpts.fail-fast',
       )
       .expectExitCode(1)
       .expectErrors([
@@ -37,7 +37,7 @@ describe('cucumber version 1', function () {
   it('fails undefined steps with strict', function () {
     return util
       .runOne(
-        'test/cucumber/conf/cucumber1Conf.js --cucumberOpts.tags @strict --cucumberOpts.strict'
+        'test/cucumber/conf/cucumber1Conf.js --cucumberOpts.tags @strict --cucumberOpts.strict',
       )
       .expectExitCode(1)
       .expectErrors([{message: 'Step not implemented'}])
@@ -47,7 +47,7 @@ describe('cucumber version 1', function () {
   it('passes undefined steps without strict', function () {
     return util
       .runOne(
-        'test/cucumber/conf/cucumber1Conf.js --cucumberOpts.tags @strict --cucumberOpts.noStrict'
+        'test/cucumber/conf/cucumber1Conf.js --cucumberOpts.tags @strict --cucumberOpts.noStrict',
       )
       .expectExitCode(0)
       .expectErrors([])
@@ -57,7 +57,7 @@ describe('cucumber version 1', function () {
   it('accepts multiple name options', function () {
     return util
       .runOne(
-        'test/cucumber/conf/cucumber1Conf.js --cucumberOpts.name Running --cucumberOpts.name Wrapping'
+        'test/cucumber/conf/cucumber1Conf.js --cucumberOpts.name Running --cucumberOpts.name Wrapping',
       )
       .expectExitCode(0)
       .expectOutput('2 scenarios (2 passed)')

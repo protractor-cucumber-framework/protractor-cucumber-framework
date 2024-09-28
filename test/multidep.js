@@ -1,11 +1,9 @@
 const fs = require('fs'),
   moduleRoot = 'test/multidep_modules',
   path = require('path'),
-  cucumberConf = require(path.join(
-    __dirname,
-    '..',
-    'package.json'
-  )).cucumberConf,
+  cucumberConf = require(
+    path.join(__dirname, '..', 'package.json'),
+  ).cucumberConf,
   {spawnSync} = require('child_process');
 
 // `multidep` hasn't been updated since 2017-01-09 and doesn't support namespaced packages like `@cucumber/cucumber`,
@@ -16,7 +14,7 @@ Object.values(cucumberConf).forEach((conf) => {
     __dirname,
     '..',
     moduleRoot,
-    `${conf.module}-${conf.version}`
+    `${conf.module}-${conf.version}`,
   );
 
   if (!fs.existsSync(pathToModule)) {
@@ -35,8 +33,8 @@ Object.values(cucumberConf).forEach((conf) => {
           },
         },
         null,
-        4
-      )
+        4,
+      ),
     );
 
     const result = spawnSync('npm', ['install'], {
@@ -57,7 +55,7 @@ const versionsGroupedByPackage = Object.values(cucumberConf).reduce(
     acc[current.module] = (acc[current.module] || []).concat(current.version);
     return acc;
   },
-  {}
+  {},
 );
 
 module.exports = {

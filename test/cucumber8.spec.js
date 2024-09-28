@@ -4,7 +4,7 @@ describe('cucumber version 8', function () {
   it('runs successful features', function () {
     return util
       .runOne(
-        'test/cucumber/conf/cucumber8Conf.js --cucumberOpts.tags @cucumber8'
+        'test/cucumber/conf/cucumber8Conf.js --cucumberOpts.tags @cucumber8',
       )
       .cucumberVersion8()
       .expectExitCode(0)

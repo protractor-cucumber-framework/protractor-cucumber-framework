@@ -20,9 +20,9 @@ exports.run = function (runner, specs) {
     new TestRunnerDetector(
       new TestRunnerLoader(
         testModeOrDefaultCwd(runner.getConfig().configDir),
-        process.pid
-      )
-    )
+        process.pid,
+      ),
+    ),
   ).run(specs);
 };
 
@@ -35,6 +35,6 @@ function testModeOrDefaultCwd(defaulValue) {
   const cucumberConf = JSON.parse(process.env.MULTIDEP_CUCUMBER_CONF);
   return Path.from(
     __dirname,
-    `test/multidep_modules/${cucumberConf.module}-${cucumberConf.version}`
+    `test/multidep_modules/${cucumberConf.module}-${cucumberConf.version}`,
   );
 }

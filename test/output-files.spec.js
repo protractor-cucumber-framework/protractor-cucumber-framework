@@ -72,7 +72,7 @@ describe('output files', () => {
     let cucumberConf = require('../package.json').cucumberConf.version3;
     let cwd = path.join(
       __dirname,
-      `multidep_modules/${cucumberConf.module}-${cucumberConf.version}`
+      `multidep_modules/${cucumberConf.module}-${cucumberConf.version}`,
     );
 
     return util
