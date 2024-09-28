@@ -14,11 +14,9 @@ chaiLike.extend({
 
 chai.use(chaiLike);
 
-let cucumberConf = require(path.join(
-  __dirname,
-  '..',
-  'package.json'
-)).cucumberConf;
+let cucumberConf = require(
+  path.join(__dirname, '..', 'package.json'),
+).cucumberConf;
 
 let CommandlineTest = function (cucumberVersion, args) {
   let self = this;
@@ -213,7 +211,7 @@ let CommandlineTest = function (cucumberVersion, args) {
       const env = Object.assign({}, process.env, {
         NODE_PATH: path.resolve(
           __dirname,
-          `multidep_modules/${self.cucumberVersion_.module}-${self.cucumberVersion_.version}/node_modules`
+          `multidep_modules/${self.cucumberVersion_.module}-${self.cucumberVersion_.version}/node_modules`,
         ),
         MULTIDEP_CUCUMBER_CONF: JSON.stringify(self.cucumberVersion_, null, 0),
       });
@@ -241,7 +239,7 @@ let CommandlineTest = function (cucumberVersion, args) {
 
         if (self.expectedExitCode_ !== exitCode) {
           flushAndFail(
-            `expecting exit code: ${self.expectedExitCode_}, actual: ${exitCode}`
+            `expecting exit code: ${self.expectedExitCode_}, actual: ${exitCode}`,
           );
         }
 
@@ -288,7 +286,7 @@ let CommandlineTest = function (cucumberVersion, args) {
               if (
                 !actualError.stackTrace ||
                 !actualError.stackTrace.match(
-                  new RegExp(expectedError.stackTrace)
+                  new RegExp(expectedError.stackTrace),
                 )
               ) {
                 continue;
@@ -306,19 +304,19 @@ let CommandlineTest = function (cucumberVersion, args) {
                   expectedError.message +
                   '] and stackTrace: [' +
                   expectedError.stackTrace +
-                  ']'
+                  ']',
               );
             } else if (expectedError.message) {
               flushAndFail(
                 'did not fail with expected error with message: [' +
                   expectedError.message +
-                  ']'
+                  ']',
               );
             } else if (expectedError.stackTrace) {
               flushAndFail(
                 'did not fail with expected error with stackTrace: [' +
                   expectedError.stackTrace +
-                  ']'
+                  ']',
               );
             }
           } else {
@@ -329,14 +327,14 @@ let CommandlineTest = function (cucumberVersion, args) {
         self.expectedOutput_.forEach(function (out) {
           if (output.indexOf(out) < 0) {
             flushAndFail(
-              'expecting output `' + out + '`' + ' in `' + output + '`'
+              'expecting output `' + out + '`' + ' in `' + output + '`',
             );
           }
         });
 
         if (actualErrors.length > 0) {
           flushAndFail(
-            'failed with ' + actualErrors.length + ' unexpected failures'
+            'failed with ' + actualErrors.length + ' unexpected failures',
           );
         }
 
