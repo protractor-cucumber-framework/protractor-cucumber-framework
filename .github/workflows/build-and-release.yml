@@ -44,10 +44,10 @@ jobs:
     needs: [build]
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 22
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22.x
           registry-url: https://registry.npmjs.org/
       - name: Install Node Modules
         uses: bahmutov/npm-install@v1
