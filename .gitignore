@@ -1,6 +1,8 @@
 # IDE
 .idea
 
+chrome
+chromedriver
 node_modules/
 npm-debug.log
 multidep_modules

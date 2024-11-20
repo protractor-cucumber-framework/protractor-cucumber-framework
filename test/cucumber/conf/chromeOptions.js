@@ -1,4 +1,9 @@
+const {chrome} = require('./binaries');
+
 module.exports = {
+  w3c: false,
+  binary: chrome,
+  excludeSwitches: ['enable-automation'],
   args: [
     '--no-sandbox',
     '--disable-infobars',

@@ -1,5 +1,6 @@
 const path = require('path');
 const webServerDefaultPort = 8081;
+const {chromeDriver} = require('./binaries');
 const chromeOptions = require('./chromeOptions');
 
 module.exports = {
@@ -8,7 +9,7 @@ module.exports = {
   ignoreUncaughtExceptions: true,
   specs: [path.join(__dirname, '..', '**', '*.feature')],
 
-  chromeDriver: require(`chromedriver/lib/chromedriver`).path,
+  chromeDriver,
   SELENIUM_PROMISE_MANAGER: false,
   directConnect: true,
 

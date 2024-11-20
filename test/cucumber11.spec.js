@@ -1,10 +1,10 @@
 let util = require('./test_util');
 
-describe('cucumber version 10', function () {
+describe('cucumber version 11', function () {
   it('runs successful features', function () {
     return util
       .runOne(
-        'test/cucumber/conf/cucumber10Conf.js --cucumberOpts.tags @cucumber10',
+        'test/cucumber/conf/cucumber11Conf.js --cucumberOpts.tags @cucumber11',
       )
       .cucumberVersion10()
       .expectExitCode(0)
