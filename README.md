@@ -19,7 +19,7 @@ This framework was originally part of [angular/protractor](https://github.com/an
 is now a separate module to decouple [cucumber.js](https://github.com/cucumber/cucumber-js).
 
 The project relies on [Serenity/JS](https://serenity-js.org) to enable integration between **Protractor** and **Cucumber
-1.x - 10.x** and offer support for both [Cucumber.js-native](https://cucumber.io/docs/cucumber/reporting/)
+1.x - 11.x** and offer support for both [Cucumber.js-native](https://cucumber.io/docs/cucumber/reporting/)
 and [Serenity/JS reporters](https://serenity-js.org/handbook/reporting/).
 
 To see Serenity/JS reports in action, check out
