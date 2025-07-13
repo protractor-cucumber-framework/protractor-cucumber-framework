@@ -71,9 +71,9 @@
   },
   "homepage": "https://github.com/protractor-cucumber-framework/protractor-cucumber-framework",
   "dependencies": {
-    "@serenity-js/core": "^3.31.13",
-    "@serenity-js/cucumber": "^3.31.13",
-    "@serenity-js/protractor": "^3.31.13"
+    "@serenity-js/core": "^3.32.4",
+    "@serenity-js/cucumber": "^3.32.4",
+    "@serenity-js/protractor": "^3.32.4"
   },
   "peerDependencies": {
     "@cucumber/cucumber": "^7.3.2 || ^8.5.0 || ^9.1.0 || ^10.0.0 || ^11.0.0",
