@@ -89,11 +89,11 @@
     }
   },
   "devDependencies": {
-    "@puppeteer/browsers": "^2.7.0",
+    "@puppeteer/browsers": "^2.10.5",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^13.0.1",
-    "@semantic-release/github": "^11.0.1",
-    "@semantic-release/npm": "^12.0.1",
+    "@semantic-release/github": "^11.0.3",
+    "@semantic-release/npm": "^12.0.2",
     "@semantic-release/release-notes-generator": "^14.0.3",
     "chai": "^4.5.0",
     "chai-as-promised": "^8.0.1",
@@ -109,16 +109,16 @@
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-unicorn": "^55.0.0",
     "eslint-plugin-unused-imports": "^4.1.4",
-    "express": "^4.21.0",
-    "glob": "^11.0.0",
+    "express": "^4.21.2",
+    "glob": "^11.0.3",
     "httpster": "^1.2.1",
-    "mocha": "^10.7.3",
+    "mocha": "^11.7.1",
     "multidep": "^2.0.2",
-    "prettier": "^3.3.3",
+    "prettier": "^3.6.2",
     "protractor": "^7.0.0",
     "rimraf": "^6.0.1",
-    "semantic-release": "^24.1.2",
-    "start-server-and-test": "^2.0.8"
+    "semantic-release": "^24.2.7",
+    "start-server-and-test": "^2.0.12"
   },
   "cucumberConf": {
     "version1": {
