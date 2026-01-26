@@ -164,6 +164,10 @@
     "version11": {
       "module": "@cucumber/cucumber",
       "version": "11.2.0"
+    },
+    "version12": {
+      "module": "@cucumber/cucumber",
+      "version": "12.6.0"
     }
   },
   "prettier": {
