@@ -71,6 +71,14 @@ let CommandlineTest = function (cucumberVersion, args) {
       this.cucumberVersion_ = cucumberConf.version10;
       break;
 
+    case 11:
+      this.cucumberVersion_ = cucumberConf.version11;
+      break;
+
+    case 12:
+      this.cucumberVersion_ = cucumberConf.version12;
+      break;
+
     default:
       throw new Error(`Cucumber ${cucumberVersion} not supported`);
   }
@@ -117,6 +125,16 @@ let CommandlineTest = function (cucumberVersion, args) {
 
   this.cucumberVersion10 = function () {
     self.cucumberVersion_ = cucumberConf.version10;
+    return self;
+  };
+
+  this.cucumberVersion11 = function () {
+    self.cucumberVersion_ = cucumberConf.version11;
+    return self;
+  };
+
+  this.cucumberVersion12 = function () {
+    self.cucumberVersion_ = cucumberConf.version12;
     return self;
   };
 
